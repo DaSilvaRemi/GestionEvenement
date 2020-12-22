@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package com.cvven.gestioncollocation;
+import com.cvven.vue.Acceuil;
 
 /**
  *
@@ -15,7 +16,8 @@ public class GestionCollocation {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Acceuil fen = new Acceuil();
+        fen.setVisible(true);
     }
     
 }
