@@ -27,17 +27,152 @@ public class Acceuil extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        header = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        body = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        footer = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        navBar = new javax.swing.JMenuBar();
+        inputevenement = new javax.swing.JMenu();
+        inputparticipant = new javax.swing.JMenu();
+        displayevenement = new javax.swing.JMenu();
+        deconnexion = new javax.swing.JMenu();
+
+        header.setBackground(java.awt.Color.darkGray);
+
+        jLabel4.setFont(new java.awt.Font("SansSerif", 1, 36)); // NOI18N
+        jLabel4.setForeground(java.awt.Color.white);
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Authentification");
+
+        javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
+        header.setLayout(headerLayout);
+        headerLayout.setHorizontalGroup(
+            headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        headerLayout.setVerticalGroup(
+            headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel4)
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        body.setBackground(new java.awt.Color(254, 254, 254));
+
+        jLabel1.setFont(new java.awt.Font("SansSerif", 1, 36)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Gestion des évènements");
+
+        jLabel2.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        jLabel2.setText("Bienvenue sur l'application de gestion des évènements");
+
+        jButton1.setBackground(new java.awt.Color(77, 180, 192));
+        jButton1.setFont(new java.awt.Font("SansSerif", 1, 13)); // NOI18N
+        jButton1.setText("Saisir un évènement");
+        jButton1.setToolTipText("");
+
+        jButton2.setBackground(new java.awt.Color(77, 180, 192));
+        jButton2.setFont(new java.awt.Font("SansSerif", 1, 13)); // NOI18N
+        jButton2.setText("Saisir un participant");
+        jButton2.setToolTipText("");
+
+        jButton3.setBackground(new java.awt.Color(77, 180, 192));
+        jButton3.setFont(new java.awt.Font("SansSerif", 1, 13)); // NOI18N
+        jButton3.setText("Afficher les évènements");
+        jButton3.setToolTipText("");
+
+        footer.setBackground(java.awt.Color.darkGray);
+        footer.setForeground(java.awt.Color.white);
+
+        jLabel3.setForeground(java.awt.Color.white);
+        jLabel3.setText("Application déveleoppé par le Groupe 2 PPE de la 2 BTS SIO SL au Lycée René Descartes");
+
+        javax.swing.GroupLayout footerLayout = new javax.swing.GroupLayout(footer);
+        footer.setLayout(footerLayout);
+        footerLayout.setHorizontalGroup(
+            footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        footerLayout.setVerticalGroup(
+            footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout bodyLayout = new javax.swing.GroupLayout(body);
+        body.setLayout(bodyLayout);
+        bodyLayout.setHorizontalGroup(
+            bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(footer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(bodyLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(bodyLayout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bodyLayout.createSequentialGroup()
+                        .addGap(0, 178, Short.MAX_VALUE)
+                        .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bodyLayout.createSequentialGroup()
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(27, 27, 27)
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(187, 187, 187))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bodyLayout.createSequentialGroup()
+                                .addComponent(jButton3)
+                                .addGap(286, 286, 286))))))
+        );
+        bodyLayout.setVerticalGroup(
+            bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(bodyLayout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 190, Short.MAX_VALUE)
+                .addComponent(footer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        navBar.setForeground(javax.swing.UIManager.getDefaults().getColor("MenuBar.background"));
+
+        inputevenement.setText("Saisir un évènement");
+        inputevenement.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        navBar.add(inputevenement);
+
+        inputparticipant.setText("Saisir un participant");
+        inputparticipant.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        navBar.add(inputparticipant);
+
+        displayevenement.setText("Afficher les évènements");
+        displayevenement.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        navBar.add(displayevenement);
+
+        deconnexion.setText("Deconnexion");
+        deconnexion.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        navBar.add(deconnexion);
+
+        setJMenuBar(navBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(body, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(body, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -79,5 +214,20 @@ public class Acceuil extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel body;
+    private javax.swing.JMenu deconnexion;
+    private javax.swing.JMenu displayevenement;
+    private javax.swing.JPanel footer;
+    private javax.swing.JPanel header;
+    private javax.swing.JMenu inputevenement;
+    private javax.swing.JMenu inputparticipant;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JMenuBar navBar;
     // End of variables declaration//GEN-END:variables
 }

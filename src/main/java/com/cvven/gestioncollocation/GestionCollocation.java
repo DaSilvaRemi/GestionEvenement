@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package com.cvven.gestioncollocation;
-import com.cvven.vue.Acceuil;
+import com.cvven.vue.Authentification;
 
 /**
  *
@@ -16,7 +16,7 @@ public class GestionCollocation {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Acceuil fen = new Acceuil();
+        Authentification fen = new Authentification();
         fen.setVisible(true);
     }
     

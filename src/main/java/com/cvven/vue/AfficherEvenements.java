@@ -27,17 +27,100 @@ public class AfficherEvenements extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        navBar = new javax.swing.JMenuBar();
+        inputevenement = new javax.swing.JMenu();
+        inputparticipant = new javax.swing.JMenu();
+        displayevenement = new javax.swing.JMenu();
+        deconnexion = new javax.swing.JMenu();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jScrollPane1.setBackground(new java.awt.Color(254, 247, 247));
+
+        jPanel2.setBackground(new java.awt.Color(254, 254, 254));
+
+        jLabel1.setFont(new java.awt.Font("SansSerif", 1, 36)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Affichage des évènements");
+
+        jTable1.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Intitule", "Type", "Date", "Theme", "Nombre participant", "Organisateur"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jScrollPane2.setViewportView(jTable1);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 871, Short.MAX_VALUE)
+            .addComponent(jScrollPane2)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE))
+        );
+
+        jScrollPane1.setViewportView(jPanel2);
+
+        navBar.setForeground(javax.swing.UIManager.getDefaults().getColor("MenuBar.background"));
+
+        inputevenement.setText("Saisir un évènement");
+        inputevenement.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        navBar.add(inputevenement);
+
+        inputparticipant.setText("Saisir un participant");
+        inputparticipant.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        navBar.add(inputparticipant);
+
+        displayevenement.setText("Afficher les évènements");
+        displayevenement.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        navBar.add(displayevenement);
+
+        deconnexion.setText("Deconnexion");
+        deconnexion.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        navBar.add(deconnexion);
+
+        setJMenuBar(navBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 873, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE)
         );
 
         pack();
@@ -80,5 +163,15 @@ public class AfficherEvenements extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu deconnexion;
+    private javax.swing.JMenu displayevenement;
+    private javax.swing.JMenu inputevenement;
+    private javax.swing.JMenu inputparticipant;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JMenuBar navBar;
     // End of variables declaration//GEN-END:variables
 }
