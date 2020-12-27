@@ -27,17 +27,193 @@ public class AjoutParticipant extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
+        nomParticipant = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        prenomParticipant = new javax.swing.JTextField();
+        adresseMailParticipant = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        organisationParticipant = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        dateNaissanceParticipant = new com.toedter.calendar.JDateChooser();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        observationsParticipant = new javax.swing.JTextArea();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        navBar = new javax.swing.JMenuBar();
+        inputevenement = new javax.swing.JMenu();
+        inputparticipant = new javax.swing.JMenu();
+        displayevenement = new javax.swing.JMenu();
+        deconnexion = new javax.swing.JMenu();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("SansSerif", 1, 36)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel1.setText("Ajouter un participant");
+
+        jList1.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Aucun évènement !" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(jList1);
+
+        nomParticipant.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+
+        jLabel2.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        jLabel2.setText("Nom");
+
+        jLabel3.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        jLabel3.setText("Prénom");
+
+        prenomParticipant.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+
+        adresseMailParticipant.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+
+        jLabel4.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        jLabel4.setText("Adresse mail");
+
+        organisationParticipant.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+
+        jLabel5.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        jLabel5.setText("Organisation");
+
+        dateNaissanceParticipant.setDateFormatString("yyyy-MM-dd");
+
+        jLabel6.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        jLabel6.setText("Date de naissance");
+
+        jLabel7.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        jLabel7.setText("Observations");
+
+        observationsParticipant.setColumns(20);
+        observationsParticipant.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        observationsParticipant.setRows(5);
+        jScrollPane2.setViewportView(observationsParticipant);
+
+        jLabel8.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        jLabel8.setText("Selectionner un ou plusieur évènements");
+
+        jLabel9.setText("/255");
+
+        jButton1.setText("Ajouter");
+
+        jButton2.setText("Annuler");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(190, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel8)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel9))
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                    .addComponent(organisationParticipant)
+                    .addComponent(dateNaissanceParticipant, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(adresseMailParticipant)
+                    .addComponent(prenomParticipant)
+                    .addComponent(nomParticipant)
+                    .addComponent(jScrollPane1))
+                .addGap(247, 247, 247))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(129, 129, 129))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addGap(24, 24, 24)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(nomParticipant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(prenomParticipant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(adresseMailParticipant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dateNaissanceParticipant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(organisationParticipant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel9))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addContainerGap(52, Short.MAX_VALUE))
+        );
+
+        navBar.setForeground(javax.swing.UIManager.getDefaults().getColor("MenuBar.background"));
+
+        inputevenement.setText("Saisir un évènement");
+        inputevenement.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        navBar.add(inputevenement);
+
+        inputparticipant.setText("Saisir un participant");
+        inputparticipant.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        navBar.add(inputparticipant);
+
+        displayevenement.setText("Afficher les évènements");
+        displayevenement.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        navBar.add(displayevenement);
+
+        deconnexion.setText("Deconnexion");
+        deconnexion.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        navBar.add(deconnexion);
+
+        setJMenuBar(navBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -79,5 +255,31 @@ public class AjoutParticipant extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField adresseMailParticipant;
+    private com.toedter.calendar.JDateChooser dateNaissanceParticipant;
+    private javax.swing.JMenu deconnexion;
+    private javax.swing.JMenu displayevenement;
+    private javax.swing.JMenu inputevenement;
+    private javax.swing.JMenu inputparticipant;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JList<String> jList1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JMenuBar navBar;
+    private javax.swing.JTextField nomParticipant;
+    private javax.swing.JTextArea observationsParticipant;
+    private javax.swing.JTextField organisationParticipant;
+    private javax.swing.JTextField prenomParticipant;
     // End of variables declaration//GEN-END:variables
 }
