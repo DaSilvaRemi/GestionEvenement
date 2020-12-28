@@ -27,7 +27,7 @@ public class AjoutParticipant extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new javax.swing.JPanel();
+        body = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
@@ -46,18 +46,23 @@ public class AjoutParticipant extends javax.swing.JFrame {
         observationsParticipant = new javax.swing.JTextArea();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        addParticipant = new javax.swing.JButton();
+        annulerParticipant = new javax.swing.JButton();
+        footer = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
         navBar = new javax.swing.JMenuBar();
-        inputevenement = new javax.swing.JMenu();
-        inputparticipant = new javax.swing.JMenu();
-        displayevenement = new javax.swing.JMenu();
-        deconnexion = new javax.swing.JMenu();
+        accueilNav = new javax.swing.JMenu();
+        inputEventNav = new javax.swing.JMenu();
+        inputParticipantNav = new javax.swing.JMenu();
+        DisplayEventNav = new javax.swing.JMenu();
+        deconnexionNav = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(623, 745));
+        setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 1, 36)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Ajouter un participant");
 
         jList1.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
@@ -106,23 +111,48 @@ public class AjoutParticipant extends javax.swing.JFrame {
 
         jLabel9.setText("/255");
 
-        jButton1.setText("Ajouter");
+        addParticipant.setBackground(new java.awt.Color(34, 139, 34));
+        addParticipant.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        addParticipant.setText("Ajouter");
 
-        jButton2.setText("Annuler");
+        annulerParticipant.setBackground(new java.awt.Color(151, 21, 40));
+        annulerParticipant.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        annulerParticipant.setText("Annuler");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(190, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+        footer.setBackground(java.awt.Color.darkGray);
+        footer.setForeground(java.awt.Color.white);
+
+        jLabel11.setForeground(java.awt.Color.white);
+        jLabel11.setText("Application déveleoppé par le Groupe 2 PPE de la 2 BTS SIO SL au Lycée René Descartes");
+
+        javax.swing.GroupLayout footerLayout = new javax.swing.GroupLayout(footer);
+        footer.setLayout(footerLayout);
+        footerLayout.setHorizontalGroup(
+            footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 621, Short.MAX_VALUE))
+        );
+        footerLayout.setVerticalGroup(
+            footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+            .addGroup(footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout bodyLayout = new javax.swing.GroupLayout(body);
+        body.setLayout(bodyLayout);
+        bodyLayout.setHorizontalGroup(
+            bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(bodyLayout.createSequentialGroup()
+                .addContainerGap(121, Short.MAX_VALUE)
+                .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(bodyLayout.createSequentialGroup()
+                        .addComponent(addParticipant, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(annulerParticipant, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jLabel8)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(bodyLayout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel9))
@@ -138,15 +168,13 @@ public class AjoutParticipant extends javax.swing.JFrame {
                     .addComponent(prenomParticipant)
                     .addComponent(nomParticipant)
                     .addComponent(jScrollPane1))
-                .addGap(247, 247, 247))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(129, 129, 129))
+                .addContainerGap(152, Short.MAX_VALUE))
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(footer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        bodyLayout.setVerticalGroup(
+            bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(bodyLayout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addGap(24, 24, 24)
                 .addComponent(jLabel8)
@@ -173,35 +201,65 @@ public class AjoutParticipant extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(organisationParticipant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addParticipant)
+                    .addComponent(annulerParticipant))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addComponent(footer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         navBar.setForeground(javax.swing.UIManager.getDefaults().getColor("MenuBar.background"));
 
-        inputevenement.setText("Saisir un évènement");
-        inputevenement.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        navBar.add(inputevenement);
+        accueilNav.setText("Accueil");
+        accueilNav.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        accueilNav.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                accueilNavMouseClicked(evt);
+            }
+        });
+        navBar.add(accueilNav);
 
-        inputparticipant.setText("Saisir un participant");
-        inputparticipant.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        navBar.add(inputparticipant);
+        inputEventNav.setText("Saisir un évènement");
+        inputEventNav.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        inputEventNav.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                inputEventNavMouseClicked(evt);
+            }
+        });
+        navBar.add(inputEventNav);
 
-        displayevenement.setText("Afficher les évènements");
-        displayevenement.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        navBar.add(displayevenement);
+        inputParticipantNav.setText("Saisir un participant");
+        inputParticipantNav.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        inputParticipantNav.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                inputParticipantNavMouseClicked(evt);
+            }
+        });
+        navBar.add(inputParticipantNav);
 
-        deconnexion.setText("Deconnexion");
-        deconnexion.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        navBar.add(deconnexion);
+        DisplayEventNav.setText("Afficher les évènements");
+        DisplayEventNav.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        DisplayEventNav.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                DisplayEventNavMouseClicked(evt);
+            }
+        });
+        navBar.add(DisplayEventNav);
+
+        deconnexionNav.setText("Deconnexion");
+        deconnexionNav.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        deconnexionNav.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                deconnexionNavMouseClicked(evt);
+            }
+        });
+        navBar.add(deconnexionNav);
 
         setJMenuBar(navBar);
 
@@ -209,15 +267,47 @@ public class AjoutParticipant extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(body, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(body, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void accueilNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_accueilNavMouseClicked
+        Accueil fen = new Accueil();
+        fen.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_accueilNavMouseClicked
+
+    private void inputEventNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputEventNavMouseClicked
+        AjoutEvenement fen = new AjoutEvenement();
+        fen.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_inputEventNavMouseClicked
+
+    private void inputParticipantNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputParticipantNavMouseClicked
+        AjoutParticipant fen = new AjoutParticipant();
+        fen.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_inputParticipantNavMouseClicked
+
+    private void DisplayEventNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DisplayEventNavMouseClicked
+        AfficherEvenements fen = new AfficherEvenements();
+        fen.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_DisplayEventNavMouseClicked
+
+    private void deconnexionNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deconnexionNavMouseClicked
+        Authentification fen = new Authentification();
+        fen.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_deconnexionNavMouseClicked
+
+                        
 
     /**
      * @param args the command line arguments
@@ -255,15 +345,19 @@ public class AjoutParticipant extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu DisplayEventNav;
+    private javax.swing.JMenu accueilNav;
+    private javax.swing.JButton addParticipant;
     private javax.swing.JTextField adresseMailParticipant;
+    private javax.swing.JButton annulerParticipant;
+    private javax.swing.JPanel body;
     private com.toedter.calendar.JDateChooser dateNaissanceParticipant;
-    private javax.swing.JMenu deconnexion;
-    private javax.swing.JMenu displayevenement;
-    private javax.swing.JMenu inputevenement;
-    private javax.swing.JMenu inputparticipant;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JMenu deconnexionNav;
+    private javax.swing.JPanel footer;
+    private javax.swing.JMenu inputEventNav;
+    private javax.swing.JMenu inputParticipantNav;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -273,7 +367,6 @@ public class AjoutParticipant extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JList<String> jList1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JMenuBar navBar;

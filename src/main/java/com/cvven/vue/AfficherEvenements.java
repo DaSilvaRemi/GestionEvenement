@@ -33,12 +33,13 @@ public class AfficherEvenements extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         navBar = new javax.swing.JMenuBar();
-        inputevenement = new javax.swing.JMenu();
-        inputparticipant = new javax.swing.JMenu();
-        displayevenement = new javax.swing.JMenu();
-        deconnexion = new javax.swing.JMenu();
+        accueilNav = new javax.swing.JMenu();
+        inputEventNav = new javax.swing.JMenu();
+        inputParticipantNav = new javax.swing.JMenu();
+        DisplayEventNav = new javax.swing.JMenu();
+        deconnexionNav = new javax.swing.JMenu();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jScrollPane1.setBackground(new java.awt.Color(254, 247, 247));
 
@@ -87,28 +88,57 @@ public class AfficherEvenements extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE))
         );
 
         jScrollPane1.setViewportView(jPanel2);
 
         navBar.setForeground(javax.swing.UIManager.getDefaults().getColor("MenuBar.background"));
 
-        inputevenement.setText("Saisir un évènement");
-        inputevenement.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        navBar.add(inputevenement);
+        accueilNav.setText("Accueil");
+        accueilNav.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        accueilNav.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                accueilNavMouseClicked(evt);
+            }
+        });
+        navBar.add(accueilNav);
 
-        inputparticipant.setText("Saisir un participant");
-        inputparticipant.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        navBar.add(inputparticipant);
+        inputEventNav.setText("Saisir un évènement");
+        inputEventNav.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        inputEventNav.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                inputEventNavMouseClicked(evt);
+            }
+        });
+        navBar.add(inputEventNav);
 
-        displayevenement.setText("Afficher les évènements");
-        displayevenement.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        navBar.add(displayevenement);
+        inputParticipantNav.setText("Saisir un participant");
+        inputParticipantNav.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        inputParticipantNav.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                inputParticipantNavMouseClicked(evt);
+            }
+        });
+        navBar.add(inputParticipantNav);
 
-        deconnexion.setText("Deconnexion");
-        deconnexion.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        navBar.add(deconnexion);
+        DisplayEventNav.setText("Afficher les évènements");
+        DisplayEventNav.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        DisplayEventNav.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                DisplayEventNavMouseClicked(evt);
+            }
+        });
+        navBar.add(DisplayEventNav);
+
+        deconnexionNav.setText("Deconnexion");
+        deconnexionNav.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        deconnexionNav.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                deconnexionNavMouseClicked(evt);
+            }
+        });
+        navBar.add(deconnexionNav);
 
         setJMenuBar(navBar);
 
@@ -116,15 +146,45 @@ public class AfficherEvenements extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 873, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void accueilNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_accueilNavMouseClicked
+        Accueil fen = new Accueil();
+        fen.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_accueilNavMouseClicked
+
+    private void inputEventNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputEventNavMouseClicked
+        AjoutEvenement fen = new AjoutEvenement();
+        fen.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_inputEventNavMouseClicked
+
+    private void inputParticipantNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputParticipantNavMouseClicked
+        AjoutParticipant fen = new AjoutParticipant();
+        fen.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_inputParticipantNavMouseClicked
+
+    private void DisplayEventNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DisplayEventNavMouseClicked
+        AfficherEvenements fen = new AfficherEvenements();
+        fen.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_DisplayEventNavMouseClicked
+
+    private void deconnexionNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deconnexionNavMouseClicked
+        Authentification fen = new Authentification();
+        fen.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_deconnexionNavMouseClicked
 
     /**
      * @param args the command line arguments
@@ -163,10 +223,11 @@ public class AfficherEvenements extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu deconnexion;
-    private javax.swing.JMenu displayevenement;
-    private javax.swing.JMenu inputevenement;
-    private javax.swing.JMenu inputparticipant;
+    private javax.swing.JMenu DisplayEventNav;
+    private javax.swing.JMenu accueilNav;
+    private javax.swing.JMenu deconnexionNav;
+    private javax.swing.JMenu inputEventNav;
+    private javax.swing.JMenu inputParticipantNav;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

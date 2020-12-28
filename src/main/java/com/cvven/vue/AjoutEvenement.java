@@ -53,17 +53,18 @@ public class AjoutEvenement extends javax.swing.JFrame {
         nbCharDescEvent = new javax.swing.JLabel();
         dureeEvent = new javax.swing.JSpinner();
         navBar = new javax.swing.JMenuBar();
-        inputevenement = new javax.swing.JMenu();
-        inputparticipant = new javax.swing.JMenu();
-        displayevenement = new javax.swing.JMenu();
-        deconnexion = new javax.swing.JMenu();
+        accueilNav = new javax.swing.JMenu();
+        inputEventNav = new javax.swing.JMenu();
+        inputParticipantNav = new javax.swing.JMenu();
+        DisplayEventNav = new javax.swing.JMenu();
+        deconnexionNav = new javax.swing.JMenu();
 
         jSlider1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setLocation(new java.awt.Point(300, 0));
-        setMinimumSize(new java.awt.Dimension(578, 700));
-        setPreferredSize(new java.awt.Dimension(578, 780));
+        setMinimumSize(new java.awt.Dimension(600, 780));
+        setPreferredSize(new java.awt.Dimension(600, 780));
         setResizable(false);
 
         body.setBackground(new java.awt.Color(254, 254, 254));
@@ -142,7 +143,7 @@ public class AjoutEvenement extends javax.swing.JFrame {
 
         cancelEvent.setBackground(new java.awt.Color(151, 21, 40));
         cancelEvent.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        cancelEvent.setForeground(new java.awt.Color(254, 254, 254));
+        cancelEvent.setForeground(new java.awt.Color(1, 1, 1));
         cancelEvent.setText("Annuler");
 
         jLabel8.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
@@ -152,9 +153,9 @@ public class AjoutEvenement extends javax.swing.JFrame {
         choixSalleEvent.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
         choixSalleEvent.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Veuillez choisir une option" }));
 
-        ajouterEvent.setBackground(new java.awt.Color(13, 116, 141));
+        ajouterEvent.setBackground(new java.awt.Color(34, 139, 34));
         ajouterEvent.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        ajouterEvent.setForeground(new java.awt.Color(254, 254, 254));
+        ajouterEvent.setForeground(new java.awt.Color(1, 1, 1));
         ajouterEvent.setText("Créer");
 
         jLabel10.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
@@ -214,11 +215,11 @@ public class AjoutEvenement extends javax.swing.JFrame {
             .addGroup(bodyLayout.createSequentialGroup()
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 18, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(intituleEvent, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                 .addGap(22, 22, 22)
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 19, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(themeEvent, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
@@ -230,7 +231,7 @@ public class AjoutEvenement extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(dureeEvent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21)
-                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
+                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(organisateurEvent, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
@@ -246,7 +247,7 @@ public class AjoutEvenement extends javax.swing.JFrame {
                     .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(nbCharDescEvent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelEvent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -257,21 +258,50 @@ public class AjoutEvenement extends javax.swing.JFrame {
 
         navBar.setForeground(javax.swing.UIManager.getDefaults().getColor("MenuBar.background"));
 
-        inputevenement.setText("Saisir un évènement");
-        inputevenement.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        navBar.add(inputevenement);
+        accueilNav.setText("Accueil");
+        accueilNav.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        accueilNav.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                accueilNavMouseClicked(evt);
+            }
+        });
+        navBar.add(accueilNav);
 
-        inputparticipant.setText("Saisir un participant");
-        inputparticipant.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        navBar.add(inputparticipant);
+        inputEventNav.setText("Saisir un évènement");
+        inputEventNav.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        inputEventNav.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                inputEventNavMouseClicked(evt);
+            }
+        });
+        navBar.add(inputEventNav);
 
-        displayevenement.setText("Afficher les évènements");
-        displayevenement.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        navBar.add(displayevenement);
+        inputParticipantNav.setText("Saisir un participant");
+        inputParticipantNav.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        inputParticipantNav.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                inputParticipantNavMouseClicked(evt);
+            }
+        });
+        navBar.add(inputParticipantNav);
 
-        deconnexion.setText("Deconnexion");
-        deconnexion.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        navBar.add(deconnexion);
+        DisplayEventNav.setText("Afficher les évènements");
+        DisplayEventNav.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        DisplayEventNav.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                DisplayEventNavMouseClicked(evt);
+            }
+        });
+        navBar.add(DisplayEventNav);
+
+        deconnexionNav.setText("Deconnexion");
+        deconnexionNav.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        deconnexionNav.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                deconnexionNavMouseClicked(evt);
+            }
+        });
+        navBar.add(deconnexionNav);
 
         setJMenuBar(navBar);
 
@@ -296,6 +326,36 @@ public class AjoutEvenement extends javax.swing.JFrame {
     private void descriptionEventKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descriptionEventKeyTyped
         nbCharDescEvent.setText(descriptionEvent.getText().length() + "/255");
     }//GEN-LAST:event_descriptionEventKeyTyped
+
+    private void accueilNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_accueilNavMouseClicked
+        Accueil fen = new Accueil();
+        fen.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_accueilNavMouseClicked
+
+    private void inputEventNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputEventNavMouseClicked
+        AjoutEvenement fen = new AjoutEvenement();
+        fen.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_inputEventNavMouseClicked
+
+    private void inputParticipantNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputParticipantNavMouseClicked
+        AjoutParticipant fen = new AjoutParticipant();
+        fen.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_inputParticipantNavMouseClicked
+
+    private void DisplayEventNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DisplayEventNavMouseClicked
+        AfficherEvenements fen = new AfficherEvenements();
+        fen.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_DisplayEventNavMouseClicked
+
+    private void deconnexionNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deconnexionNavMouseClicked
+        Authentification fen = new Authentification();
+        fen.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_deconnexionNavMouseClicked
 
     /**
      * @param args the command line arguments
@@ -336,18 +396,19 @@ public class AjoutEvenement extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu DisplayEventNav;
+    private javax.swing.JMenu accueilNav;
     private javax.swing.JButton ajouterEvent;
     private javax.swing.JPanel body;
     private javax.swing.JButton cancelEvent;
     private javax.swing.JComboBox<String> choixSalleEvent;
     private com.toedter.calendar.JDateChooser dateEvent;
-    private javax.swing.JMenu deconnexion;
+    private javax.swing.JMenu deconnexionNav;
     private javax.swing.JTextArea descriptionEvent;
-    private javax.swing.JMenu displayevenement;
     private javax.swing.JSpinner dureeEvent;
     private javax.swing.JPanel footer;
-    private javax.swing.JMenu inputevenement;
-    private javax.swing.JMenu inputparticipant;
+    private javax.swing.JMenu inputEventNav;
+    private javax.swing.JMenu inputParticipantNav;
     private javax.swing.JTextField intituleEvent;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

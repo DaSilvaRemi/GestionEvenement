@@ -46,7 +46,7 @@ public class Authentification extends javax.swing.JFrame {
 
         body.setBackground(new java.awt.Color(250, 250, 250));
 
-        connexion.setBackground(new java.awt.Color(47, 179, 26));
+        connexion.setBackground(new java.awt.Color(34, 139, 34));
         connexion.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
         connexion.setText("Connexion");
         connexion.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -209,12 +209,10 @@ public class Authentification extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel body;
     private javax.swing.JButton connexion;
-    private javax.swing.JPanel footer;
     private javax.swing.JPanel footer1;
     private javax.swing.JPanel header;
     private javax.swing.JLabel imagelock;
     private javax.swing.JLabel imageuser;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
