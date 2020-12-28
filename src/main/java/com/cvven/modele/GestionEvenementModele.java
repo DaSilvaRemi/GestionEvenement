@@ -22,12 +22,9 @@ public final class GestionEvenementModele extends GestionBDDModele {
      * @param urlHoteBdd L'adresse de l' hôte de la bdd sous forme : hôte/nomBDD
      * @param user Le nom d'utilisateur de la BDD
      * @param password Le mot de passe de la BDD
-     * @throws SQLException
-     * @throws ClassNotFoundException 
      */
-    public GestionEvenementModele(String urlHoteBdd, String user, String password) throws SQLException, ClassNotFoundException {
+    public GestionEvenementModele(String urlHoteBdd, String user, String password) {
         super(urlHoteBdd, user, password);
-        this.setDb();
     }
     
     /*-----------------------------------Table participer--------------------------------*/
@@ -46,11 +43,16 @@ public final class GestionEvenementModele extends GestionBDDModele {
     }
     
     /**
+     * Inscrit un participant à un évènement
      * 
+     * @param email
+     * @param intitule
      * @throws SQLException 
      */
-    public void insertParticipation() throws SQLException{
-        this.setMyStatement("INSERT INTO public.participer VALUES((SELECT id_participant FROM participant),());");
+    public void insertParticipation(String email, String intitule) throws SQLException{
+        this.setMyStatement("INSERT INTO public.participer VALUES((SELECT id_participant FROM participant WHERE email = ?),(SELECT id_evenement FROM evenement WHERE intitule = ?));");
+        this.getMyStatement().setString(1, email);
+        this.getMyStatement().setString(2, intitule);
         this.getResult();
     }
     /*----------------------------------Table Salle--------------------------------------*/
@@ -66,6 +68,12 @@ public final class GestionEvenementModele extends GestionBDDModele {
     
     /*----------------------------------Table évènement----------------------------------*/
     
+    /**
+     * 
+     * @param intitule
+     * @return
+     * @throws SQLException 
+     */
     public ResultSet countEvent(String intitule) throws SQLException{
         this.setMyStatement("SELECT COUNT(intitule) AS nbEvent FROM evenement WHERE intitule = ?;");
         this.getMyStatement().setString(1, intitule);
@@ -150,7 +158,7 @@ public final class GestionEvenementModele extends GestionBDDModele {
      * @throws SQLException 
      */
     public ResultSet countUserLoginMdp(String login, String mdp) throws SQLException{
-        this.setMyStatement("SELECT COUNT(*) FROM user WHERE login = ? AND mdp = ?;");
+        this.setMyStatement("SELECT COUNT(*) AS nbUser FROM user WHERE login = ? AND mdp = ?;");
         this.getMyStatement().setString(1, login);
         this.getMyStatement().setString(2, mdp);
         return this.getResult();

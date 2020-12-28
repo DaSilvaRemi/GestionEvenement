@@ -157,6 +157,8 @@ class GestionBDDModele {
      * @throws SQLException 
      */
     protected ResultSet getResult() throws SQLException{
-        return this.myStatement.executeQuery();
+        ResultSet result = this.myStatement.executeQuery();
+        result.next();
+        return result;
     }
 }

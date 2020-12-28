@@ -5,6 +5,11 @@
  */
 package com.cvven.vue;
 
+import com.cvven.modele.GestionEvenementModele;
+import java.sql.SQLException;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author remi
@@ -168,7 +173,32 @@ public class Authentification extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void connexionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_connexionMouseClicked
-        // TODO add your handling code here:
+        if(login.getText().isBlank()){
+            JOptionPane dialogue = new JOptionPane("Veuillez indiquez votre ", JOptionPane.ERROR_MESSAGE);
+            JDialog boite = dialogue.createDialog("Message");
+            boite.setVisible(true);
+        }
+        else if(password.getPassword().length == 0){
+            
+        }
+        else{
+            try {
+                GestionEvenementModele gestionEventModele = new GestionEvenementModele("localhost/gestionevenement","remi","test");
+                char[] c = password.getPassword();
+                String mdp = new String(c);
+                if(gestionEventModele.countUserLoginMdp(login.getText(), mdp).getInt("nbUser") == 1){
+                    
+                }else{
+                    JOptionPane dialogue = new JOptionPane("Vos identifiants sont invalides", JOptionPane.ERROR_MESSAGE);
+                    JDialog boite = dialogue.createDialog("Message");
+                    boite.setVisible(true);
+                }
+            } catch (SQLException ex) {
+                JOptionPane dialogue = new JOptionPane(ex.getMessage(), JOptionPane.ERROR_MESSAGE);
+                JDialog boite = dialogue.createDialog("Message");
+                boite.setVisible(true);
+            }
+        }
     }//GEN-LAST:event_connexionMouseClicked
 
     /**
