@@ -35,11 +35,4 @@
     </dependencies>
     
     <name>GestionEvenement</name>
-    
-    <repositories>
-    <repository>
-        <id>Collide Repository</id>
-        <url>http://mvn.collide.info/content/repositories/releases/</url>
-    </repository>
-    </repositories>
 </project>
