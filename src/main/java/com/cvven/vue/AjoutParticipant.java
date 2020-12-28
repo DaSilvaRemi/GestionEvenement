@@ -45,7 +45,7 @@ public class AjoutParticipant extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         observationsParticipant = new javax.swing.JTextArea();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        nbCharObservation = new javax.swing.JLabel();
         addParticipant = new javax.swing.JButton();
         annulerParticipant = new javax.swing.JButton();
         footer = new javax.swing.JPanel();
@@ -104,12 +104,20 @@ public class AjoutParticipant extends javax.swing.JFrame {
         observationsParticipant.setColumns(20);
         observationsParticipant.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
         observationsParticipant.setRows(5);
+        observationsParticipant.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                observationsParticipantKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                observationsParticipantKeyReleased(evt);
+            }
+        });
         jScrollPane2.setViewportView(observationsParticipant);
 
         jLabel8.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
         jLabel8.setText("Selectionner un ou plusieur évènements");
 
-        jLabel9.setText("/255");
+        nbCharObservation.setText("/255");
 
         addParticipant.setBackground(new java.awt.Color(34, 139, 34));
         addParticipant.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
@@ -118,6 +126,11 @@ public class AjoutParticipant extends javax.swing.JFrame {
         annulerParticipant.setBackground(new java.awt.Color(151, 21, 40));
         annulerParticipant.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
         annulerParticipant.setText("Annuler");
+        annulerParticipant.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                annulerParticipantMouseClicked(evt);
+            }
+        });
 
         footer.setBackground(java.awt.Color.darkGray);
         footer.setForeground(java.awt.Color.white);
@@ -155,7 +168,7 @@ public class AjoutParticipant extends javax.swing.JFrame {
                     .addGroup(bodyLayout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel9))
+                        .addComponent(nbCharObservation))
                     .addComponent(jLabel6)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
@@ -203,7 +216,7 @@ public class AjoutParticipant extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jLabel9))
+                    .addComponent(nbCharObservation))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -307,6 +320,20 @@ public class AjoutParticipant extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_deconnexionNavMouseClicked
 
+    private void annulerParticipantMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_annulerParticipantMouseClicked
+        Authentification fen = new Authentification();
+        fen.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_annulerParticipantMouseClicked
+
+    private void observationsParticipantKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_observationsParticipantKeyPressed
+        nbCharObservation.setText(observationsParticipant.getText().length() + "/255");
+    }//GEN-LAST:event_observationsParticipantKeyPressed
+
+    private void observationsParticipantKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_observationsParticipantKeyReleased
+        nbCharObservation.setText(observationsParticipant.getText().length() + "/255");
+    }//GEN-LAST:event_observationsParticipantKeyReleased
+
                         
 
     /**
@@ -365,11 +392,11 @@ public class AjoutParticipant extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JMenuBar navBar;
+    private javax.swing.JLabel nbCharObservation;
     private javax.swing.JTextField nomParticipant;
     private javax.swing.JTextArea observationsParticipant;
     private javax.swing.JTextField organisationParticipant;

@@ -145,6 +145,11 @@ public class AjoutEvenement extends javax.swing.JFrame {
         cancelEvent.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
         cancelEvent.setForeground(new java.awt.Color(1, 1, 1));
         cancelEvent.setText("Annuler");
+        cancelEvent.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cancelEventMouseClicked(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
         jLabel8.setLabelFor(choixSalleEvent);
@@ -356,6 +361,12 @@ public class AjoutEvenement extends javax.swing.JFrame {
         fen.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_deconnexionNavMouseClicked
+
+    private void cancelEventMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelEventMouseClicked
+        Authentification fen = new Authentification();
+        fen.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_cancelEventMouseClicked
 
     /**
      * @param args the command line arguments
