@@ -18,6 +18,14 @@ public final class GestionEvenementModele extends GestionBDDModele {
     
     /**
      * Constructeur par défaut
+     */
+    public GestionEvenementModele() {
+        super();
+    }
+    
+    
+    /**
+     * Constructeur par défaut avec des paramètres
      * 
      * @param urlHoteBdd L'adresse de l' hôte de la bdd sous forme : hôte/nomBDD
      * @param user Le nom d'utilisateur de la BDD
