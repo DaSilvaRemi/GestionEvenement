@@ -36,6 +36,15 @@ public class AjoutEvenement extends javax.swing.JFrame {
         descriptionEvent.setText(null);
     }
     
+    /**
+     * Met les valeur par défault récupéré dans la BDD dans la liste de choix de salle
+     * 
+     * Affiche les exception dans une JDialog
+     * 
+     * @see DialogTools
+     * @see ClassNotFoundException
+     * @see SQLException
+     */
     public final void insertSalleEvent(){
         try {
             GestionEvenementModele laGestionEvenementModele = new GestionEvenementModele();
@@ -46,20 +55,19 @@ public class AjoutEvenement extends javax.swing.JFrame {
             
             while(result.next()){
                 String salle = "N°"+result.getString("id_salle")+" Salle de "+result.getString("capacite")+"("+result.getString("capacite")+")";
-                for(int i = 0; i < this.typeEvent.getItemCount(); i++){
-                    if(this.typeEvent.getItemAt(i).equalsIgnoreCase(salle)){
+                for(int i = 0; i < this.choixSalleEvent.getItemCount(); i++){
+                    if(this.choixSalleEvent.getItemAt(i).equalsIgnoreCase(salle)){
                         isExist = true;
                     }
                 }
                 if(!isExist){
-                    this.typeEvent.addItem(salle);
+                    this.choixSalleEvent.addItem(salle);
                 }
                 isExist = false;
             }
             
             laGestionEvenementModele.selectInfoSalle();
             laGestionEvenementModele.closeAll();
-            this.clearFields();
             } catch (SQLException | ClassNotFoundException ex) {
                 DialogTools.openMessageDialog(ex.getMessage(), "Erreur", DialogTools.ERROR_MESSAGE);
             }
