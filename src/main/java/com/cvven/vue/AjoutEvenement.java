@@ -6,6 +6,7 @@
 package com.cvven.vue;
 import com.cvven.modele.DialogTools;
 import com.cvven.modele.GestionEvenementModele;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -33,6 +34,35 @@ public class AjoutEvenement extends javax.swing.JFrame {
         choixSalleEvent.setSelectedIndex(0);
         typeEvent.setSelectedIndex(0);
         descriptionEvent.setText(null);
+    }
+    
+    public void insertSalleEvent(){
+        try {
+            GestionEvenementModele laGestionEvenementModele = new GestionEvenementModele();
+            laGestionEvenementModele.setDb();
+            ResultSet result = laGestionEvenementModele.selectInfoSalle();
+            boolean isExist = false;
+            
+            
+            while(result.next()){
+                String salle = "N°"+result.getString("id_salle")+" Salle de "+result.getString("capacite")+"("+result.getString("capacite")+")";
+                for(int i = 0; i < this.typeEvent.getItemCount(); i++){
+                    if(this.typeEvent.getItemAt(i).equalsIgnoreCase(salle)){
+                        isExist = true;
+                    }
+                }
+                if(!isExist){
+                    this.typeEvent.addItem(salle);
+                }
+                isExist = false;
+            }
+            
+            laGestionEvenementModele.selectInfoSalle();
+            laGestionEvenementModele.closeAll();
+            this.clearFields();
+            } catch (SQLException | ClassNotFoundException ex) {
+                DialogTools.openMessageDialog(ex.getMessage(), "Erreur", DialogTools.ERROR_MESSAGE);
+            }
     }
 
     /*-----------------------------Initialisation des composents----------------------*/
@@ -234,7 +264,7 @@ public class AjoutEvenement extends javax.swing.JFrame {
                         .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
                             .addComponent(choixSalleEvent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addContainerGap(103, Short.MAX_VALUE))
             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         bodyLayout.setVerticalGroup(
@@ -443,9 +473,11 @@ public class AjoutEvenement extends javax.swing.JFrame {
      * 
      * @param evt
      * 
+     * @see clearField
      * @see JDateChooser
      * @see DialogTools
      * @see SQLException
+     * @see ClassNotFoundException
      */
     private void ajouterEventMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ajouterEventMouseClicked
         if(intituleEvent.getText().isBlank()){
@@ -468,10 +500,11 @@ public class AjoutEvenement extends javax.swing.JFrame {
             }
         }else{
             try {
-                GestionEvenementModele laGestionEvenementModele = new GestionEvenementModele("localhost/gestionevenementmodele", "remi", "test");
+                GestionEvenementModele laGestionEvenementModele = new GestionEvenementModele();
                 laGestionEvenementModele.setDb();
                 laGestionEvenementModele.insertEvent(intituleEvent.getText(), themeEvent.getText(), dateEvent.getDateFormatString(), ((Integer)dureeEvent.getValue()),
                         descriptionEvent.getText(), organisateurEvent.getText(), typeEvent.getItemAt(typeEvent.getSelectedIndex()), choixSalleEvent.getItemAt(choixSalleEvent.getSelectedIndex()));
+                laGestionEvenementModele.closeAll();
                 DialogTools.openMessageDialog("Insertion de l'évènement terminée !","Insertion Terminée");
                 this.clearFields();
             } catch (SQLException | ClassNotFoundException ex) {
