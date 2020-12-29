@@ -4,6 +4,11 @@
  * and open the template in the editor.
  */
 package com.cvven.vue;
+import com.cvven.modele.DialogTools;
+import com.cvven.modele.GestionEvenementModele;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -17,7 +22,16 @@ public class AjoutEvenement extends javax.swing.JFrame {
     public AjoutEvenement() {
         initComponents();
     }
+    
+    private void clearFields(){
+        intituleEvent.setText(null);
+        themeEvent.setText(null);
+        dateEvent.setDateFormatString(null);
+        organisateurEvent.setText(null);
+        descriptionEvent.setText(null);
+    }
 
+    /*-----------------------------Initialisation des composents----------------------*/
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -162,6 +176,11 @@ public class AjoutEvenement extends javax.swing.JFrame {
         ajouterEvent.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
         ajouterEvent.setForeground(new java.awt.Color(1, 1, 1));
         ajouterEvent.setText("Créer");
+        ajouterEvent.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ajouterEventMouseClicked(evt);
+            }
+        });
 
         jLabel10.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
         jLabel10.setLabelFor(typeEvent);
@@ -332,6 +351,7 @@ public class AjoutEvenement extends javax.swing.JFrame {
         nbCharDescEvent.setText(descriptionEvent.getText().length() + "/255");
     }//GEN-LAST:event_descriptionEventKeyTyped
 
+    /*----------------------------Barre de navigation----------------------------*/
     private void accueilNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_accueilNavMouseClicked
         Accueil fen = new Accueil();
         fen.setVisible(true);
@@ -363,10 +383,44 @@ public class AjoutEvenement extends javax.swing.JFrame {
     }//GEN-LAST:event_deconnexionNavMouseClicked
 
     private void cancelEventMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelEventMouseClicked
-        Authentification fen = new Authentification();
+        Accueil fen = new Accueil();
         fen.setVisible(true);
+        this.clearFields();
         this.dispose();
     }//GEN-LAST:event_cancelEventMouseClicked
+
+    private void ajouterEventMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ajouterEventMouseClicked
+        if(intituleEvent.getText().isBlank()){
+            DialogTools.openMessageDialog("Veuillez indiquez l'intitule de l'évènement", "Erreur", DialogTools.ERROR_MESSAGE);
+        }else if(themeEvent.getText().isBlank()){
+            DialogTools.openMessageDialog("Veuillez indiquez le thème de l'évènement", "Erreur", DialogTools.ERROR_MESSAGE);
+        }else if(dateEvent.getDateFormatString().isBlank()){
+            DialogTools.openMessageDialog("Veuillez indiquez la date de l'évènement", "Erreur", DialogTools.ERROR_MESSAGE);
+        }else if(organisateurEvent.getText().isBlank()){
+            DialogTools.openMessageDialog("Veuillez indiquez l'organisateur de l'évènement", "Erreur", DialogTools.ERROR_MESSAGE);
+        }else if(typeEvent.getItemAt(typeEvent.getSelectedIndex()).equalsIgnoreCase("Veuillez choisir une option")){
+            DialogTools.openMessageDialog("Veuillez choisir un évènement", "Erreur", DialogTools.ERROR_MESSAGE);
+        }else if(choixSalleEvent.getItemAt(choixSalleEvent.getSelectedIndex()).equalsIgnoreCase("Veuillez choisir une option")){
+            DialogTools.openMessageDialog("Veuillez choisir une salle", "Erreur", DialogTools.ERROR_MESSAGE);
+        }else if(descriptionEvent.getText().isBlank() || descriptionEvent.getText().length() > 255){
+            if(descriptionEvent.getText().isBlank()){
+                DialogTools.openMessageDialog("Veuillez indiquez une description à l'évènement", "Erreur", DialogTools.ERROR_MESSAGE);
+            }else{
+                DialogTools.openMessageDialog("Veuillez ne pas dépassez les 255 charactères", "Erreur", DialogTools.ERROR_MESSAGE);
+            }
+        }else{
+            try {
+                GestionEvenementModele laGestionEvenementModele = new GestionEvenementModele("localhost/gestionevenementmodele", "remi", "test");
+                laGestionEvenementModele.setDb();
+                laGestionEvenementModele.insertEvent(intituleEvent.getText(), themeEvent.getText(), dateEvent.getDateFormatString(), ((Integer)dureeEvent.getValue()),
+                        descriptionEvent.getText(), organisateurEvent.getText(), typeEvent.getItemAt(typeEvent.getSelectedIndex()), choixSalleEvent.getItemAt(choixSalleEvent.getSelectedIndex()));
+                DialogTools.openMessageDialog("Insertion de l'évènement terminée !","Insertion Terminée");
+                this.clearFields();
+            } catch (SQLException | ClassNotFoundException ex) {
+                DialogTools.openMessageDialog(ex.getMessage(), "Erreur", DialogTools.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_ajouterEventMouseClicked
 
     /**
      * @param args the command line arguments
