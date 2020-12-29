@@ -326,18 +326,19 @@ public class AjoutParticipant extends javax.swing.JFrame {
     }//GEN-LAST:event_accueilNavMouseClicked
 
     /**
-     * Ouvre la fenêtre d'ajout d'évènement lorsque le bouton Acceuil de la barre de navigation est cliqué
+     * Ouvre la fenêtre d'ajout d'évènement lorsque le bouton Saisir un évènement de la barre de navigation est cliqué
      * 
      * @param evt 
      */
     private void inputEventNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputEventNavMouseClicked
         AjoutEvenement fen = new AjoutEvenement();
+        fen.insertSalleEvent();
         fen.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_inputEventNavMouseClicked
 
     /**
-     * Ouvre la fenêtre d'ajout des participants lorsque le bouton Acceuil de la barre de navigation est cliqué
+     * Ouvre la fenêtre d'ajout des participants lorsque le bouton Saisir un participant de la barre de navigation est cliqué
      * 
      * @param evt 
      */
@@ -348,7 +349,7 @@ public class AjoutParticipant extends javax.swing.JFrame {
     }//GEN-LAST:event_inputParticipantNavMouseClicked
 
     /**
-     * Ouvre la fenêtre d'affichage des évènements lorsque le bouton Acceuil de la barre de navigation est cliqué
+     * Ouvre la fenêtre d'affichage des évènements lorsque le bouton Afficher les évènements de la barre de navigation est cliqué
      * 
      * @param evt 
      */
@@ -359,7 +360,7 @@ public class AjoutParticipant extends javax.swing.JFrame {
     }//GEN-LAST:event_DisplayEventNavMouseClicked
 
     /**
-     * Ouvre la fenêtre de deconnexion lorsque le bouton Acceuil de la barre de navigation est cliqué
+     * Ouvre la fenêtre de deconnexion lorsque le bouton Deconnexion de la barre de navigation est cliqué
      * 
      * @param evt 
      */
@@ -411,9 +412,11 @@ public class AjoutParticipant extends javax.swing.JFrame {
      * 
      * @param evt
      * 
+     * @see clearField
      * @see JDateChooser
      * @see DialogTools
      * @see SQLException
+     * @see ClassNotFoundException
      */
     private void addParticipantMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addParticipantMouseClicked
         if(selectLesEvents.getSelectedValuesList().isEmpty()){
@@ -437,10 +440,14 @@ public class AjoutParticipant extends javax.swing.JFrame {
         }else{
             try {
                 GestionEvenementModele laGestionEvenementModele = new GestionEvenementModele();
+                laGestionEvenementModele.setDb();
                 laGestionEvenementModele.insertParticipant(nomParticipant.getText(), prenomParticipant.getText(), adresseMailParticipant.getText(),
                         dateNaissanceParticipant.getDateFormatString(), organisationParticipant.getText(), observationsParticipant.getText());
-            } catch (SQLException ex) {
-                DialogTools.openMessageDialog(ex.getMessage(), "Erreur SQL !", DialogTools.ERROR_MESSAGE);
+                laGestionEvenementModele.closeAll();
+                DialogTools.openMessageDialog("L'ajout de participant est terminée !","Ajout Terminée");
+                this.clearField();
+            } catch (SQLException | ClassNotFoundException ex) {
+                DialogTools.openMessageDialog(ex.getMessage(), "Erreur !", DialogTools.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_addParticipantMouseClicked

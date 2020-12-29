@@ -36,7 +36,7 @@ public class AjoutEvenement extends javax.swing.JFrame {
         descriptionEvent.setText(null);
     }
     
-    public void insertSalleEvent(){
+    public final void insertSalleEvent(){
         try {
             GestionEvenementModele laGestionEvenementModele = new GestionEvenementModele();
             laGestionEvenementModele.setDb();
@@ -408,18 +408,19 @@ public class AjoutEvenement extends javax.swing.JFrame {
     }//GEN-LAST:event_accueilNavMouseClicked
 
     /**
-     * Ouvre la fenêtre d'ajout d'évènement lorsque le bouton Acceuil de la barre de navigation est cliqué
+     * Ouvre la fenêtre d'ajout d'évènement lorsque le bouton Saisir un évènement de la barre de navigation est cliqué
      * 
      * @param evt 
      */
     private void inputEventNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputEventNavMouseClicked
         AjoutEvenement fen = new AjoutEvenement();
+        fen.insertSalleEvent();
         fen.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_inputEventNavMouseClicked
 
     /**
-     * Ouvre la fenêtre d'ajout des participants lorsque le bouton Acceuil de la barre de navigation est cliqué
+     * Ouvre la fenêtre d'ajout des participants lorsque le bouton Saisir un participant de la barre de navigation est cliqué
      * 
      * @param evt 
      */
@@ -430,7 +431,7 @@ public class AjoutEvenement extends javax.swing.JFrame {
     }//GEN-LAST:event_inputParticipantNavMouseClicked
 
     /**
-     * Ouvre la fenêtre d'affichage des évènements lorsque le bouton Acceuil de la barre de navigation est cliqué
+     * Ouvre la fenêtre d'affichage des évènements lorsque le bouton Afficher les évènements de la barre de navigation est cliqué
      * 
      * @param evt 
      */
@@ -441,7 +442,7 @@ public class AjoutEvenement extends javax.swing.JFrame {
     }//GEN-LAST:event_DisplayEventNavMouseClicked
 
     /**
-     * Ouvre la fenêtre de deconnexion lorsque le bouton Acceuil de la barre de navigation est cliqué
+     * Ouvre la fenêtre de deconnexion lorsque le bouton Deconnexion de la barre de navigation est cliqué
      * 
      * @param evt 
      */
