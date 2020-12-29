@@ -7,8 +7,7 @@ package com.cvven.vue;
 
 import com.cvven.modele.GestionEvenementModele;
 import java.sql.SQLException;
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
+import com.cvven.modele.DialogTools;
 
 /**
  *
@@ -174,32 +173,23 @@ public class Authentification extends javax.swing.JFrame {
 
     private void connexionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_connexionMouseClicked
         if(login.getText().isBlank()){
-            JOptionPane dialogue = new JOptionPane("Veuillez indiquez un nom d'utilisateur", JOptionPane.ERROR_MESSAGE);
-            JDialog boite = dialogue.createDialog("Erreur");
-            boite.setVisible(true);
+            DialogTools.openMessageDialog("Veuillez indiquez un nom d'utilisateur", "Erreur", DialogTools.ERROR_MESSAGE);
         }
         else if(password.getPassword().length == 0){
-            JOptionPane dialogue = new JOptionPane("Veuillez indiquez un mot de passe", JOptionPane.ERROR_MESSAGE);
-            JDialog boite = dialogue.createDialog("Erreur");
-            boite.setVisible(true);
+            DialogTools.openMessageDialog("Veuillez indiquez un mot de passe", "Erreur", DialogTools.ERROR_MESSAGE);
         }
         else{
             try {
-                GestionEvenementModele gestionEventModele = new GestionEvenementModele("localhost/gestionevenement","remi","test");
+                GestionEvenementModele gestionEventModele = new GestionEvenementModele();
                 char[] c = password.getPassword();
                 String mdp = new String(c);
                 if(gestionEventModele.countUserLoginMdp(login.getText(), mdp).getInt("nbUser") == 1){
                     Accueil fen = new Accueil();
                     fen.setVisible(true);
                 }else{
-                    JOptionPane dialogue = new JOptionPane("Vos identifiants sont invalides", JOptionPane.ERROR_MESSAGE);
-                    JDialog boite = dialogue.createDialog("Erreur");
-                    boite.setVisible(true);
                 }
             } catch (SQLException ex) {
-                JOptionPane dialogue = new JOptionPane(ex.getMessage(), JOptionPane.ERROR_MESSAGE);
-                JDialog boite = dialogue.createDialog("Erreur");
-                boite.setVisible(true);
+                DialogTools.openMessageDialog(ex.getMessage(), "Erreur", DialogTools.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_connexionMouseClicked
