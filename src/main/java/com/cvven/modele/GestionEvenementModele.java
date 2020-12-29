@@ -99,35 +99,31 @@ public final class GestionEvenementModele extends GestionBDDModele {
      * @param description Description de l'évènement
      * @param organisateur Organisateur de l'évènement
      * @param type Type de l'évènement
-     * @param typeSalle Type de la Salle concaténé avec la capacité
+     * @param salleChoisi La salle choisis par l'utilisateur le champs est sous format : 'N°' + id_salle + ' Salle de ' + typesalle + '(' + capacite + 'personne)'
      * @throws SQLException 
      * 
      */
     public void insertEvent(String intitule, String theme, String dateEvent, int duree, String description, 
-            String organisateur, String type, String typeSalle) throws SQLException{
+            String organisateur, String type, String salleChoisi) throws SQLException{
         
         ResultSet result = this.countEvent(intitule);
         result.next();
         if(result.getInt("nbEvent") == 0){
             super.closeMyStatement();
             super.setMyStatement("INSERT INTO evenement(intitule, theme, datedebut, duree, nb_participant_max, description, organisateur, type, id_salle) "
-                + "VALUES(?, ?, ?, ?, (SELECT capacite FROM salle WHERE typesalle = ? AND capacite = ?), ?, ?, ?, "
-                + "(SELECT id_salle FROM salle WHERE typesalle = ? AND capacite = ?)");
+                + "VALUES(?, ?, ?, ?, (SELECT salle.capacite FROM public.salle WHERE salle.id_salle = ?) ?, ?, ?, ?);");
         
-            String capacite = typeSalle.substring(typeSalle.indexOf("(")+1,typeSalle.indexOf(")"));
-            typeSalle = typeSalle.substring(0,typeSalle.indexOf("("));
+            int idSalle = Integer.parseInt(salleChoisi.substring(salleChoisi.indexOf("N°"), salleChoisi.indexOf("N°")+2));
             //Définitions des paramètres
             super.getMyStatement().setString(1, intitule);
             super.getMyStatement().setString(2, theme);
             super.getMyStatement().setObject(3, dateEvent, Types.DATE);
             super.getMyStatement().setInt(4, duree);
-            super.getMyStatement().setString(5, typeSalle);
-            super.getMyStatement().setString(6, capacite); 
-            super.getMyStatement().setString(7, description);
-            super.getMyStatement().setString(8, organisateur);
-            super.getMyStatement().setString(9, type);
-            super.getMyStatement().setString(10, typeSalle);
-            super.getMyStatement().setString(11, capacite);
+            super.getMyStatement().setInt(5, idSalle);
+            super.getMyStatement().setString(6, description);
+            super.getMyStatement().setString(7, organisateur);
+            super.getMyStatement().setString(8, type);
+            super.getMyStatement().setInt(9, idSalle);
             super.getResult();
         }else{
             throw new SQLException("L'intitule de l'évènement existe déja !");
