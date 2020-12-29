@@ -171,6 +171,10 @@ public class Authentification extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * 
+     * @param evt 
+     */
     private void connexionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_connexionMouseClicked
         if(login.getText().isBlank()){
             DialogTools.openMessageDialog("Veuillez indiquez un nom d'utilisateur", "Erreur", DialogTools.ERROR_MESSAGE);
