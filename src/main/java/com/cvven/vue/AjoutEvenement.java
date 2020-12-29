@@ -61,7 +61,7 @@ public class AjoutEvenement extends javax.swing.JFrame {
 
         jSlider1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(300, 0));
         setMinimumSize(new java.awt.Dimension(600, 780));
         setPreferredSize(new java.awt.Dimension(600, 780));

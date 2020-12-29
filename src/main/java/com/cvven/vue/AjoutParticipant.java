@@ -57,7 +57,7 @@ public class AjoutParticipant extends javax.swing.JFrame {
         DisplayEventNav = new javax.swing.JMenu();
         deconnexionNav = new javax.swing.JMenu();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(623, 745));
         setResizable(false);
 

@@ -174,12 +174,14 @@ public class Authentification extends javax.swing.JFrame {
 
     private void connexionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_connexionMouseClicked
         if(login.getText().isBlank()){
-            JOptionPane dialogue = new JOptionPane("Veuillez indiquez votre ", JOptionPane.ERROR_MESSAGE);
-            JDialog boite = dialogue.createDialog("Message");
+            JOptionPane dialogue = new JOptionPane("Veuillez indiquez un nom d'utilisateur", JOptionPane.ERROR_MESSAGE);
+            JDialog boite = dialogue.createDialog("Erreur");
             boite.setVisible(true);
         }
         else if(password.getPassword().length == 0){
-            
+            JOptionPane dialogue = new JOptionPane("Veuillez indiquez un mot de passe", JOptionPane.ERROR_MESSAGE);
+            JDialog boite = dialogue.createDialog("Erreur");
+            boite.setVisible(true);
         }
         else{
             try {
@@ -187,15 +189,16 @@ public class Authentification extends javax.swing.JFrame {
                 char[] c = password.getPassword();
                 String mdp = new String(c);
                 if(gestionEventModele.countUserLoginMdp(login.getText(), mdp).getInt("nbUser") == 1){
-                    
+                    Accueil fen = new Accueil();
+                    fen.setVisible(true);
                 }else{
                     JOptionPane dialogue = new JOptionPane("Vos identifiants sont invalides", JOptionPane.ERROR_MESSAGE);
-                    JDialog boite = dialogue.createDialog("Message");
+                    JDialog boite = dialogue.createDialog("Erreur");
                     boite.setVisible(true);
                 }
             } catch (SQLException ex) {
                 JOptionPane dialogue = new JOptionPane(ex.getMessage(), JOptionPane.ERROR_MESSAGE);
-                JDialog boite = dialogue.createDialog("Message");
+                JDialog boite = dialogue.createDialog("Erreur");
                 boite.setVisible(true);
             }
         }
