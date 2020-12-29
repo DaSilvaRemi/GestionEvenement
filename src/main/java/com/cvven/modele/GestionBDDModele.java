@@ -26,6 +26,16 @@ abstract class GestionBDDModele {
     /**
      * Constructeur par défaut
      * 
+     */
+    protected GestionBDDModele() {
+        this.urlHoteBdd = "localhost/gestionevenementmodele";
+        this.user = "remi";
+        this.password = "test";
+    } 
+    
+    /**
+     * Constructeur par défaut avec des paramètre
+     * 
      * @param urlHoteBdd L'adresse de l' hôte de la bdd sous forme : hôte/nomBDD
      * @param user Le nom d'utilisateur de la BDD
      * @param password Le mot de passe de la BDD
