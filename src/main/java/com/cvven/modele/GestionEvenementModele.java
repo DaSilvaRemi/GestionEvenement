@@ -108,7 +108,8 @@ public final class GestionEvenementModele extends GestionBDDModele {
         
         ResultSet result = this.countEvent(intitule);
         result.next();
-        if(result.getString("nbEvent").equals(0)){
+        if(result.getInt("nbEvent") == 0){
+            super.closeMyStatement();
             super.setMyStatement("INSERT INTO evenement(intitule, theme, datedebut, duree, nb_participant_max, description, organisateur, type, id_salle) "
                 + "VALUES(?, ?, ?, ?, (SELECT capacite FROM salle WHERE typesalle = ? AND capacite = ?), ?, ?, ?, "
                 + "(SELECT id_salle FROM salle WHERE typesalle = ? AND capacite = ?)");
@@ -134,6 +135,18 @@ public final class GestionEvenementModele extends GestionBDDModele {
     }
     
     /*----------------------------------Table participant--------------------------------*/
+     /**
+     * Compte le nombre d'email existant
+     * 
+     * @param email
+     * @return
+     * @throws SQLException 
+     */
+    public ResultSet countEmailParticipant(String email) throws SQLException{
+        super.setMyStatement("SELECT COUNT(id_participant) AS nbParticipant FROM public.participant WHERE participant.email;");
+        return super.getResult();
+    }
+    
     /**
      * Insert un nouveau participant à la base de données
      * 
@@ -147,14 +160,18 @@ public final class GestionEvenementModele extends GestionBDDModele {
      */
     public void insertParticipant(String nom, String prenom, String email, String dateNaissance, String organisation, String observations) 
             throws SQLException{
-        this.setMyStatement("INSERT INTO public.participant(nom, prenom, date_naissance, organisation, observations, email) VALUES(?, ?, ?, ?, ?, ?);");
-        this.getMyStatement().setString(1, nom);
-        this.getMyStatement().setString(2, prenom);
-        this.getMyStatement().setObject(3, dateNaissance, Types.DATE);
-        this.getMyStatement().setString(4, organisation);
-        this.getMyStatement().setString(5, observations);
-        this.getMyStatement().setString(6, email);
-        this.getResult();
+        if(this.countEmailParticipant(email).getInt("nbParticipant") == 0){
+            super.setMyStatement("INSERT INTO public.participant(nom, prenom, date_naissance, organisation, observations, email) VALUES(?, ?, ?, ?, ?, ?);");
+            super.getMyStatement().setString(1, nom);
+            super.getMyStatement().setString(2, prenom);
+            super.getMyStatement().setObject(3, dateNaissance, Types.DATE);
+            super.getMyStatement().setString(4, organisation);
+            super.getMyStatement().setString(5, observations);
+            super.getMyStatement().setString(6, email);
+            super.getResult();
+        }else{
+            throw new SQLException("L'émail existe déja");
+        }
     }
     
     /*-----------------------------------Table user--------------------------------------*/
@@ -172,5 +189,4 @@ public final class GestionEvenementModele extends GestionBDDModele {
         this.getMyStatement().setString(2, mdp);
         return this.getResult();
     }
-
 }

@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
+import org.postgresql.Driver;
 
 /**
  * Classe métier permettant de gérer la connexion à la BDD
@@ -114,6 +115,8 @@ abstract class GestionBDDModele {
      * 
      * @throws SQLException
      * @throws ClassNotFoundException 
+     * 
+     * @see org.postgresql.Driver
      */
     public void setDb() throws SQLException,ClassNotFoundException {
         Class.forName("org.postgresql.Driver");
