@@ -35,11 +35,11 @@ public final class GestionEvenementModele extends GestionBDDModele {
      * @throws SQLException 
      */
     public ResultSet selectInfoAllEvent() throws SQLException{
-        this.setMyStatement("SELECT evenement.intitule, evenement.type, evenement.datedebut, evenement.duree, evenement.theme, "
+        super.setMyStatement("SELECT evenement.intitule, evenement.type, evenement.datedebut, evenement.duree, evenement.theme, "
                 + "COUNT(particper.id_participant) AS nbParticipant, organisateur "
                 + "FROM public.particper INNER JOIN public.evenement ON participer.id_evenement = evenement.id_evenement "
                 + "INNER JOIN public.participant ON participer.id_participant = participant.id_participant;");
-        return this.getResult();
+        return super.getResult();
     }
     
     /**
@@ -50,10 +50,10 @@ public final class GestionEvenementModele extends GestionBDDModele {
      * @throws SQLException 
      */
     public void insertParticipation(String email, String intitule) throws SQLException{
-        this.setMyStatement("INSERT INTO public.participer VALUES((SELECT id_participant FROM participant WHERE email = ?),(SELECT id_evenement FROM evenement WHERE intitule = ?));");
-        this.getMyStatement().setString(1, email);
-        this.getMyStatement().setString(2, intitule);
-        this.getResult();
+        super.setMyStatement("INSERT INTO public.participer VALUES((SELECT id_participant FROM participant WHERE email = ?),(SELECT id_evenement FROM evenement WHERE intitule = ?));");
+        super.getMyStatement().setString(1, email);
+        super.getMyStatement().setString(2, intitule);
+        super.getResult();
     }
     /*----------------------------------Table Salle--------------------------------------*/
     /**
@@ -62,8 +62,8 @@ public final class GestionEvenementModele extends GestionBDDModele {
      * @throws SQLException 
      */
     public ResultSet selectInfoSalle() throws SQLException{
-        this.setMyStatement("SELECT * FROM public.salle;");
-        return this.getResult();
+        super.setMyStatement("SELECT * FROM public.salle;");
+        return super.getResult();
     }
     
     /*----------------------------------Table évènement----------------------------------*/
@@ -75,9 +75,9 @@ public final class GestionEvenementModele extends GestionBDDModele {
      * @throws SQLException 
      */
     public ResultSet countEvent(String intitule) throws SQLException{
-        this.setMyStatement("SELECT COUNT(intitule) AS nbEvent FROM evenement WHERE intitule = ?;");
-        this.getMyStatement().setString(1, intitule);
-        return this.getResult();
+        super.setMyStatement("SELECT COUNT(intitule) AS nbEvent FROM evenement WHERE intitule = ?;");
+        super.getMyStatement().setString(1, intitule);
+        return super.getResult();
     }
     
     
@@ -91,34 +91,35 @@ public final class GestionEvenementModele extends GestionBDDModele {
      * @param description Description de l'évènement
      * @param organisateur Organisateur de l'évènement
      * @param type Type de l'évènement
-     * @param typeSalle Type de la Salle
-     * @param capacite Capacite de la salle
+     * @param typeSalle Type de la Salle concaténé avec la capacité
      * @throws SQLException 
      * 
      */
     public void insertEvent(String intitule, String theme, String dateEvent, int duree, String description, 
-            String organisateur, String type, String typeSalle, String capacite) throws SQLException{
+            String organisateur, String type, String typeSalle) throws SQLException{
         
         ResultSet result = this.countEvent(intitule);
         result.next();
         if(result.getString("nbEvent").equals(0)){
-            this.setMyStatement("INSERT INTO evenement(intitule, theme, datedebut, duree, nb_participant_max, description, organisateur, type, id_salle) "
+            super.setMyStatement("INSERT INTO evenement(intitule, theme, datedebut, duree, nb_participant_max, description, organisateur, type, id_salle) "
                 + "VALUES(?, ?, ?, ?, (SELECT capacite FROM salle WHERE typesalle = ? AND capacite = ?), ?, ?, ?, "
                 + "(SELECT id_salle FROM salle WHERE typesalle = ? AND capacite = ?)");
         
+            String capacite = typeSalle.substring(typeSalle.indexOf("(")+1,typeSalle.indexOf(")"));
+            typeSalle = typeSalle.substring(0,typeSalle.indexOf("("));
             //Définitions des paramètres
-            this.getMyStatement().setString(1, intitule);
-            this.getMyStatement().setString(2, theme);
-            this.getMyStatement().setObject(3, dateEvent, Types.DATE);
-            this.getMyStatement().setInt(4, duree);
-            this.getMyStatement().setString(5, typeSalle);
-            this.getMyStatement().setString(6, capacite); 
-            this.getMyStatement().setString(7, description);
-            this.getMyStatement().setString(8, organisateur);
-            this.getMyStatement().setString(9, type);
-            this.getMyStatement().setString(10, typeSalle);
-            this.getMyStatement().setString(11, capacite);
-            this.getResult();
+            super.getMyStatement().setString(1, intitule);
+            super.getMyStatement().setString(2, theme);
+            super.getMyStatement().setObject(3, dateEvent, Types.DATE);
+            super.getMyStatement().setInt(4, duree);
+            super.getMyStatement().setString(5, typeSalle);
+            super.getMyStatement().setString(6, capacite); 
+            super.getMyStatement().setString(7, description);
+            super.getMyStatement().setString(8, organisateur);
+            super.getMyStatement().setString(9, type);
+            super.getMyStatement().setString(10, typeSalle);
+            super.getMyStatement().setString(11, capacite);
+            super.getResult();
         }else{
             throw new SQLException("L'intitule de l'évènement existe déja !");
         }
