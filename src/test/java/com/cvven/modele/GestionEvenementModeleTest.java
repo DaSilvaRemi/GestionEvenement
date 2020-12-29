@@ -110,7 +110,7 @@ public class GestionEvenementModeleTest {
         String type = "Test1";
         String typeSalle = "";
         String capacite = "";
-        instance.insertEvent(intitule, theme, dateEvent, duree, description, organisateur, type, typeSalle, capacite);
+        instance.insertEvent(intitule, theme, dateEvent, duree, description, organisateur, type, typeSalle);
     }
 
     /**
