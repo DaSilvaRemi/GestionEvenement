@@ -16,7 +16,7 @@ import java.sql.PreparedStatement;
  * 
  * @author remi
  */
-class GestionBDDModele {
+abstract class GestionBDDModele {
     private String urlHoteBdd;
     private String user;
     private String password;
@@ -35,26 +35,14 @@ class GestionBDDModele {
         this.user = user;
         this.password = password;
     }
-      
-    /**
-    * Destructeur de classe
-    * 
-    * Lors de la suppression de l'objet on ferme forcément la connexion
-    * 
-    * @throws SQLException 
-    */
-    protected void finalize() throws SQLException{
-        this.closeMyStatement();
-        this.closeMaBdd();
-    }
-    
+
     /**
      * Retourne l'url de l'hote de la bdd avec le nom de la base de données
      * 
      * @return L'adresse de l' hôte de la bdd sous forme : hôte/nomBDD
      */
-    protected String getUrlHoteBdd() {
-        return urlHoteBdd;
+    public String getUrlHoteBdd() {
+        return this.urlHoteBdd;
     }
 
     /**
@@ -62,8 +50,8 @@ class GestionBDDModele {
      * 
      * @return l'utilisateur de la BDD
      */
-    protected String getUser() {
-        return user;
+    public String getUser() {
+        return this.user;
     }
 
     /**
@@ -71,8 +59,8 @@ class GestionBDDModele {
      * 
      * @return la connexion à la bdd
      */
-    protected Connection getDb() {
-        return db;
+    public Connection getDb() {
+        return this.db;
     }
     
     /**
@@ -80,8 +68,8 @@ class GestionBDDModele {
      * 
      * @return la déclaration de requête
      */
-    protected PreparedStatement getMyStatement() {
-        return myStatement;
+    public PreparedStatement getMyStatement() {
+        return this.myStatement;
     }
 
     /**
@@ -89,7 +77,7 @@ class GestionBDDModele {
      * 
      * @param urlHoteBdd L'adresse de l' hôte de la bdd sous forme : hôte/nomBDD
      */
-    protected void setUrlHoteBdd(String urlHoteBdd) {
+    public void setUrlHoteBdd(String urlHoteBdd) {
         this.urlHoteBdd = urlHoteBdd;
     }
 
@@ -98,7 +86,7 @@ class GestionBDDModele {
      * 
      * @param user Le nom d'utilisateur de la BDD
      */
-    protected void setUser(String user) {
+    public void setUser(String user) {
         this.user = user;
     }
 
@@ -107,7 +95,7 @@ class GestionBDDModele {
      * 
      * @param password Le mot de passe de la BDD
      */
-    protected void setPassword(String password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
@@ -117,7 +105,7 @@ class GestionBDDModele {
      * @throws SQLException
      * @throws ClassNotFoundException 
      */
-    protected void setDb() throws SQLException,ClassNotFoundException {
+    public void setDb() throws SQLException,ClassNotFoundException {
         Class.forName("org.postgresql.Driver");
         this.db = DriverManager.getConnection("jdbc:postgresql://"+this.urlHoteBdd, this.user, this.password);
     }
@@ -136,7 +124,7 @@ class GestionBDDModele {
      * 
      * @throws SQLException 
      */
-    protected void closeMaBdd() throws SQLException{
+    public void closeMaBdd() throws SQLException{
         this.db.close();
     }
     
@@ -145,9 +133,20 @@ class GestionBDDModele {
      * 
      * @throws SQLException 
      */
-    protected void closeMyStatement() throws SQLException{
+    public void closeMyStatement() throws SQLException{
         this.myStatement.clearParameters();
         this.myStatement.close();
+    }
+    
+    /**
+     * Ferme la déclaration de la requête et la connexion vers la BDD
+     * 
+     * @throws SQLException 
+     */
+    public void closeAll() throws SQLException{
+        this.myStatement.clearParameters();
+        this.myStatement.close();
+        this.db.close();
     }
     
     /**
