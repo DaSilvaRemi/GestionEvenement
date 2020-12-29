@@ -315,6 +315,7 @@ public class AjoutParticipant extends javax.swing.JFrame {
 
     /*----------------------------Barre de navigation----------------------------*/
     /**
+     * Ouvre la fenêtre d'acceuil lorsque le bouton Acceuil de la barre de navigation est cliqué
      * 
      * @param evt 
      */
@@ -325,6 +326,7 @@ public class AjoutParticipant extends javax.swing.JFrame {
     }//GEN-LAST:event_accueilNavMouseClicked
 
     /**
+     * Ouvre la fenêtre d'ajout d'évènement lorsque le bouton Acceuil de la barre de navigation est cliqué
      * 
      * @param evt 
      */
@@ -335,6 +337,7 @@ public class AjoutParticipant extends javax.swing.JFrame {
     }//GEN-LAST:event_inputEventNavMouseClicked
 
     /**
+     * Ouvre la fenêtre d'ajout des participants lorsque le bouton Acceuil de la barre de navigation est cliqué
      * 
      * @param evt 
      */
@@ -345,6 +348,7 @@ public class AjoutParticipant extends javax.swing.JFrame {
     }//GEN-LAST:event_inputParticipantNavMouseClicked
 
     /**
+     * Ouvre la fenêtre d'affichage des évènements lorsque le bouton Acceuil de la barre de navigation est cliqué
      * 
      * @param evt 
      */
@@ -355,6 +359,7 @@ public class AjoutParticipant extends javax.swing.JFrame {
     }//GEN-LAST:event_DisplayEventNavMouseClicked
 
     /**
+     * Ouvre la fenêtre de deconnexion lorsque le bouton Acceuil de la barre de navigation est cliqué
      * 
      * @param evt 
      */
@@ -365,6 +370,11 @@ public class AjoutParticipant extends javax.swing.JFrame {
     }//GEN-LAST:event_deconnexionNavMouseClicked
 
     /*----------------------------Event Annuler----------------------------*/
+    /**
+     * Ouvre la fenêtre d'acceuil lorsque le bouton Annuler est cliqué
+     * 
+     * @param evt 
+     */
     private void annulerParticipantMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_annulerParticipantMouseClicked
         Accueil fen = new Accueil();
         fen.setVisible(true);
@@ -374,6 +384,7 @@ public class AjoutParticipant extends javax.swing.JFrame {
 
     /*----------------------------Event Nb Char----------------------------*/
     /**
+     * Compte le nombre de caractère du champ "observation" lorsque une touche est préssé
      * 
      * @param evt 
      */
@@ -382,6 +393,7 @@ public class AjoutParticipant extends javax.swing.JFrame {
     }//GEN-LAST:event_observationsParticipantKeyPressed
 
     /**
+     * Compte le nombre de caractère du champ "observation" lorsque une touche est relaché
      * 
      * @param evt 
      */
@@ -391,8 +403,17 @@ public class AjoutParticipant extends javax.swing.JFrame {
 
     /*----------------------------Event Envoyer----------------------------*/
     /**
+     * Ajoute un participant lorsque le bouton "Ajouter" est cliqué et que tous les champs sont remplis sinon on affiche un message d'erreur sur une fenêtre JDialog.
+     * -Pour le champ "Observation" il est aussi vérifé que le nombre de caractère ne dépassent pas 255 caractères
      * 
-     * @param evt 
+     * Une fois vérifié on insère les données en capturant les evenutels erreurs;
+     *  -Si une erreur est capturé alors on affiche le message sur une JDialog
+     * 
+     * @param evt
+     * 
+     * @see JDateChooser
+     * @see DialogTools
+     * @see SQLException
      */
     private void addParticipantMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addParticipantMouseClicked
         if(selectLesEvents.getSelectedValuesList().isEmpty()){
@@ -423,9 +444,7 @@ public class AjoutParticipant extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_addParticipantMouseClicked
-
-                        
-
+            
     /**
      * @param args the command line arguments
      */
