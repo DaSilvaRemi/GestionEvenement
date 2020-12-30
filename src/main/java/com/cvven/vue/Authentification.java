@@ -84,11 +84,11 @@ public class Authentification extends javax.swing.JFrame {
         );
 
         imageuser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        imageuser.setIcon(new javax.swing.ImageIcon("/var/www/html/GestionEvenement/src/main/java/com/cvven/pictures/user.png")); // NOI18N
+        imageuser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/cvven/pictures/user.png"))); // NOI18N
 
         imagelock.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
         imagelock.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        imagelock.setIcon(new javax.swing.ImageIcon("/var/www/html/GestionEvenement/src/main/java/com/cvven/pictures/lock.png")); // NOI18N
+        imagelock.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/cvven/pictures/lock.png"))); // NOI18N
 
         footer1.setBackground(java.awt.Color.darkGray);
         footer1.setForeground(java.awt.Color.white);
