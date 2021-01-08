@@ -8,6 +8,8 @@ package com.cvven.vue;
 import com.cvven.modele.GestionEvenementModele;
 import java.sql.SQLException;
 import com.cvven.modele.DialogTools;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Classe Métier Autogénérer Héritière de JFrame
@@ -185,14 +187,16 @@ public class Authentification extends javax.swing.JFrame {
         else{
             try {
                 GestionEvenementModele gestionEventModele = new GestionEvenementModele();
+                gestionEventModele.setDb();
                 char[] c = password.getPassword();
                 String mdp = new String(c);
                 if(gestionEventModele.countUserLoginMdp(login.getText(), mdp).getInt("nbUser") == 1){
                     Accueil fen = new Accueil();
                     fen.setVisible(true);
                 }else{
+                    DialogTools.openMessageDialog("Vos identifiants sont incorrects", "Identifiant Invalide !", DialogTools.WARNING_MESSAGE);
                 }
-            } catch (SQLException ex) {
+            } catch (SQLException | ClassNotFoundException ex) {
                 DialogTools.openMessageDialog(ex.getMessage(), "Erreur", DialogTools.ERROR_MESSAGE);
             }
         }
