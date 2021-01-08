@@ -29,7 +29,7 @@ abstract class GestionBDDModele {
      * 
      */
     protected GestionBDDModele() {
-        this.urlHoteBdd = "localhost/gestionevenementmodele";
+        this.urlHoteBdd = "localhost/gestionevenement";
         this.user = "remi";
         this.password = "test";
     } 
