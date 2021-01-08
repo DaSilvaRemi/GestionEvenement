@@ -237,9 +237,12 @@ public class Accueil extends javax.swing.JFrame {
      */
     private void saisirEventButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saisirEventButtonMouseClicked
         AjoutEvenement fen = new AjoutEvenement();
-        fen.insertSalleEvent();
-        fen.setVisible(true);
-        this.dispose();
+        if(fen.insertSalleEvent()){
+             fen.setVisible(true);
+             this.dispose();
+        }else {
+            fen.dispose();
+        }
     }//GEN-LAST:event_saisirEventButtonMouseClicked
 
     private void saisirParticipantButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saisirParticipantButtonMouseClicked
@@ -262,9 +265,12 @@ public class Accueil extends javax.swing.JFrame {
      */
     private void inputEventNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputEventNavMouseClicked
         AjoutEvenement fen = new AjoutEvenement();
-        fen.insertSalleEvent();
-        fen.setVisible(true);
-        this.dispose();
+        if(fen.insertSalleEvent()){
+             fen.setVisible(true);
+             this.dispose();
+        }else {
+            fen.dispose();
+        }
     }//GEN-LAST:event_inputEventNavMouseClicked
 
     /**

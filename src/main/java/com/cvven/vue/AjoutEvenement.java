@@ -41,11 +41,13 @@ public class AjoutEvenement extends javax.swing.JFrame {
      * 
      * Affiche les exception dans une JDialog
      * 
+     * @return Un boolean selon si le remplissage des champs se sont bien passé.
      * @see DialogTools
      * @see ClassNotFoundException
      * @see SQLException
+     * 
      */
-    public final void insertSalleEvent(){
+    public final boolean insertSalleEvent(){
         try {
             GestionEvenementModele laGestionEvenementModele = new GestionEvenementModele();
             laGestionEvenementModele.setDb();
@@ -68,8 +70,10 @@ public class AjoutEvenement extends javax.swing.JFrame {
             
             laGestionEvenementModele.selectInfoSalle();
             laGestionEvenementModele.closeAll();
+            return true;
             } catch (SQLException | ClassNotFoundException ex) {
                 DialogTools.openMessageDialog(ex.getMessage(), "Erreur", DialogTools.ERROR_MESSAGE);
+                return false;
             }
     }
 
@@ -422,9 +426,12 @@ public class AjoutEvenement extends javax.swing.JFrame {
      */
     private void inputEventNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputEventNavMouseClicked
         AjoutEvenement fen = new AjoutEvenement();
-        fen.insertSalleEvent();
-        fen.setVisible(true);
-        this.dispose();
+        if(fen.insertSalleEvent()){
+             fen.setVisible(true);
+             this.dispose();
+        }else {
+            fen.dispose();
+        }
     }//GEN-LAST:event_inputEventNavMouseClicked
 
     /**

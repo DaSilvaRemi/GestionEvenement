@@ -174,9 +174,12 @@ public class AfficherEvenements extends javax.swing.JFrame {
      */
     private void inputEventNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputEventNavMouseClicked
         AjoutEvenement fen = new AjoutEvenement();
-        fen.insertSalleEvent();
-        fen.setVisible(true);
-        this.dispose();
+        if(fen.insertSalleEvent()){
+             fen.setVisible(true);
+             this.dispose();
+        }else {
+            fen.dispose();
+        }
     }//GEN-LAST:event_inputEventNavMouseClicked
 
     /**
