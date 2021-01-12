@@ -107,7 +107,7 @@ public class Accueil extends javax.swing.JFrame {
         footer.setForeground(java.awt.Color.white);
 
         jLabel3.setForeground(java.awt.Color.white);
-        jLabel3.setText("Application déveleoppé par le Groupe 2 PPE de la 2 BTS SIO SL au Lycée René Descartes");
+        jLabel3.setText("Application développé par le Groupe 2 PPE de la 2 BTS SIO SL au Lycée René Descartes");
 
         javax.swing.GroupLayout footerLayout = new javax.swing.GroupLayout(footer);
         footer.setLayout(footerLayout);

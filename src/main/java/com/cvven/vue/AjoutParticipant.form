@@ -403,7 +403,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Application d&#xe9;veleopp&#xe9; par le Groupe 2 PPE de la 2 BTS SIO SL au Lyc&#xe9;e Ren&#xe9; Descartes"/>
+                <Property name="text" type="java.lang.String" value="Application d&#xe9;velopp&#xe9; par le Groupe 2 PPE de la 2 BTS SIO SL au Lyc&#xe9;e Ren&#xe9; Descartes"/>
               </Properties>
             </Component>
           </SubComponents>

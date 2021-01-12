@@ -159,7 +159,7 @@ public class AjoutParticipant extends javax.swing.JFrame {
         footer.setForeground(java.awt.Color.white);
 
         jLabel11.setForeground(java.awt.Color.white);
-        jLabel11.setText("Application déveleoppé par le Groupe 2 PPE de la 2 BTS SIO SL au Lycée René Descartes");
+        jLabel11.setText("Application développé par le Groupe 2 PPE de la 2 BTS SIO SL au Lycée René Descartes");
 
         javax.swing.GroupLayout footerLayout = new javax.swing.GroupLayout(footer);
         footer.setLayout(footerLayout);
@@ -438,7 +438,7 @@ public class AjoutParticipant extends javax.swing.JFrame {
             if(observationsParticipant.getText().isBlank()){
                 DialogTools.openMessageDialog("Veuillez indiquez une observation", "Erreur", DialogTools.ERROR_MESSAGE);
             }else{
-                DialogTools.openMessageDialog("Veuillez ne pas dépassez les 255 charactères", "Erreur", DialogTools.ERROR_MESSAGE);
+                DialogTools.openMessageDialog("Veuillez ne pas dépassez les 255 caractères", "Erreur", DialogTools.ERROR_MESSAGE);
             }
         }else{
             try {
