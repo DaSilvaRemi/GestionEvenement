@@ -8,8 +8,7 @@ package com.cvven.vue;
 import com.cvven.modele.GestionEvenementModele;
 import java.sql.SQLException;
 import com.cvven.modele.DialogTools;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.cvven.modele.Session;
 
 /**
  * Classe Métier Autogénérer Héritière de JFrame
@@ -191,6 +190,7 @@ public class Authentification extends javax.swing.JFrame {
                 char[] c = password.getPassword();
                 String mdp = new String(c);
                 if(gestionEventModele.countUserLoginMdp(login.getText(), mdp).getInt("nbUser") == 1){
+                    Session.initSession(gestionEventModele.selectIdUser(login.getText(), mdp).getInt("id_user"));
                     Accueil fen = new Accueil();
                     fen.setVisible(true);
                     this.dispose();

@@ -128,7 +128,7 @@ public final class GestionEvenementModele extends GestionBDDModele {
             super.getMyStatement().setString(6, description);
             super.getMyStatement().setString(7, organisateur);
             super.getMyStatement().setString(8, typeEvent);
-            super.getMyStatement().setInt(9, 1);
+            super.getMyStatement().setInt(9, Session.getIdUser());
             super.getMyStatement().setInt(10, idSalle);
             super.execSQLWithouthResult();
     }
@@ -159,17 +159,33 @@ public final class GestionEvenementModele extends GestionBDDModele {
      */
     public void insertParticipant(String nom, String prenom, String email, String dateNaissance, String organisation, String observations) 
             throws SQLException{
-            super.setMyStatement("INSERT INTO public.participant(nom, prenom, date_naissance, organisation, observations, email) VALUES(?, ?, ?, ?, ?, ?);");
+            super.setMyStatement("INSERT INTO public.participant(nom, prenom, date_naissance, organisation, observations, email, id_user) VALUES(?, ?, ?, ?, ?, ?, ?);");
             super.getMyStatement().setString(1, nom);
             super.getMyStatement().setString(2, prenom);
             super.getMyStatement().setObject(3, dateNaissance, Types.DATE);
             super.getMyStatement().setString(4, organisation);
             super.getMyStatement().setString(5, observations);
             super.getMyStatement().setString(6, email);
+            super.getMyStatement().setInt(7, Session.getIdUser());
             super.execSQLWithouthResult();
     }
     
     /*-----------------------------------Table user--------------------------------------*/
+    /**
+     * Retourne l'id de l'utilisateur
+     * 
+     * @param login
+     * @param mdp
+     * @return le résultat de la requête
+     * @throws SQLException 
+     */
+    public ResultSet selectIdUser(String login, String mdp) throws SQLException{
+        this.setMyStatement("SELECT id_user FROM public.user WHERE login = ? AND mdp = ?;");
+        this.getMyStatement().setString(1, login);
+        this.getMyStatement().setString(2, mdp);
+        return this.getResult();
+    }
+    
     /**
      * Compte le nombre d'utilisateur ayant le login et le mot de passe indiqué
      * 
@@ -183,5 +199,5 @@ public final class GestionEvenementModele extends GestionBDDModele {
         this.getMyStatement().setString(1, login);
         this.getMyStatement().setString(2, mdp);
         return this.getResult();
-    }
+    }    
 }

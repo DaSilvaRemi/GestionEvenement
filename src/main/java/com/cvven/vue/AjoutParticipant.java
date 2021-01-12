@@ -9,8 +9,8 @@ import com.cvven.modele.GestionEvenementModele;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Date;
+import javax.swing.DefaultListModel;
 import org.apache.commons.validator.routines.EmailValidator;
 
 /**
@@ -31,7 +31,8 @@ public class AjoutParticipant extends javax.swing.JFrame {
      * Efface tous les champs et la selection
      */
     public void clearField(){
-        selectLesEvents.setSelectedIndex(-1);
+        selectLesEvents.setModel(new DefaultListModel());
+        ((DefaultListModel)selectLesEvents.getModel()).addElement("Aucun évènement !");
         nomParticipant.setText(null);
         prenomParticipant.setText(null);
         adresseMailParticipant.setText(null);
@@ -41,8 +42,11 @@ public class AjoutParticipant extends javax.swing.JFrame {
     }
     
     /**
+     * Met les valeur par défault récupéré dans la BDD dans la liste de choix d'évènement
      * 
-     * @return 
+     * Affiche les exception dans une JDialog
+     * 
+     * @return Un boolean selon si le remplissage des champs se sont bien passé.
      */
     public final boolean insertParticipant(){
         try {
@@ -50,16 +54,17 @@ public class AjoutParticipant extends javax.swing.JFrame {
             laGestionEvenementModele.setDb();
             ResultSet result = laGestionEvenementModele.selectLesEvent();
             boolean isExist = false;
-            
+            this.clearField();
+            ((DefaultListModel)selectLesEvents.getModel()).remove(0);
             do{
-                String event = "N°" + result.getString("id_evenement") + "Intitulé : " + result.getString("intitule");
-                for(int i = 0; i < this.selectLesEvents.getModel().getSize(); i++){
-                    if(!this.selectLesEvents.getModel().getElementAt(i).equalsIgnoreCase(event)){
+                String event = "N°" + result.getString("id_evenement") + " Intitulé : " + result.getString("intitule");
+                for(int i = 0; i < selectLesEvents.getModel().getSize(); i++){
+                    if(selectLesEvents.getModel().getElementAt(i).equalsIgnoreCase(event)){
                         isExist = true;
                     }
                 }
                 if(!isExist){
-                    ((javax.swing.DefaultListModel)this.selectLesEvents.getModel()).addElement(event);
+                    ((DefaultListModel)selectLesEvents.getModel()).addElement(event);
                 }
                 isExist = false;
             }while(result.next());
@@ -171,6 +176,7 @@ public class AjoutParticipant extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
         jLabel8.setText("Selectionner un ou plusieurs évènements");
 
+        nbCharObservation.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         nbCharObservation.setText("/255");
 
         addParticipant.setBackground(new java.awt.Color(34, 139, 34));
@@ -227,7 +233,7 @@ public class AjoutParticipant extends javax.swing.JFrame {
                     .addGroup(bodyLayout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(nbCharObservation))
+                        .addComponent(nbCharObservation, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel6)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
@@ -241,7 +247,7 @@ public class AjoutParticipant extends javax.swing.JFrame {
                     .addComponent(nomParticipant)
                     .addComponent(jScrollPane1))
                 .addContainerGap(152, Short.MAX_VALUE))
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 621, Short.MAX_VALUE)
             .addComponent(footer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         bodyLayout.setVerticalGroup(
@@ -462,22 +468,25 @@ public class AjoutParticipant extends javax.swing.JFrame {
      * @see ClassNotFoundException
      */
     private void addParticipantMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addParticipantMouseClicked
-        if(selectLesEvents.getSelectedValuesList().isEmpty() || selectLesEvents.getSelectedValuesList().size() == 1){
+        if(selectLesEvents.getSelectedValuesList().isEmpty()){
             if(selectLesEvents.getSelectedValuesList().isEmpty()){
                 DialogTools.openMessageDialog("Vous n'avez pas sélectionner d'évènement !", "Erreur", DialogTools.ERROR_MESSAGE);
-            }else if(selectLesEvents.getSelectedValue().equalsIgnoreCase("Aucun évènement !")){
-                DialogTools.openMessageDialog("Veuillez selectionnez au moins un évènement autre qu'aucun évènement !", "Erreur", DialogTools.ERROR_MESSAGE);
             }
         }else if(nomParticipant.getText().isBlank()){
-            DialogTools.openMessageDialog("Veuilllez entrez un nom !", "Erreur", DialogTools.ERROR_MESSAGE);
+            DialogTools.openMessageDialog("Veuillez entrez un nom !", "Erreur", DialogTools.ERROR_MESSAGE);
         }else if(prenomParticipant.getText().isBlank()){
-            DialogTools.openMessageDialog("Veuilllez entrez un prénom !", "Erreur", DialogTools.ERROR_MESSAGE);
+            DialogTools.openMessageDialog("Veuillez entrez un prénom !", "Erreur", DialogTools.ERROR_MESSAGE);
         }else if(adresseMailParticipant.getText().isBlank() || !EmailValidator.getInstance().isValid(adresseMailParticipant.getText())){
-            DialogTools.openMessageDialog("Veuilllez entrez une adresse mail valide !", "Erreur", DialogTools.ERROR_MESSAGE);
-        }else if(dateNaissanceParticipant.getDateFormatString().isBlank()){
-            DialogTools.openMessageDialog("Veuilllez entrez une date de naissance !", "Erreur", DialogTools.ERROR_MESSAGE);
+            DialogTools.openMessageDialog("Veuillez entrez une adresse mail valide !", "Erreur", DialogTools.ERROR_MESSAGE);
+        }else if(dateNaissanceParticipant.getDate() == null || dateNaissanceParticipant.getDate().after(new Date())){
+            System.out.println("J'ai encore bugué Chef !");
+            if(dateNaissanceParticipant.getDate() == null){
+                DialogTools.openMessageDialog("Veuillez entrez une date de naissance !", "Erreur", DialogTools.ERROR_MESSAGE);
+            }else if(dateNaissanceParticipant.getDate().after(new Date())){
+                DialogTools.openMessageDialog("La date de naissance ne peut pas être après la date actuelle", "Erreur", DialogTools.ERROR_MESSAGE);
+            }  
         }else if(organisationParticipant.getText().isBlank()){
-            DialogTools.openMessageDialog("Veuilllez selectionnez au moins un évènement !", "Erreur", DialogTools.ERROR_MESSAGE);
+            DialogTools.openMessageDialog("Veuillez entrez l'organisation du participant !", "Erreur", DialogTools.ERROR_MESSAGE);
         }else if(observationsParticipant.getText().isBlank() || observationsParticipant.getText().length() > 255){
             if(observationsParticipant.getText().isBlank()){
                 DialogTools.openMessageDialog("Veuillez indiquez une observation", "Erreur", DialogTools.ERROR_MESSAGE);
@@ -485,6 +494,7 @@ public class AjoutParticipant extends javax.swing.JFrame {
                 DialogTools.openMessageDialog("Veuillez ne pas dépassez les 255 caractères", "Erreur", DialogTools.ERROR_MESSAGE);
             }
         }else{
+             System.out.println("J'ai réussi les tests précédents");
             boolean isValid = true;
             for(String selectEvent : selectLesEvents.getSelectedValuesList()){
                     if(selectEvent.equalsIgnoreCase("Aucun évènement !")){
@@ -492,6 +502,7 @@ public class AjoutParticipant extends javax.swing.JFrame {
                     }
             }
             if(!isValid){
+                System.out.println("Je ne suis pas valide =(");
                 DialogTools.openMessageDialog("Vous avez uniquement sélectionné 'aucun évènement'", "Erreur", DialogTools.ERROR_MESSAGE);
             }else{
                 try {
@@ -512,7 +523,7 @@ public class AjoutParticipant extends javax.swing.JFrame {
                 
                     laGestionEvenementModele.closeAll();
                     DialogTools.openMessageDialog("L'ajout de participant est terminée !","Ajout Terminée");
-                    this.clearField();
+                    this.insertParticipant();
                 } catch (SQLException | ClassNotFoundException ex) {
                     DialogTools.openMessageDialog(ex.getMessage(), "Erreur !", DialogTools.ERROR_MESSAGE);
                 }
