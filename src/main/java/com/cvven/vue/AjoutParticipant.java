@@ -40,6 +40,10 @@ public class AjoutParticipant extends javax.swing.JFrame {
         observationsParticipant.setText(null);
     }
     
+    /**
+     * 
+     * @return 
+     */
     public final boolean insertParticipant(){
         try {
             GestionEvenementModele laGestionEvenementModele = new GestionEvenementModele();
@@ -50,7 +54,7 @@ public class AjoutParticipant extends javax.swing.JFrame {
             do{
                 String event = "N°" + result.getString("id_evenement") + "Intitulé : " + result.getString("intitule");
                 for(int i = 0; i < this.selectLesEvents.getModel().getSize(); i++){
-                    if(this.selectLesEvents.getModel().getElementAt(i).equalsIgnoreCase(event)){
+                    if(!this.selectLesEvents.getModel().getElementAt(i).equalsIgnoreCase(event)){
                         isExist = true;
                     }
                 }
@@ -379,8 +383,12 @@ public class AjoutParticipant extends javax.swing.JFrame {
      */
     private void inputParticipantNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputParticipantNavMouseClicked
         AjoutParticipant fen = new AjoutParticipant();
-        fen.setVisible(true);
-        this.dispose();
+        if(fen.insertParticipant()){
+            fen.setVisible(true);
+            this.dispose();
+        }else{
+            fen.dispose();;
+        }
     }//GEN-LAST:event_inputParticipantNavMouseClicked
 
     /**
@@ -454,8 +462,12 @@ public class AjoutParticipant extends javax.swing.JFrame {
      * @see ClassNotFoundException
      */
     private void addParticipantMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addParticipantMouseClicked
-        if(selectLesEvents.getSelectedValuesList().isEmpty()){
-            DialogTools.openMessageDialog("Veuilllez selectionnez au moins un évènement !", "Erreur", DialogTools.ERROR_MESSAGE);
+        if(selectLesEvents.getSelectedValuesList().isEmpty() || selectLesEvents.getSelectedValuesList().size() == 1){
+            if(selectLesEvents.getSelectedValuesList().isEmpty()){
+                DialogTools.openMessageDialog("Vous n'avez pas sélectionner d'évènement !", "Erreur", DialogTools.ERROR_MESSAGE);
+            }else if(selectLesEvents.getSelectedValue().equalsIgnoreCase("Aucun évènement !")){
+                DialogTools.openMessageDialog("Veuillez selectionnez au moins un évènement autre qu'aucun évènement !", "Erreur", DialogTools.ERROR_MESSAGE);
+            }
         }else if(nomParticipant.getText().isBlank()){
             DialogTools.openMessageDialog("Veuilllez entrez un nom !", "Erreur", DialogTools.ERROR_MESSAGE);
         }else if(prenomParticipant.getText().isBlank()){
@@ -473,25 +485,37 @@ public class AjoutParticipant extends javax.swing.JFrame {
                 DialogTools.openMessageDialog("Veuillez ne pas dépassez les 255 caractères", "Erreur", DialogTools.ERROR_MESSAGE);
             }
         }else{
-            try {
-                GestionEvenementModele laGestionEvenementModele = new GestionEvenementModele();
-                laGestionEvenementModele.setDb();
+            boolean isValid = true;
+            for(String selectEvent : selectLesEvents.getSelectedValuesList()){
+                    if(selectEvent.equalsIgnoreCase("Aucun évènement !")){
+                        isValid = false;
+                    }
+            }
+            if(!isValid){
+                DialogTools.openMessageDialog("Vous avez uniquement sélectionné 'aucun évènement'", "Erreur", DialogTools.ERROR_MESSAGE);
+            }else{
+                try {
+                    GestionEvenementModele laGestionEvenementModele = new GestionEvenementModele();
+                    laGestionEvenementModele.setDb();
                 
-                SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
+                    SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
                 
-                laGestionEvenementModele.insertParticipant(nomParticipant.getText(), prenomParticipant.getText(), adresseMailParticipant.getText(),
+                    laGestionEvenementModele.insertParticipant(nomParticipant.getText(), prenomParticipant.getText(), adresseMailParticipant.getText(),
                       formatDate.format(dateNaissanceParticipant.getDate()), organisationParticipant.getText(), observationsParticipant.getText());
-                laGestionEvenementModele.closeMyStatement();
+                    laGestionEvenementModele.closeMyStatement();
                 
-                for(String selectEvent : selectLesEvents.getSelectedValuesList()){
-                    laGestionEvenementModele.insertParticipation(selectEvent, adresseMailParticipant.getText());
+                    for(String selectEvent : selectLesEvents.getSelectedValuesList()){
+                        if(!selectEvent.equalsIgnoreCase("Aucun évènement !")){
+                            laGestionEvenementModele.insertParticipation(selectEvent, adresseMailParticipant.getText());
+                        }
+                    }
+                
+                    laGestionEvenementModele.closeAll();
+                    DialogTools.openMessageDialog("L'ajout de participant est terminée !","Ajout Terminée");
+                    this.clearField();
+                } catch (SQLException | ClassNotFoundException ex) {
+                    DialogTools.openMessageDialog(ex.getMessage(), "Erreur !", DialogTools.ERROR_MESSAGE);
                 }
-                
-                laGestionEvenementModele.closeAll();
-                DialogTools.openMessageDialog("L'ajout de participant est terminée !","Ajout Terminée");
-                this.clearField();
-            } catch (SQLException | ClassNotFoundException ex) {
-                DialogTools.openMessageDialog(ex.getMessage(), "Erreur !", DialogTools.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_addParticipantMouseClicked

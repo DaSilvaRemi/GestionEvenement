@@ -441,8 +441,12 @@ public class AjoutEvenement extends javax.swing.JFrame {
      */
     private void inputParticipantNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputParticipantNavMouseClicked
         AjoutParticipant fen = new AjoutParticipant();
-        fen.setVisible(true);
-        this.dispose();
+        if(fen.insertParticipant()){
+            fen.setVisible(true);
+            this.dispose();
+        }else{
+            fen.dispose();;
+        }
     }//GEN-LAST:event_inputParticipantNavMouseClicked
 
     /**

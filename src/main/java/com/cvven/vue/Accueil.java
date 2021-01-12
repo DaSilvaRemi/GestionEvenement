@@ -247,8 +247,12 @@ public class Accueil extends javax.swing.JFrame {
 
     private void saisirParticipantButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saisirParticipantButtonMouseClicked
         AjoutParticipant fen = new AjoutParticipant();
-        fen.setVisible(true);
-        this.dispose();
+        if(fen.insertParticipant()){
+            fen.setVisible(true);
+            this.dispose();
+        }else{
+            fen.dispose();;
+        }
     }//GEN-LAST:event_saisirParticipantButtonMouseClicked
 
     private void displayEventButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_displayEventButtonMouseClicked
