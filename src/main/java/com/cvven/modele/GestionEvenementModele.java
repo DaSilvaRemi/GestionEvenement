@@ -92,6 +92,8 @@ public final class GestionEvenementModele extends GestionBDDModele {
     /**
      * Insère un évènement à la BDD
      * 
+     * Un trigger vérifie si l'intitulé de l'évènement n'existe pas déja.
+     * 
      * @param intitule Intitulé de l'évènement
      * @param theme Theme de l'évènement
      * @param dateEvent Date à laquelle se déroule l'évènement
@@ -106,10 +108,6 @@ public final class GestionEvenementModele extends GestionBDDModele {
     public void insertEvent(String intitule, String theme, String dateEvent, int duree, String description, 
             String organisateur, String typeEvent, String salleChoisi) throws SQLException{
         
-        ResultSet result = this.countEvent(intitule);
-        System.out.println(dateEvent);
-        if(result.getInt("nbEvent") == 0){
-            super.closeMyStatement();
             super.setMyStatement("INSERT INTO evenement(intitule, theme, date, duree, nb_participant_max, description, organisateur, type, id_user ,id_salle)"
                     + " VALUES(?, ?, ?, ?, (SELECT salle.capacite FROM public.salle WHERE salle.id_salle = ?), ?, ?, ?, ?, ?);");
         
@@ -126,9 +124,6 @@ public final class GestionEvenementModele extends GestionBDDModele {
             super.getMyStatement().setInt(9, 1);
             super.getMyStatement().setInt(10, idSalle);
             super.execSQLWithouthResult();
-        }else{
-            throw new SQLException("L'intitulé de l'évènement existe déja !");
-        }
     }
     
     /*----------------------------------Table participant--------------------------------*/

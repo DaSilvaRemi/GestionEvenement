@@ -8,7 +8,6 @@ import com.cvven.modele.DialogTools;
 import com.cvven.modele.GestionEvenementModele;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -124,7 +123,7 @@ public class AjoutEvenement extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(300, 0));
-        setMinimumSize(new java.awt.Dimension(600, 780));
+        setMinimumSize(new java.awt.Dimension(630, 780));
         setPreferredSize(new java.awt.Dimension(600, 780));
         setResizable(false);
 
@@ -523,7 +522,7 @@ public class AjoutEvenement extends javax.swing.JFrame {
             try {
                 GestionEvenementModele laGestionEvenementModele = new GestionEvenementModele();
                 laGestionEvenementModele.setDb();
-                SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-mm-dd");
+                SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
                 laGestionEvenementModele.insertEvent(intituleEvent.getText(), themeEvent.getText(), formatDate.format(dateEvent.getDate()), ((Integer)dureeEvent.getValue()),
                         descriptionEvent.getText(), organisateurEvent.getText(), typeEvent.getItemAt(typeEvent.getSelectedIndex()), choixSalleEvent.getItemAt(choixSalleEvent.getSelectedIndex()));
                 laGestionEvenementModele.closeAll();
