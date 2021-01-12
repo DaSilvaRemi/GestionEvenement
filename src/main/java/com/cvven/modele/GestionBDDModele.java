@@ -163,6 +163,15 @@ abstract class GestionBDDModele {
     }
     
     /**
+     * Exécute la requête sans retourner de résultat
+     * 
+     * @throws SQLException 
+     */
+    protected void execSQLWithouthResult() throws SQLException{
+        this.myStatement.execute();
+    }
+    
+    /**
      * Retourne le résultat de la requête préparée
      * 
      * @return le résultat sous forme d'objet
@@ -172,5 +181,5 @@ abstract class GestionBDDModele {
         ResultSet result = this.myStatement.executeQuery();
         result.next();
         return result;
-    }
+    } 
 }

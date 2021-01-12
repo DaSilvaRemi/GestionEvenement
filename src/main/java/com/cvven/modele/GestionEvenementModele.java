@@ -8,7 +8,6 @@ package com.cvven.modele;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-
 /**
  * Classe Technique héritaire finale de GestionBDDModele
  * 
@@ -77,6 +76,7 @@ public final class GestionEvenementModele extends GestionBDDModele {
     /*----------------------------------Table évènement----------------------------------*/
     
     /**
+     * Compte le nombre d'évènement avec cet intitulé
      * 
      * @param intitule
      * @return
@@ -98,22 +98,22 @@ public final class GestionEvenementModele extends GestionBDDModele {
      * @param duree Durée de l'évènement
      * @param description Description de l'évènement
      * @param organisateur Organisateur de l'évènement
-     * @param type Type de l'évènement
+     * @param typeEvent Type de l'évènement
      * @param salleChoisi La salle choisis par l'utilisateur le champs est sous format : 'N°' + id_salle + ' Salle de ' + typesalle + '(' + capacite + 'personne)'
      * @throws SQLException 
      * 
      */
     public void insertEvent(String intitule, String theme, String dateEvent, int duree, String description, 
-            String organisateur, String type, String salleChoisi) throws SQLException{
+            String organisateur, String typeEvent, String salleChoisi) throws SQLException{
         
         ResultSet result = this.countEvent(intitule);
-        result.next();
+        System.out.println(dateEvent);
         if(result.getInt("nbEvent") == 0){
             super.closeMyStatement();
-            super.setMyStatement("INSERT INTO evenement(intitule, theme, datedebut, duree, nb_participant_max, description, organisateur, type, id_salle) "
-                + "VALUES(?, ?, ?, ?, (SELECT salle.capacite FROM public.salle WHERE salle.id_salle = ?) ?, ?, ?, ?);");
+            super.setMyStatement("INSERT INTO evenement(intitule, theme, date, duree, nb_participant_max, description, organisateur, type, id_user ,id_salle)"
+                    + " VALUES(?, ?, ?, ?, (SELECT salle.capacite FROM public.salle WHERE salle.id_salle = ?), ?, ?, ?, ?, ?);");
         
-            int idSalle = Integer.parseInt(salleChoisi.substring(salleChoisi.indexOf("N°"), salleChoisi.indexOf("N°")+2));
+            int idSalle = Integer.parseInt(String.valueOf(salleChoisi.charAt(2)));
             //Définitions des paramètres
             super.getMyStatement().setString(1, intitule);
             super.getMyStatement().setString(2, theme);
@@ -122,11 +122,12 @@ public final class GestionEvenementModele extends GestionBDDModele {
             super.getMyStatement().setInt(5, idSalle);
             super.getMyStatement().setString(6, description);
             super.getMyStatement().setString(7, organisateur);
-            super.getMyStatement().setString(8, type);
-            super.getMyStatement().setInt(9, idSalle);
-            super.getResult();
+            super.getMyStatement().setString(8, typeEvent);
+            super.getMyStatement().setInt(9, 1);
+            super.getMyStatement().setInt(10, idSalle);
+            super.execSQLWithouthResult();
         }else{
-            throw new SQLException("L'intitule de l'évènement existe déja !");
+            throw new SQLException("L'intitulé de l'évènement existe déja !");
         }
     }
     
@@ -164,7 +165,7 @@ public final class GestionEvenementModele extends GestionBDDModele {
             super.getMyStatement().setString(4, organisation);
             super.getMyStatement().setString(5, observations);
             super.getMyStatement().setString(6, email);
-            super.getResult();
+            super.execSQLWithouthResult();
         }else{
             throw new SQLException("L'émail existe déja");
         }
