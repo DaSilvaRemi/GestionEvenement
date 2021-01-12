@@ -8,6 +8,9 @@ import com.cvven.modele.DialogTools;
 import com.cvven.modele.GestionEvenementModele;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Classe Métier Autogénérer Héritière de JFrame
@@ -22,6 +25,7 @@ public class AjoutEvenement extends javax.swing.JFrame {
     public AjoutEvenement() {
         initComponents();
     }
+    
     
     /**
      * Efface tous les champs et remet les select à la valeur initial
@@ -54,9 +58,8 @@ public class AjoutEvenement extends javax.swing.JFrame {
             ResultSet result = laGestionEvenementModele.selectInfoSalle();
             boolean isExist = false;
             
-            
-            while(result.next()){
-                String salle = "N°"+result.getString("id_salle")+" Salle de "+result.getString("capacite")+"("+result.getString("capacite")+")";
+            do{
+                String salle = "N°"+result.getString("id_salle")+" Salle de "+result.getString("typesalle")+"("+result.getString("capacite")+")";
                 for(int i = 0; i < this.choixSalleEvent.getItemCount(); i++){
                     if(this.choixSalleEvent.getItemAt(i).equalsIgnoreCase(salle)){
                         isExist = true;
@@ -66,9 +69,8 @@ public class AjoutEvenement extends javax.swing.JFrame {
                     this.choixSalleEvent.addItem(salle);
                 }
                 isExist = false;
-            }
+            }while(result.next());
             
-            laGestionEvenementModele.selectInfoSalle();
             laGestionEvenementModele.closeAll();
             return true;
             } catch (SQLException | ClassNotFoundException ex) {
@@ -136,7 +138,7 @@ public class AjoutEvenement extends javax.swing.JFrame {
         footer.setForeground(java.awt.Color.white);
 
         jLabel11.setForeground(java.awt.Color.white);
-        jLabel11.setText("Application déveleoppé par le Groupe 2 PPE de la 2 BTS SIO SL au Lycée René Descartes");
+        jLabel11.setText("Application développé par le Groupe 2 PPE de la 2 BTS SIO SL au Lycée René Descartes");
 
         javax.swing.GroupLayout footerLayout = new javax.swing.GroupLayout(footer);
         footer.setLayout(footerLayout);
@@ -154,10 +156,8 @@ public class AjoutEvenement extends javax.swing.JFrame {
         );
 
         intituleEvent.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        intituleEvent.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
 
         themeEvent.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        themeEvent.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
 
         dateEvent.setDateFormatString("yyyy-MM-dd");
         dateEvent.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
@@ -236,6 +236,7 @@ public class AjoutEvenement extends javax.swing.JFrame {
         jLabel9.setText("Description de l'évènement");
 
         nbCharDescEvent.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        nbCharDescEvent.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         nbCharDescEvent.setText("/255");
 
         dureeEvent.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
@@ -258,7 +259,7 @@ public class AjoutEvenement extends javax.swing.JFrame {
                     .addGroup(bodyLayout.createSequentialGroup()
                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(nbCharDescEvent, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(nbCharDescEvent, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2)
                     .addComponent(dureeEvent)
                     .addComponent(dateEvent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -500,8 +501,12 @@ public class AjoutEvenement extends javax.swing.JFrame {
             DialogTools.openMessageDialog("Veuillez indiquez l'intitule de l'évènement", "Erreur", DialogTools.ERROR_MESSAGE);
         }else if(themeEvent.getText().isBlank()){
             DialogTools.openMessageDialog("Veuillez indiquez le thème de l'évènement", "Erreur", DialogTools.ERROR_MESSAGE);
-        }else if(dateEvent.getDateFormatString().isBlank()){
-            DialogTools.openMessageDialog("Veuillez indiquez la date de l'évènement", "Erreur", DialogTools.ERROR_MESSAGE);
+        }else if(dateEvent.getDate() == null || dateEvent.getDate().before(new Date())){
+            if(dateEvent.getDate()== null){
+                DialogTools.openMessageDialog("Veuillez indiquez la date de l'évènement", "Erreur", DialogTools.ERROR_MESSAGE);
+            }else if(dateEvent.getDate().before(new Date())){
+                DialogTools.openMessageDialog("La date de l'évènement doit se dérouler après la date actuelle", "Erreur", DialogTools.ERROR_MESSAGE);
+            }
         }else if(organisateurEvent.getText().isBlank()){
             DialogTools.openMessageDialog("Veuillez indiquez l'organisateur de l'évènement", "Erreur", DialogTools.ERROR_MESSAGE);
         }else if(typeEvent.getItemAt(typeEvent.getSelectedIndex()).equalsIgnoreCase("Veuillez choisir une option")){
@@ -512,13 +517,14 @@ public class AjoutEvenement extends javax.swing.JFrame {
             if(descriptionEvent.getText().isBlank()){
                 DialogTools.openMessageDialog("Veuillez indiquez une description à l'évènement", "Erreur", DialogTools.ERROR_MESSAGE);
             }else{
-                DialogTools.openMessageDialog("Veuillez ne pas dépassez les 255 charactères", "Erreur", DialogTools.ERROR_MESSAGE);
+                DialogTools.openMessageDialog("Veuillez ne pas dépassez les 255 caractères", "Erreur", DialogTools.ERROR_MESSAGE);
             }
         }else{
             try {
                 GestionEvenementModele laGestionEvenementModele = new GestionEvenementModele();
                 laGestionEvenementModele.setDb();
-                laGestionEvenementModele.insertEvent(intituleEvent.getText(), themeEvent.getText(), dateEvent.getDateFormatString(), ((Integer)dureeEvent.getValue()),
+                SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-mm-dd");
+                laGestionEvenementModele.insertEvent(intituleEvent.getText(), themeEvent.getText(), formatDate.format(dateEvent.getDate()), ((Integer)dureeEvent.getValue()),
                         descriptionEvent.getText(), organisateurEvent.getText(), typeEvent.getItemAt(typeEvent.getSelectedIndex()), choixSalleEvent.getItemAt(choixSalleEvent.getSelectedIndex()));
                 laGestionEvenementModele.closeAll();
                 DialogTools.openMessageDialog("Insertion de l'évènement terminée !","Insertion Terminée");

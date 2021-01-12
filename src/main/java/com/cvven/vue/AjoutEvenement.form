@@ -144,7 +144,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jLabel9" min="-2" pref="198" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="nbCharDescEvent" min="-2" pref="44" max="-2" attributes="0"/>
+                          <Component id="nbCharDescEvent" min="-2" pref="62" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
                       <Component id="dureeEvent" alignment="0" max="32767" attributes="0"/>
@@ -268,7 +268,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Application d&#xe9;veleopp&#xe9; par le Groupe 2 PPE de la 2 BTS SIO SL au Lyc&#xe9;e Ren&#xe9; Descartes"/>
+                <Property name="text" type="java.lang.String" value="Application d&#xe9;velopp&#xe9; par le Groupe 2 PPE de la 2 BTS SIO SL au Lyc&#xe9;e Ren&#xe9; Descartes"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -278,7 +278,6 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="SansSerif" size="13" style="0"/>
             </Property>
-            <Property name="horizontalAlignment" type="int" value="11"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="themeEvent">
@@ -286,7 +285,6 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="SansSerif" size="13" style="0"/>
             </Property>
-            <Property name="horizontalAlignment" type="int" value="11"/>
           </Properties>
         </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="dateEvent">
@@ -486,6 +484,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="SansSerif" size="13" style="0"/>
             </Property>
+            <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" value="/255"/>
           </Properties>
         </Component>
