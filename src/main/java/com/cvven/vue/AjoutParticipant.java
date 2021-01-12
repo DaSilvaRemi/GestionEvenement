@@ -6,7 +6,11 @@
 package com.cvven.vue;
 import com.cvven.modele.DialogTools;
 import com.cvven.modele.GestionEvenementModele;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.validator.routines.EmailValidator;
 
 /**
@@ -34,6 +38,34 @@ public class AjoutParticipant extends javax.swing.JFrame {
         dateNaissanceParticipant.setDateFormatString(null);
         organisationParticipant.setText(null);
         observationsParticipant.setText(null);
+    }
+    
+    public final boolean insertParticipant(){
+        try {
+            GestionEvenementModele laGestionEvenementModele = new GestionEvenementModele();
+            laGestionEvenementModele.setDb();
+            ResultSet result = laGestionEvenementModele.selectIntituleEvent();
+            boolean isExist = false;
+            
+            do{
+                String event = "N°" + result.getString("id_evenement") + "Intitulé : " + result.getString("intitule");
+                for(int i = 0; i < this.selectLesEvents.getModel().getSize(); i++){
+                    if(this.selectLesEvents.getModel().getElementAt(i).equalsIgnoreCase(event)){
+                        isExist = true;
+                    }
+                }
+                if(!isExist){
+                    ((javax.swing.DefaultListModel)this.selectLesEvents.getModel()).addElement(event);
+                }
+                isExist = false;
+            }while(result.next());
+            
+            laGestionEvenementModele.closeAll();
+            return true;
+        } catch (SQLException | ClassNotFoundException ex) {
+                DialogTools.openMessageDialog(ex.getMessage(), "Erreur", DialogTools.ERROR_MESSAGE);
+                return false;
+            }
     }
 
     /*-----------------------------Initialisation des composents----------------------
@@ -444,8 +476,17 @@ public class AjoutParticipant extends javax.swing.JFrame {
             try {
                 GestionEvenementModele laGestionEvenementModele = new GestionEvenementModele();
                 laGestionEvenementModele.setDb();
+                
+                SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
+                
                 laGestionEvenementModele.insertParticipant(nomParticipant.getText(), prenomParticipant.getText(), adresseMailParticipant.getText(),
-                        dateNaissanceParticipant.getDateFormatString(), organisationParticipant.getText(), observationsParticipant.getText());
+                      formatDate.format(dateNaissanceParticipant.getDate()), organisationParticipant.getText(), observationsParticipant.getText());
+                laGestionEvenementModele.closeMyStatement();
+                
+                for(String selectEvent : selectLesEvents.getSelectedValuesList()){
+                    laGestionEvenementModele.insertParticipation(selectEvent, adresseMailParticipant.getText());
+                }
+                
                 laGestionEvenementModele.closeAll();
                 DialogTools.openMessageDialog("L'ajout de participant est terminée !","Ajout Terminée");
                 this.clearField();

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.cvven.modele;
 
 import java.sql.ResultSet;
@@ -36,9 +31,9 @@ public final class GestionEvenementModele extends GestionBDDModele {
     
     /*-----------------------------------Table participer--------------------------------*/
     /**
-     * Selectionne toutes les informations utile pour l'affichage de l'évènement
+     * Selectionne les informations utiles pour l'affichage des évènement ayant au moins une participation
      * 
-     * @return
+     * @return le résultat de la requête
      * @throws SQLException 
      */
     public ResultSet selectInfoAllEvent() throws SQLException{
@@ -50,22 +45,34 @@ public final class GestionEvenementModele extends GestionBDDModele {
     }
     
     /**
-     * Inscrit un participant à un évènement
+     * Selectionne tous les intitulé des évènement existant.
      * 
-     * @param email
-     * @param intitule
+     * @return le résultat de la requête
      * @throws SQLException 
      */
-    public void insertParticipation(String email, String intitule) throws SQLException{
+    public ResultSet selectIntituleEvent() throws SQLException{
+        super.setMyStatement("SELECT evenement.id_evenement, evenement.intitule FROM public.intitule GROUP BY evenement.intitule;");
+        return super.getResult();
+    }
+    
+    /**
+     * Inscrit un participant à un évènement
+     * 
+     * @param intitule
+     * @param email
+     * @throws SQLException 
+     */
+    public void insertParticipation(String intitule, String email) throws SQLException{
+        int idEvent = Integer.parseInt(String.valueOf(intitule.charAt(2)));
         super.setMyStatement("INSERT INTO public.participer VALUES((SELECT id_participant FROM participant WHERE email = ?),(SELECT id_evenement FROM evenement WHERE intitule = ?));");
         super.getMyStatement().setString(1, email);
-        super.getMyStatement().setString(2, intitule);
-        super.getResult();
+        super.getMyStatement().setInt(2, idEvent);
+        super.execSQLWithouthResult();
     }
     /*----------------------------------Table Salle--------------------------------------*/
     /**
      * 
-     * @return
+     * @return le résultat de la requête
      * @throws SQLException 
      */
     public ResultSet selectInfoSalle() throws SQLException{
@@ -79,7 +86,7 @@ public final class GestionEvenementModele extends GestionBDDModele {
      * Compte le nombre d'évènement avec cet intitulé
      * 
      * @param intitule
-     * @return
+     * @return le résultat de la requête
      * @throws SQLException 
      */
     public ResultSet countEvent(String intitule) throws SQLException{
@@ -131,7 +138,7 @@ public final class GestionEvenementModele extends GestionBDDModele {
      * Compte le nombre d'email existant
      * 
      * @param email
-     * @return
+     * @return le résultat de la requête
      * @throws SQLException 
      */
     public ResultSet countEmailParticipant(String email) throws SQLException{
@@ -152,7 +159,6 @@ public final class GestionEvenementModele extends GestionBDDModele {
      */
     public void insertParticipant(String nom, String prenom, String email, String dateNaissance, String organisation, String observations) 
             throws SQLException{
-        if(this.countEmailParticipant(email).getInt("nbParticipant") == 0){
             super.setMyStatement("INSERT INTO public.participant(nom, prenom, date_naissance, organisation, observations, email) VALUES(?, ?, ?, ?, ?, ?);");
             super.getMyStatement().setString(1, nom);
             super.getMyStatement().setString(2, prenom);
@@ -161,9 +167,6 @@ public final class GestionEvenementModele extends GestionBDDModele {
             super.getMyStatement().setString(5, observations);
             super.getMyStatement().setString(6, email);
             super.execSQLWithouthResult();
-        }else{
-            throw new SQLException("L'émail existe déja");
-        }
     }
     
     /*-----------------------------------Table user--------------------------------------*/
@@ -172,7 +175,7 @@ public final class GestionEvenementModele extends GestionBDDModele {
      * 
      * @param login
      * @param mdp
-     * @return
+     * @return le résultat de la requête
      * @throws SQLException 
      */
     public ResultSet countUserLoginMdp(String login, String mdp) throws SQLException{

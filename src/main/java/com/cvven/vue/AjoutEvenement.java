@@ -58,7 +58,7 @@ public class AjoutEvenement extends javax.swing.JFrame {
             boolean isExist = false;
             
             do{
-                String salle = "N°"+result.getString("id_salle")+" Salle de "+result.getString("typesalle")+"("+result.getString("capacite")+")";
+                String salle = "N°" + result.getString("id_salle") + " Salle de " + result.getString("typesalle") + "("+result.getString("capacite") + ")";
                 for(int i = 0; i < this.choixSalleEvent.getItemCount(); i++){
                     if(this.choixSalleEvent.getItemAt(i).equalsIgnoreCase(salle)){
                         isExist = true;
