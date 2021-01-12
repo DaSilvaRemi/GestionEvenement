@@ -6,6 +6,7 @@
 package com.cvven.vue;
 import com.cvven.modele.DialogTools;
 import com.cvven.modele.GestionEvenementModele;
+import com.cvven.modele.Session;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -468,6 +469,7 @@ public class AjoutEvenement extends javax.swing.JFrame {
     private void deconnexionNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deconnexionNavMouseClicked
         Authentification fen = new Authentification();
         fen.setVisible(true);
+        Session.destructSession();
         this.dispose();
     }//GEN-LAST:event_deconnexionNavMouseClicked
 

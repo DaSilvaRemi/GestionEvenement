@@ -9,7 +9,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- *
+ *Classe technique abstraite permettant de gérer les sessions
+ * 
  * @author remi
  */
 public abstract class Session {
@@ -21,36 +22,60 @@ public abstract class Session {
     private static ArrayList<Object> lesVarSession = new ArrayList<Object>();
 
     /**
-     * Retourne la clé de session composé d'un nombre aléatoire + l'idUser
+     * Retourne la clé de session composé d'un nombre aléatoire + l'idUser si l'utilisateur est connecté
      * 
-     * @return la clé de session
+     * Génère une erreur si l'utilisateur n'est pas connecté !
+     * 
+     * @return la clé de session ou null si l'utilisateur n'est pas connecté
      */
     public static String getIdSession() {
-        return idSession;
+        try {
+            Session.controlSession();
+            return idSession;
+        } catch (Exception ex) {
+            DialogTools.openMessageDialog(ex.getMessage(), "Erreur", DialogTools.ERROR_MESSAGE);
+            return null;
+        }
     }
 
     /**
-     * Retroune les variable session sous forme de tableau
+     * Retroune les variable session sous forme de tableau si l'utilisateur est connecté
      * 
-     * @return les variables sessions
+     * Génère une erreur si l'utilisateur n'est pas connecté !
+     * 
+     * @return les variables sessions ou null si l'utilisateur n'est pas connecté
      */
     public static ArrayList<Object> getVariableSession() {
-        return lesVarSession;
+        try {
+            Session.controlSession();
+            return lesVarSession;
+        } catch (Exception ex) {
+            DialogTools.openMessageDialog(ex.getMessage(), "Erreur", DialogTools.ERROR_MESSAGE);
+            return null;
+        }
     }
     
     /**
-     * Retourne l'id de l'utilisateur stocké dans la variable d'id Session
+     * Retourne l'id de l'utilisateur stocké dans la variable d'id Session si l'utilisateur est connecté
      * 
-     * @return l'id de l'utilisateur
+     * Génère une erreur si l'utilisateur n'est pas connecté !
+     * 
+     * @return l'id de l'utilisateur ou -1 si l'utilisateur n'est pas connecté
      */
     public static int getIdUser(){
-        return Integer.parseInt(String.valueOf(idSession.charAt(2)));
+        try {
+            Session.controlSession();
+            return Integer.parseInt(String.valueOf(idSession.charAt(2)));
+        } catch (Exception ex) {
+            DialogTools.openMessageDialog(ex.getMessage(), "Erreur", DialogTools.ERROR_MESSAGE);
+            return -1;
+        }  
     }
 
     /**
      * Défini les variable sessions
      * 
-     * @param sessionVar the variableSession to set
+     * @param sessionVar tableau contenant des variable pour la sessions
      */
     public static void setVariableSession(ArrayList<Object> sessionVar) {
         lesVarSession = sessionVar;
@@ -74,4 +99,16 @@ public abstract class Session {
         idSession = null;
         lesVarSession.clear();
     } 
+    
+    /**
+     * Controle si la session est correct, si elle ne l'est pas elle détruit les donnée et généère une exception
+     * 
+     * @throws Exception 
+     */
+    private static void controlSession() throws Exception{
+        if(idSession.isBlank()){
+            Session.destructSession();
+            throw new Exception("Erreur : Vous n'êtes pas connecté ou votre session est incorrect !");
+        }
+    }
 }

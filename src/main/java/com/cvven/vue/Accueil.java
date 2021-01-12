@@ -5,6 +5,8 @@
  */
 package com.cvven.vue;
 
+import com.cvven.modele.Session;
+
 /**
  * Classe Métier Autogénérer Héritière de JFrame
  *
@@ -307,6 +309,7 @@ public class Accueil extends javax.swing.JFrame {
     private void deconnexionNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deconnexionNavMouseClicked
         Authentification fen = new Authentification();
         fen.setVisible(true);
+        Session.destructSession();
         this.dispose();
     }//GEN-LAST:event_deconnexionNavMouseClicked
 
