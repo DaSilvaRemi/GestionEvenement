@@ -7,7 +7,6 @@ package com.cvven.modele;
 
 import java.util.ArrayList;
 import java.util.Random;
-import javax.swing.text.Element;
 
 /**
  *
@@ -15,18 +14,25 @@ import javax.swing.text.Element;
  */
 public abstract class Session {
     
+    /**
+     * Composé d'un nombre aléatoire + l'idUser
+     */
     private static String idSession;
     private static ArrayList<Object> lesVarSession = new ArrayList<Object>();
 
     /**
-     * @return the idSession
+     * Retourne la clé de session composé d'un nombre aléatoire + l'idUser
+     * 
+     * @return la clé de session
      */
     public static String getIdSession() {
         return idSession;
     }
 
     /**
-     * @return the variableSession
+     * Retroune les variable session sous forme de tableau
+     * 
+     * @return les variables sessions
      */
     public static ArrayList<Object> getVariableSession() {
         return lesVarSession;
@@ -42,7 +48,7 @@ public abstract class Session {
     }
 
     /**
-     * 
+     * Défini les variable sessions
      * 
      * @param sessionVar the variableSession to set
      */
@@ -50,9 +56,22 @@ public abstract class Session {
         lesVarSession = sessionVar;
     }
     
+    /**
+     * Initialise la session
+     * 
+     * @param idUser 
+     */
     public static void initSession(int idUser){
         Random rand = new Random(); 
         int nombreAleatoire = rand.nextInt(99 - 10 + 1) + 10;
         idSession = String.valueOf(nombreAleatoire) + String.valueOf(idUser);
     }
+    
+    /**
+     * Efface les données de la session
+     */
+    public static void destructSession(){
+        idSession = null;
+        lesVarSession.clear();
+    } 
 }
