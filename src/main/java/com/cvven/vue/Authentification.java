@@ -96,7 +96,7 @@ public class Authentification extends javax.swing.JFrame {
         footer1.setForeground(java.awt.Color.white);
 
         jLabel5.setForeground(java.awt.Color.white);
-        jLabel5.setText("Application déveleoppé par le Groupe 2 PPE de la 2 BTS SIO SL au Lycée René Descartes");
+        jLabel5.setText("Application développé par le Groupe 2 PPE de la 2 BTS SIO SL au Lycée René Descartes");
 
         javax.swing.GroupLayout footer1Layout = new javax.swing.GroupLayout(footer1);
         footer1.setLayout(footer1Layout);
@@ -193,6 +193,7 @@ public class Authentification extends javax.swing.JFrame {
                 if(gestionEventModele.countUserLoginMdp(login.getText(), mdp).getInt("nbUser") == 1){
                     Accueil fen = new Accueil();
                     fen.setVisible(true);
+                    this.dispose();
                 }else{
                     DialogTools.openMessageDialog("Vos identifiants sont incorrects", "Identifiant Invalide !", DialogTools.WARNING_MESSAGE);
                 }
