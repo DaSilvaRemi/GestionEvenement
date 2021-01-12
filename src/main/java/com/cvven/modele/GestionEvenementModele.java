@@ -51,7 +51,7 @@ public final class GestionEvenementModele extends GestionBDDModele {
      * @throws SQLException 
      */
     public ResultSet selectLesEvent() throws SQLException{
-        super.setMyStatement("SELECT evenement.id_evenement, evenement.intitule FROM public.evenement GROUP BY evenement.intitule;");
+        super.setMyStatement("SELECT evenement.id_evenement, evenement.intitule FROM public.evenement;");
         return super.getResult();
     }
     
