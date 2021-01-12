@@ -45,13 +45,13 @@ public final class GestionEvenementModele extends GestionBDDModele {
     }
     
     /**
-     * Selectionne tous les intitulé des évènement existant.
+     * Selectionne les évènement existant avec uniquement l'id et l'intitule
      * 
      * @return le résultat de la requête
      * @throws SQLException 
      */
-    public ResultSet selectIntituleEvent() throws SQLException{
-        super.setMyStatement("SELECT evenement.id_evenement, evenement.intitule FROM public.intitule GROUP BY evenement.intitule;");
+    public ResultSet selectLesEvent() throws SQLException{
+        super.setMyStatement("SELECT evenement.id_evenement, evenement.intitule FROM public.evenement GROUP BY evenement.intitule;");
         return super.getResult();
     }
     
