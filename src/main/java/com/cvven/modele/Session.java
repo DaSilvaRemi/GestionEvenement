@@ -33,7 +33,7 @@ public abstract class Session {
             Session.controlSession();
             return idSession;
         } catch (Exception ex) {
-            DialogTools.openMessageDialog(ex.getMessage(), "Erreur", DialogTools.ERROR_MESSAGE);
+            DialogTools.openMessageDialog(ex.getMessage(), "Erreur Session !", DialogTools.ERROR_MESSAGE);
             return null;
         }
     }
@@ -50,7 +50,7 @@ public abstract class Session {
             Session.controlSession();
             return lesVarSession;
         } catch (Exception ex) {
-            DialogTools.openMessageDialog(ex.getMessage(), "Erreur", DialogTools.ERROR_MESSAGE);
+            DialogTools.openMessageDialog(ex.getMessage(), "Erreur Session !", DialogTools.ERROR_MESSAGE);
             return null;
         }
     }
@@ -67,7 +67,7 @@ public abstract class Session {
             Session.controlSession();
             return Integer.parseInt(String.valueOf(idSession.charAt(2)));
         } catch (Exception ex) {
-            DialogTools.openMessageDialog(ex.getMessage(), "Erreur", DialogTools.ERROR_MESSAGE);
+            DialogTools.openMessageDialog(ex.getMessage(), "Erreur Session !", DialogTools.ERROR_MESSAGE);
             return -1;
         }  
     }
