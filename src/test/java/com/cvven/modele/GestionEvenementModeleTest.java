@@ -49,7 +49,7 @@ public class GestionEvenementModeleTest {
     public void tearDown() {
         System.out.println("-------Test N°" + compteur + " réalisée-----");
     }
-
+    
     /**
      * Test of selectInfoAllEvent method, of class GestionEvenementModele.
      */
