@@ -118,7 +118,7 @@ abstract class GestionBDDModele {
      * 
      * @see org.postgresql.Driver
      */
-    public void setDb() throws SQLException,ClassNotFoundException {
+    public void setDb() throws SQLException, ClassNotFoundException {
         Class.forName("org.postgresql.Driver");
         this.db = DriverManager.getConnection("jdbc:postgresql://"+this.urlHoteBdd, this.user, this.password);
     }
