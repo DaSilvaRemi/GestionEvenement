@@ -105,7 +105,7 @@ public abstract class Session {
      * 
      * @throws Exception 
      */
-    private static void controlSession() throws Exception{
+    public static void controlSession() throws Exception{
         if(idSession.isBlank()){
             Session.destructSession();
             throw new Exception("Erreur : Vous n'êtes pas connecté ou votre session est incorrect !");

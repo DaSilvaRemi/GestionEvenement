@@ -8,7 +8,6 @@ package com.cvven.modele;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
@@ -52,8 +51,8 @@ public class GestionBDDModeleTest {
      */
     @Test
     public void testGetUrlHoteBdd() {
-        System.out.println("getUrlHoteBdd");
-        assertEquals("localhost/remi/test", instance.getUrlHoteBdd());
+        System.out.println("Test de : getUrlHoteBdd");
+        assertEquals("localhost/gestionevenement", instance.getUrlHoteBdd(), "L'url de la BDD est incorrect !");
     }
 
     /**
@@ -61,8 +60,8 @@ public class GestionBDDModeleTest {
      */
     @Test
     public void testGetUser() {
-        System.out.println("getUser");
-        assertEquals("remi", instance.getUrlHoteBdd());
+        System.out.println("Test de getUser");
+        assertEquals("remi", instance.getUrlHoteBdd(), "L'utilisateur est incorrect !");
     }
 
     /**
@@ -70,12 +69,12 @@ public class GestionBDDModeleTest {
      */
     @Test
     public void testGetDb() throws SQLException, ClassNotFoundException {
-        System.out.println("getDb");
+        System.out.println("Test de getDb");
         instance.setDb();
         Class.forName("org.postgresql.Driver");
         Connection expect = DriverManager.getConnection("jdbc:postgresql://"+instance.getUrlHoteBdd(), instance.getUser(), "test");
         Connection result = instance.getDb();
-        assertEquals(expect, result);
+        assertEquals(expect, result, "Les objets connection ne sont pas semblable");
         instance.closeMaBdd();
     }
 
@@ -84,12 +83,12 @@ public class GestionBDDModeleTest {
      */
     @Test
     public void testGetMyStatement() throws SQLException, ClassNotFoundException {
-        System.out.println("getMyStatement");
+        System.out.println("Test de getMyStatement");
         instance.setDb();
         instance.setMyStatement("SELECT id_user FROM public.user WHERE login = ?");
         PreparedStatement expect = instance.getDb().prepareStatement("SELECT id_user FROM public.user WHERE login = ?");
         PreparedStatement result = instance.getMyStatement();
-        assertEquals(expect, result);
+        assertEquals(expect, result, "La requête n'est pas la même");
         instance.closeAll();
     }
 
@@ -98,9 +97,9 @@ public class GestionBDDModeleTest {
      */
     @Test
     public void testSetUrlHoteBdd() {
-        System.out.println("setUrlHoteBdd");
-        instance.setUrlHoteBdd("192.168.1.14");
-        assertEquals("192.168.1.14", instance.getUrlHoteBdd());
+        System.out.println("Test de setUrlHoteBdd");
+        instance.setUrlHoteBdd("192.168.1.14/gestionevenement");
+        assertEquals("192.168.1.14/gestionevenement", instance.getUrlHoteBdd(), "L'URL de la BDD n'as pas été changé !");
     }
 
     /**
@@ -108,7 +107,7 @@ public class GestionBDDModeleTest {
      */
     @Test
     public void testSetUser() {
-        System.out.println("setUser");
+        System.out.println("Test de setUser");
         instance.setUser("toto");
         assertEquals("toto", instance.getUser());
     }
@@ -118,12 +117,12 @@ public class GestionBDDModeleTest {
      */
     @Test
     public void testSetDb() throws SQLException, ClassNotFoundException {
-        System.out.println("setDb");
+        System.out.println("Test de setDb");
         instance.setDb();
         Class.forName("org.postgresql.Driver");
         Connection expect = DriverManager.getConnection("jdbc:postgresql://"+instance.getUrlHoteBdd(), instance.getUser(), "test");
         Connection result = instance.getDb();
-        assertEquals(expect, result);
+        assertEquals(expect, result, "La connection n'as pas été changée !");
         instance.closeMaBdd();
     }
 
@@ -136,7 +135,7 @@ public class GestionBDDModeleTest {
         instance.setMyStatement("SELECT id_user FROM public.user WHERE login = ?");
         PreparedStatement expect = instance.getDb().prepareStatement("SELECT id_user FROM public.user WHERE login = ?");
         PreparedStatement result = instance.getMyStatement();
-        assertEquals(expect, result);
+        assertEquals(expect, result, "La requête n'as pas été changé");
         instance.closeAll();
     }
 

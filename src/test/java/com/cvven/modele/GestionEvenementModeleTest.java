@@ -27,15 +27,10 @@ public class GestionEvenementModeleTest {
     
     @BeforeAll
     public static void setUpClass() {
-        System.out.println("Initialisation de la classe de test....");
-        System.out.println("Initialisation du compteur à 0....");
-        System.out.println("Initialisation du sujet de test....");
-        System.out.println("Test de la classe GestionEvenementModele : ");
     }
     
     @AfterAll
     public static void tearDownClass() {
-        System.out.println("Fin des test");
     }
     
     @BeforeEach
@@ -66,7 +61,7 @@ public class GestionEvenementModeleTest {
      */
     @Test
     public void testInsertParticipation() throws Exception {
-        System.out.println("insertParticipation");
+        System.out.println("Test de : insertParticipation");
         String email = "";
         String intitule = "";
         instance.insertParticipation(email, intitule);
@@ -77,7 +72,7 @@ public class GestionEvenementModeleTest {
      */
     @Test
     public void testSelectInfoSalle() throws Exception {
-        System.out.println("selectInfoSalle");
+        System.out.println("Test de : selectInfoSalle");
         GestionEvenementModele instance = null;
         ResultSet expResult = null;
         ResultSet result = instance.selectInfoSalle();
