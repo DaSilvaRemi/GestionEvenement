@@ -53,7 +53,7 @@ public class AjoutParticipant extends javax.swing.JFrame {
         try {
             GestionEvenementModele laGestionEvenementModele = new GestionEvenementModele();
             laGestionEvenementModele.setDb();
-            ResultSet result = laGestionEvenementModele.selectLesEvent();
+            ResultSet result = laGestionEvenementModele.selectLesEventNonArchiver();
             boolean isExist = false;
             this.clearField();
             ((DefaultListModel)selectLesEvents.getModel()).remove(0);
