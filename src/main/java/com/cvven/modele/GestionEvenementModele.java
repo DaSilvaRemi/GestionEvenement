@@ -50,8 +50,8 @@ public final class GestionEvenementModele extends GestionBDDModele {
      * @return le résultat de la requête
      * @throws SQLException 
      */
-    public ResultSet selectLesEvent() throws SQLException{
-        super.setMyStatement("SELECT evenement.id_evenement, evenement.intitule FROM public.evenement;");
+    public ResultSet selectLesEventNonArchiver() throws SQLException{
+        super.setMyStatement("SELECT evenement.id_evenement, evenement.intitule FROM public.evenement WHERE evenement.archive = 'FALSE';");
         return super.getResult();
     }
     
