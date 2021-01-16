@@ -38,9 +38,11 @@ public final class GestionEvenementModele extends GestionBDDModele {
      */
     public ResultSet selectInfoAllEvent() throws SQLException{
         super.setMyStatement("SELECT evenement.intitule, evenement.type, evenement.datedebut, evenement.duree, evenement.theme, "
-                + "COUNT(particper.id_participant) AS nbParticipant, organisateur "
+                + "COUNT(particper.id_participant) AS nbParticipant, evenement.organisateur, evenement.archive "
                 + "FROM public.particper INNER JOIN public.evenement ON participer.id_evenement = evenement.id_evenement "
-                + "INNER JOIN public.participant ON participer.id_participant = participant.id_participant;");
+                + "INNER JOIN public.participant ON participer.id_participant = participant.id_participant"
+                + "GROUP BY evenement.intitule, evenement.type, evenement.datedebut, evenement.duree, evenement.theme, evenement.organisateur, evenement.archive"
+                + "ORDER BY evenement.archive DESC;");
         return super.getResult();
     }
     
