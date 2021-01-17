@@ -55,14 +55,14 @@ public class AfficherEvenements extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Intitule", "Type", "Date", "Duree", "Theme", "Nombre participant", "Organisateur"
+                "Intitule", "Type", "Date", "Duree", "Theme", "Nombre participant", "Organisateur", "Archivé"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
