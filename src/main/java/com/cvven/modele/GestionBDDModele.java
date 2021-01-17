@@ -179,7 +179,11 @@ abstract class GestionBDDModele {
      */
     protected ResultSet getResult() throws SQLException{
         ResultSet result = this.myStatement.executeQuery();
-        result.next();
-        return result;
+        if(result.next()){
+            return result;
+        }else{
+            return null;
+        }
+        
     } 
 }

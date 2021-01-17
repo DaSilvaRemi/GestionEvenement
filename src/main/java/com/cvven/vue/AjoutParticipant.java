@@ -37,9 +37,10 @@ public class AjoutParticipant extends javax.swing.JFrame {
         nomParticipant.setText(null);
         prenomParticipant.setText(null);
         adresseMailParticipant.setText(null);
-        dateNaissanceParticipant.setDateFormatString(null);
+        dateNaissanceParticipant.setDate(null);
         organisationParticipant.setText(null);
         observationsParticipant.setText(null);
+        nbCharObservation.setText("0/255");
     }
     
     /**
@@ -56,7 +57,7 @@ public class AjoutParticipant extends javax.swing.JFrame {
             ResultSet result = laGestionEvenementModele.selectLesEventNonArchiver();
             this.clearField();
             
-            if(result.last()){
+            if(result != null){
                 boolean isExist = false;
                 ((DefaultListModel)selectLesEvents.getModel()).remove(0);
                 do{
@@ -74,7 +75,8 @@ public class AjoutParticipant extends javax.swing.JFrame {
                 laGestionEvenementModele.closeAll();
                 return true;
             }else{
-                return false;
+                DialogTools.openMessageDialog("Aucun évènement n'a été inséré !", "Avertissement !", DialogTools.WARNING_MESSAGE);
+                return true;
             }
         } catch (SQLException | ClassNotFoundException ex) {
                 DialogTools.openMessageDialog(ex.getMessage(), "Erreur", DialogTools.ERROR_MESSAGE);
@@ -182,7 +184,7 @@ public class AjoutParticipant extends javax.swing.JFrame {
         jLabel8.setText("Selectionner un ou plusieurs évènements");
 
         nbCharObservation.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        nbCharObservation.setText("/255");
+        nbCharObservation.setText("0/255");
 
         addParticipant.setBackground(new java.awt.Color(34, 139, 34));
         addParticipant.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
@@ -506,7 +508,7 @@ public class AjoutParticipant extends javax.swing.JFrame {
                     }
             }
             if(!isValid){
-                DialogTools.openMessageDialog("Vous avez uniquement sélectionné 'aucun évènement'", "Erreur", DialogTools.ERROR_MESSAGE);
+                DialogTools.openMessageDialog("Le participant ne peut pas être inscrit à aucun évènement !", "Erreur !", DialogTools.ERROR_MESSAGE);
             }else{
                 try {
                     GestionEvenementModele laGestionEvenementModele = new GestionEvenementModele();

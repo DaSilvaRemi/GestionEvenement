@@ -33,11 +33,13 @@ public class AjoutEvenement extends javax.swing.JFrame {
     private void clearFields(){
         intituleEvent.setText(null);
         themeEvent.setText(null);
-        dateEvent.setDateFormatString(null);
+        dateEvent.setDate(null);
+        dureeEvent.setValue(15);
         organisateurEvent.setText(null);
         choixSalleEvent.setSelectedIndex(0);
         typeEvent.setSelectedIndex(0);
         descriptionEvent.setText(null);
+        nbCharDescEvent.setText("0/255");
     }
     
     /**
@@ -56,27 +58,31 @@ public class AjoutEvenement extends javax.swing.JFrame {
             GestionEvenementModele laGestionEvenementModele = new GestionEvenementModele();
             laGestionEvenementModele.setDb();
             ResultSet result = laGestionEvenementModele.selectInfoSalle();
-            boolean isExist = false;
             
-            do{
-                String salle = "N°" + result.getString("id_salle") + " Salle de " + result.getString("typesalle") + "("+result.getString("capacite") + ")";
-                for(int i = 0; i < this.choixSalleEvent.getItemCount(); i++){
-                    if(this.choixSalleEvent.getItemAt(i).equalsIgnoreCase(salle)){
-                        isExist = true;
+            if(result != null){
+                boolean isExist = false;
+                do{
+                    String salle = "N°" + result.getString("id_salle") + " Salle de " + result.getString("typesalle") + "("+result.getString("capacite") + ")";
+                    for(int i = 0; i < this.choixSalleEvent.getItemCount(); i++){
+                        if(this.choixSalleEvent.getItemAt(i).equalsIgnoreCase(salle)){
+                            isExist = true;
+                        }
                     }
-                }
-                if(!isExist){
-                    this.choixSalleEvent.addItem(salle);
-                }
-                isExist = false;
-            }while(result.next());
+                    if(!isExist){
+                        this.choixSalleEvent.addItem(salle);
+                    }
+                    isExist = false;
+                }while(result.next());
             
-            laGestionEvenementModele.closeAll();
-            return true;
-            } catch (SQLException | ClassNotFoundException ex) {
-                DialogTools.openMessageDialog(ex.getMessage(), "Erreur", DialogTools.ERROR_MESSAGE);
-                return false;
+                laGestionEvenementModele.closeAll();
+                return true;
+            }else{
+                throw new SQLException("Aucune salle n'as été trouvée ! Veillez contactez l'administrateur.");
             }
+        } catch (SQLException | ClassNotFoundException ex) {
+            DialogTools.openMessageDialog(ex.getMessage(), "Erreur", DialogTools.ERROR_MESSAGE);
+            return false;
+        }
     }
 
     /*-----------------------------Initialisation des composents----------------------*/
@@ -237,7 +243,7 @@ public class AjoutEvenement extends javax.swing.JFrame {
 
         nbCharDescEvent.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
         nbCharDescEvent.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        nbCharDescEvent.setText("/255");
+        nbCharDescEvent.setText("0/255");
 
         dureeEvent.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
         dureeEvent.setModel(new javax.swing.SpinnerNumberModel(15, 15, 240, 1));
@@ -446,7 +452,7 @@ public class AjoutEvenement extends javax.swing.JFrame {
             fen.setVisible(true);
             this.dispose();
         }else{
-            fen.dispose();;
+            fen.dispose();
         }
     }//GEN-LAST:event_inputParticipantNavMouseClicked
 

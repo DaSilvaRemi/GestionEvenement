@@ -193,7 +193,7 @@ public class AfficherEvenements extends javax.swing.JFrame {
             fen.setVisible(true);
             this.dispose();
         }else{
-            fen.dispose();;
+            fen.dispose();
         }
     }//GEN-LAST:event_inputParticipantNavMouseClicked
 
