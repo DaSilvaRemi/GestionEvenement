@@ -100,6 +100,12 @@ public class CSVFileRead extends Files{
         }
     }
     
-    
+    /**
+     * 
+     * @return 
+     */
+    public boolean controlData(){
+        return true;
+    }
     
 }
