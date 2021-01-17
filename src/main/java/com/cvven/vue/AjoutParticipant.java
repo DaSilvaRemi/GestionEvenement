@@ -54,24 +54,28 @@ public class AjoutParticipant extends javax.swing.JFrame {
             GestionEvenementModele laGestionEvenementModele = new GestionEvenementModele();
             laGestionEvenementModele.setDb();
             ResultSet result = laGestionEvenementModele.selectLesEventNonArchiver();
-            boolean isExist = false;
             this.clearField();
-            ((DefaultListModel)selectLesEvents.getModel()).remove(0);
-            do{
-                String event = "N°" + result.getString("id_evenement") + " Intitulé : " + result.getString("intitule");
-                for(int i = 0; i < selectLesEvents.getModel().getSize(); i++){
-                    if(selectLesEvents.getModel().getElementAt(i).equalsIgnoreCase(event)){
-                        isExist = true;
-                    }
-                }
-                if(!isExist){
-                    ((DefaultListModel)selectLesEvents.getModel()).addElement(event);
-                }
-                isExist = false;
-            }while(result.next());
             
-            laGestionEvenementModele.closeAll();
-            return true;
+            if(result.last()){
+                boolean isExist = false;
+                ((DefaultListModel)selectLesEvents.getModel()).remove(0);
+                do{
+                    String event = "N°" + result.getString("id_evenement") + " Intitulé : " + result.getString("intitule");
+                    for(int i = 0; i < selectLesEvents.getModel().getSize(); i++){
+                        if(selectLesEvents.getModel().getElementAt(i).equalsIgnoreCase(event)){
+                            isExist = true;
+                        }
+                    }
+                    if(!isExist){
+                        ((DefaultListModel)selectLesEvents.getModel()).addElement(event);
+                    }
+                    isExist = false;
+                }while(result.next());
+                laGestionEvenementModele.closeAll();
+                return true;
+            }else{
+                return false;
+            }
         } catch (SQLException | ClassNotFoundException ex) {
                 DialogTools.openMessageDialog(ex.getMessage(), "Erreur", DialogTools.ERROR_MESSAGE);
                 return false;
