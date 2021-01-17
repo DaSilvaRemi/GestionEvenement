@@ -39,6 +39,14 @@
             <artifactId>commons-validator</artifactId>
             <version>1.6</version>
         </dependency>
+        
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-csv -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-csv</artifactId>
+            <version>1.8</version>
+        </dependency>
+
     </dependencies>
     <name>GestionEvenement</name>
 </project>
