@@ -103,6 +103,7 @@ public class AjoutParticipant extends javax.swing.JFrame {
         libelleOrganisation.setVisible(visible);
         organisationParticipant.setVisible(visible);
         libelleObservations.setVisible(visible);
+        jScrollPane2.setVisible(visible);
         observationsParticipant.setVisible(visible);
         nbCharObservation.setVisible(visible);
     }
