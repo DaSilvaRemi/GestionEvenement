@@ -30,7 +30,7 @@ public class AjoutEvenement extends javax.swing.JFrame {
     /**
      * Efface tous les champs et remet les select à la valeur initial
      */
-    private void clearFields(){
+    private void setDefaultValue(){
         intituleEvent.setText(null);
         themeEvent.setText(null);
         dateEvent.setDate(null);
@@ -53,7 +53,7 @@ public class AjoutEvenement extends javax.swing.JFrame {
      * @see SQLException
      * 
      */
-    public final boolean insertSalleEvent(){
+    public final boolean setValueEvent(){
         try {
             GestionEvenementModele laGestionEvenementModele = new GestionEvenementModele();
             laGestionEvenementModele.setDb();
@@ -433,7 +433,7 @@ public class AjoutEvenement extends javax.swing.JFrame {
      */
     private void inputEventNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputEventNavMouseClicked
         AjoutEvenement fen = new AjoutEvenement();
-        if(fen.insertSalleEvent()){
+        if(fen.setValueEvent()){
              fen.setVisible(true);
              this.dispose();
         }else {
@@ -448,7 +448,7 @@ public class AjoutEvenement extends javax.swing.JFrame {
      */
     private void inputParticipantNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputParticipantNavMouseClicked
         AjoutParticipant fen = new AjoutParticipant();
-        if(fen.insertParticipant()){
+        if(fen.setValueParticipant()){
             fen.setVisible(true);
             this.dispose();
         }else{
@@ -488,7 +488,7 @@ public class AjoutEvenement extends javax.swing.JFrame {
     private void cancelEventMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelEventMouseClicked
         Accueil fen = new Accueil();
         fen.setVisible(true);
-        this.clearFields();
+        this.setDefaultValue();
         this.dispose();
     }//GEN-LAST:event_cancelEventMouseClicked
 
@@ -539,7 +539,7 @@ public class AjoutEvenement extends javax.swing.JFrame {
                         descriptionEvent.getText(), organisateurEvent.getText(), typeEvent.getItemAt(typeEvent.getSelectedIndex()), choixSalleEvent.getItemAt(choixSalleEvent.getSelectedIndex()));
                 laGestionEvenementModele.closeAll();
                 DialogTools.openMessageDialog("Insertion de l'évènement terminée !","Insertion Terminée");
-                this.clearFields();
+                this.setDefaultValue();
             } catch (SQLException | ClassNotFoundException ex) {
                 DialogTools.openMessageDialog(ex.getMessage(), "Erreur", DialogTools.ERROR_MESSAGE);
             }

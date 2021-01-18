@@ -174,7 +174,7 @@ public class AfficherEvenements extends javax.swing.JFrame {
      */
     private void inputEventNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputEventNavMouseClicked
         AjoutEvenement fen = new AjoutEvenement();
-        if(fen.insertSalleEvent()){
+        if(fen.setValueEvent()){
              fen.setVisible(true);
              this.dispose();
         }else {
@@ -189,7 +189,7 @@ public class AfficherEvenements extends javax.swing.JFrame {
      */
     private void inputParticipantNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputParticipantNavMouseClicked
         AjoutParticipant fen = new AjoutParticipant();
-        if(fen.insertParticipant()){
+        if(fen.setValueParticipant()){
             fen.setVisible(true);
             this.dispose();
         }else{

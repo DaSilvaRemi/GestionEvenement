@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package com.cvven.vue;
+import com.cvven.modele.CSVFileRead;
 import com.cvven.modele.DialogTools;
 import com.cvven.modele.GestionEvenementModele;
 import com.cvven.modele.Session;
@@ -12,6 +13,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.DefaultListModel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import org.apache.commons.validator.routines.EmailValidator;
 
 /**
@@ -21,7 +23,7 @@ import org.apache.commons.validator.routines.EmailValidator;
  */
 public class AjoutParticipant extends javax.swing.JFrame {
 
-    /**
+    /**cvven.modele.DialogTools;
      * Créer un nouveau formulaire AjoutParticipant
      */
     public AjoutParticipant() {
@@ -31,7 +33,7 @@ public class AjoutParticipant extends javax.swing.JFrame {
     /**
      * Efface tous les champs et la selection
      */
-    public void clearField(){
+    public void setDefaultValue(){
         selectLesEvents.setModel(new DefaultListModel());
         ((DefaultListModel)selectLesEvents.getModel()).addElement("Aucun évènement !");
         nomParticipant.setText(null);
@@ -50,12 +52,12 @@ public class AjoutParticipant extends javax.swing.JFrame {
      * 
      * @return Un boolean selon si le remplissage des champs se sont bien passé.
      */
-    public final boolean insertParticipant(){
+    public final boolean setValueParticipant(){
         try {
             GestionEvenementModele laGestionEvenementModele = new GestionEvenementModele();
             laGestionEvenementModele.setDb();
             ResultSet result = laGestionEvenementModele.selectLesEventNonArchiver();
-            this.clearField();
+            this.setDefaultValue();
             
             if(result != null){
                 boolean isExist = false;
@@ -83,6 +85,143 @@ public class AjoutParticipant extends javax.swing.JFrame {
                 return false;
             }
     }
+    
+    /**
+     * Cache ou montre les champs de la fenêtre participant.
+     * 
+     * @param visible 
+     */
+    private void showField(boolean visible){
+        libelleNom.setVisible(visible);
+        nomParticipant.setVisible(visible);
+        libellePrenom.setVisible(visible);
+        prenomParticipant.setVisible(visible);
+        libelleMail.setVisible(visible);
+        adresseMailParticipant.setVisible(visible);
+        libelleDateNaissance.setVisible(visible);
+        dateNaissanceParticipant.setVisible(visible);
+        libelleOrganisation.setVisible(visible);
+        organisationParticipant.setVisible(visible);
+        libelleObservations.setVisible(visible);
+        observationsParticipant.setVisible(visible);
+        nbCharObservation.setVisible(visible);
+    }
+    
+    /**
+     * Ajoute un participant lorsque  que tous les champs sont remplis sinon on affiche un message d'erreur sur une fenêtre JDialog.
+     * -Pour le champ "Observation" il est aussi vérifé que le nombre de caractère ne dépassent pas 255 caractères
+     * 
+     * Une fois vérifié on insère les données en capturant les evenutels erreurs;
+     *  -Si une erreur est capturé alors on affiche le message sur une JDialog
+     * 
+     * @param evt
+     * 
+     * @see clearField#setDefaultValue
+     * @see JDateChooser
+     * @see DialogTools
+     * @see SQLException
+     * @see ClassNotFoundException
+     */
+    private void insertParticipantText(){
+        if(selectLesEvents.getSelectedValuesList().isEmpty()){
+            if(selectLesEvents.getSelectedValuesList().isEmpty()){
+                DialogTools.openMessageDialog("Vous n'avez pas sélectionner d'évènement !", "Erreur", DialogTools.ERROR_MESSAGE);
+            }
+        }else if(nomParticipant.getText().isBlank()){
+            DialogTools.openMessageDialog("Veuillez entrez un nom !", "Erreur", DialogTools.ERROR_MESSAGE);
+        }else if(prenomParticipant.getText().isBlank()){
+            DialogTools.openMessageDialog("Veuillez entrez un prénom !", "Erreur", DialogTools.ERROR_MESSAGE);
+        }else if(adresseMailParticipant.getText().isBlank() || !EmailValidator.getInstance().isValid(adresseMailParticipant.getText())){
+            DialogTools.openMessageDialog("Veuillez entrez une adresse mail valide !", "Erreur", DialogTools.ERROR_MESSAGE);
+        }else if(dateNaissanceParticipant.getDate() == null || dateNaissanceParticipant.getDate().after(new Date())){
+            if(dateNaissanceParticipant.getDate() == null){
+                DialogTools.openMessageDialog("Veuillez entrez une date de naissance !", "Erreur", DialogTools.ERROR_MESSAGE);
+            }else if(dateNaissanceParticipant.getDate().after(new Date())){
+                DialogTools.openMessageDialog("La date de naissance ne peut pas être après la date actuelle", "Erreur", DialogTools.ERROR_MESSAGE);
+            }  
+        }else if(organisationParticipant.getText().isBlank()){
+            DialogTools.openMessageDialog("Veuillez entrez l'organisation du participant !", "Erreur", DialogTools.ERROR_MESSAGE);
+        }else if(observationsParticipant.getText().isBlank() || observationsParticipant.getText().length() > 255){
+            if(observationsParticipant.getText().isBlank()){
+                DialogTools.openMessageDialog("Veuillez indiquez une observation", "Erreur", DialogTools.ERROR_MESSAGE);
+            }else{
+                DialogTools.openMessageDialog("Veuillez ne pas dépassez les 255 caractères", "Erreur", DialogTools.ERROR_MESSAGE);
+            }
+        }else{
+            boolean isValid = true;
+            for(String selectEvent : selectLesEvents.getSelectedValuesList()){
+                    if(selectEvent.equalsIgnoreCase("Aucun évènement !")){
+                        isValid = false;
+                    }
+            }
+            if(!isValid){
+                DialogTools.openMessageDialog("Le participant ne peut pas être inscrit à aucun évènement !", "Erreur !", DialogTools.ERROR_MESSAGE);
+            }else{
+                try {
+                    GestionEvenementModele laGestionEvenementModele = new GestionEvenementModele();
+                    SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
+                    
+                    laGestionEvenementModele.setDb();
+                    laGestionEvenementModele.insertParticipant(nomParticipant.getText(), prenomParticipant.getText(), adresseMailParticipant.getText(),
+                      formatDate.format(dateNaissanceParticipant.getDate()), organisationParticipant.getText(), observationsParticipant.getText());
+                    laGestionEvenementModele.closeMyStatement();
+                
+                    for(String selectEvent : selectLesEvents.getSelectedValuesList()){
+                        if(!selectEvent.equalsIgnoreCase("Aucun évènement !")){
+                            laGestionEvenementModele.insertParticipation(selectEvent, adresseMailParticipant.getText());
+                        }
+                    }
+                
+                    laGestionEvenementModele.closeAll();
+                    DialogTools.openMessageDialog("L'ajout de participant est terminée !","Ajout Terminée");
+                    this.setValueParticipant();
+                } catch (SQLException | ClassNotFoundException ex) {
+                    DialogTools.openMessageDialog(ex.getMessage(), "Erreur Participant !", DialogTools.ERROR_MESSAGE);
+                }
+            }
+        }
+    }
+    
+    public void insertParticipantCSV(){
+        if(selectLesEvents.getSelectedValuesList().isEmpty()){
+            if(selectLesEvents.getSelectedValuesList().isEmpty()){
+                DialogTools.openMessageDialog("Vous n'avez pas sélectionner d'évènement !", "Erreur", DialogTools.ERROR_MESSAGE);
+            }
+        }else{
+            boolean isValid = true;
+            for(String selectEvent : selectLesEvents.getSelectedValuesList()){
+                    if(selectEvent.equalsIgnoreCase("Aucun évènement !")){
+                        isValid = false;
+                    }
+            }
+            if(!isValid){
+                DialogTools.openMessageDialog("Le participant ne peut pas être inscrit à aucun évènement !", "Erreur !", DialogTools.ERROR_MESSAGE);
+            }else{
+                try {
+                    GestionEvenementModele laGestionEvenementModele = new GestionEvenementModele();
+                    laGestionEvenementModele.setDb();
+                    CSVFileRead csvFile = new CSVFileRead(ChooseFileCSV.getSelectedFile());
+                    if(csvFile.readControlFile() != null){
+                        for(String[]uneLigne : csvFile.getLesLignes()){
+                            laGestionEvenementModele.insertParticipant(uneLigne[0], uneLigne[1], uneLigne[2], uneLigne[3], uneLigne[4], uneLigne[5]);
+                            laGestionEvenementModele.closeMyStatement();
+                             
+                            for(String selectEvent : selectLesEvents.getSelectedValuesList()){
+                                if(!selectEvent.equalsIgnoreCase("Aucun évènement !")){
+                                    laGestionEvenementModele.insertParticipation(selectEvent, uneLigne[3]);
+                                }
+                            }
+                       }
+                       laGestionEvenementModele.closeAll();
+                       DialogTools.openMessageDialog("L'ajout de participant est terminée !","Ajout Terminée");
+                       this.setValueParticipant();
+                    }
+                 } catch (SQLException | ClassNotFoundException ex) {
+                     DialogTools.openMessageDialog(ex.getMessage(), "Erreur Participant !", DialogTools.ERROR_MESSAGE);
+                 }
+            }
+        }
+    }
 
     /*-----------------------------Initialisation des composents----------------------
     /**
@@ -93,21 +232,23 @@ public class AjoutParticipant extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        ChooseFileCSV = new javax.swing.JFileChooser();
         body = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         selectLesEvents = new javax.swing.JList<>();
         nomParticipant = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        libelleNom = new javax.swing.JLabel();
+        libellePrenom = new javax.swing.JLabel();
         prenomParticipant = new javax.swing.JTextField();
         adresseMailParticipant = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
+        libelleMail = new javax.swing.JLabel();
         organisationParticipant = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
+        libelleOrganisation = new javax.swing.JLabel();
         dateNaissanceParticipant = new com.toedter.calendar.JDateChooser();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        libelleDateNaissance = new javax.swing.JLabel();
+        libelleObservations = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         observationsParticipant = new javax.swing.JTextArea();
         jLabel8 = new javax.swing.JLabel();
@@ -116,12 +257,21 @@ public class AjoutParticipant extends javax.swing.JFrame {
         annulerParticipant = new javax.swing.JButton();
         footer = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
+        selectInsertEventText = new javax.swing.JRadioButton();
+        selectEventInsertCSV = new javax.swing.JRadioButton();
         navBar = new javax.swing.JMenuBar();
         accueilNav = new javax.swing.JMenu();
         inputEventNav = new javax.swing.JMenu();
         inputParticipantNav = new javax.swing.JMenu();
         DisplayEventNav = new javax.swing.JMenu();
         deconnexionNav = new javax.swing.JMenu();
+
+        ChooseFileCSV.setAcceptAllFileFilterUsed(false);
+        ChooseFileCSV.setDialogTitle("Choisir le fichier CSV des participants");
+        ChooseFileCSV.setFileFilter(new FileNameExtensionFilter("Fichiers .csv", "csv"));
+        ChooseFileCSV.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        ChooseFileCSV.setFocusable(false);
+        ChooseFileCSV.getAccessibleContext().setAccessibleDescription("");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(623, 745));
@@ -141,31 +291,31 @@ public class AjoutParticipant extends javax.swing.JFrame {
 
         nomParticipant.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
 
-        jLabel2.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        jLabel2.setText("Nom");
+        libelleNom.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        libelleNom.setText("Nom");
 
-        jLabel3.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        jLabel3.setText("Prénom");
+        libellePrenom.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        libellePrenom.setText("Prénom");
 
         prenomParticipant.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
 
         adresseMailParticipant.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
 
-        jLabel4.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        jLabel4.setText("Adresse mail");
+        libelleMail.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        libelleMail.setText("Adresse mail");
 
         organisationParticipant.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
 
-        jLabel5.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        jLabel5.setText("Organisation");
+        libelleOrganisation.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        libelleOrganisation.setText("Organisation");
 
         dateNaissanceParticipant.setDateFormatString("yyyy-MM-dd");
 
-        jLabel6.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        jLabel6.setText("Date de naissance");
+        libelleDateNaissance.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        libelleDateNaissance.setText("Date de naissance");
 
-        jLabel7.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        jLabel7.setText("Observations");
+        libelleObservations.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        libelleObservations.setText("Observations");
 
         observationsParticipant.setColumns(20);
         observationsParticipant.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
@@ -225,69 +375,95 @@ public class AjoutParticipant extends javax.swing.JFrame {
                 .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
         );
 
+        buttonGroup1.add(selectInsertEventText);
+        selectInsertEventText.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        selectInsertEventText.setText("Ajout Textuelle");
+        selectInsertEventText.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                selectInsertEventTextMouseClicked(evt);
+            }
+        });
+
+        buttonGroup1.add(selectEventInsertCSV);
+        selectEventInsertCSV.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        selectEventInsertCSV.setText("Ajout CSV");
+        selectEventInsertCSV.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                selectEventInsertCSVMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout bodyLayout = new javax.swing.GroupLayout(body);
         body.setLayout(bodyLayout);
         bodyLayout.setHorizontalGroup(
             bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 621, Short.MAX_VALUE)
+            .addComponent(footer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(bodyLayout.createSequentialGroup()
-                .addContainerGap(121, Short.MAX_VALUE)
+                .addGap(146, 146, 146)
                 .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bodyLayout.createSequentialGroup()
+                        .addComponent(selectInsertEventText, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(selectEventInsertCSV, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(bodyLayout.createSequentialGroup()
                         .addComponent(addParticipant, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(annulerParticipant, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jLabel8)
                     .addGroup(bodyLayout.createSequentialGroup()
-                        .addComponent(jLabel7)
+                        .addComponent(libelleObservations)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(nbCharObservation, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                    .addComponent(libelleDateNaissance)
+                    .addComponent(libelleNom)
+                    .addComponent(libellePrenom)
+                    .addComponent(libelleMail)
+                    .addComponent(libelleOrganisation)
+                    .addComponent(jScrollPane2)
                     .addComponent(organisationParticipant)
                     .addComponent(dateNaissanceParticipant, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(adresseMailParticipant)
                     .addComponent(prenomParticipant)
                     .addComponent(nomParticipant)
-                    .addComponent(jScrollPane1))
-                .addContainerGap(152, Short.MAX_VALUE))
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 621, Short.MAX_VALUE)
-            .addComponent(footer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         bodyLayout.setVerticalGroup(
             bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bodyLayout.createSequentialGroup()
                 .addComponent(jLabel1)
-                .addGap(24, 24, 24)
+                .addGap(18, 18, 18)
+                .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(selectInsertEventText)
+                    .addComponent(selectEventInsertCSV))
+                .addGap(18, 18, 18)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22)
-                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(libelleNom)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(nomParticipant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel3)
+                .addComponent(libellePrenom)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(prenomParticipant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel4)
+                .addComponent(libelleMail)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(adresseMailParticipant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel6)
+                .addComponent(libelleDateNaissance)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(dateNaissanceParticipant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel5)
+                .addComponent(libelleOrganisation)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(organisationParticipant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
+                    .addComponent(libelleObservations)
                     .addComponent(nbCharObservation))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -295,7 +471,7 @@ public class AjoutParticipant extends javax.swing.JFrame {
                 .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addParticipant)
                     .addComponent(annulerParticipant))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addComponent(footer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -381,7 +557,7 @@ public class AjoutParticipant extends javax.swing.JFrame {
      */
     private void inputEventNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputEventNavMouseClicked
         AjoutEvenement fen = new AjoutEvenement();
-        if(fen.insertSalleEvent()){
+        if(fen.setValueEvent()){
              fen.setVisible(true);
              this.dispose();
         }else {
@@ -396,7 +572,7 @@ public class AjoutParticipant extends javax.swing.JFrame {
      */
     private void inputParticipantNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputParticipantNavMouseClicked
         AjoutParticipant fen = new AjoutParticipant();
-        if(fen.insertParticipant()){
+        if(fen.setValueParticipant()){
             fen.setVisible(true);
             this.dispose();
         }else{
@@ -436,7 +612,7 @@ public class AjoutParticipant extends javax.swing.JFrame {
     private void annulerParticipantMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_annulerParticipantMouseClicked
         Accueil fen = new Accueil();
         fen.setVisible(true);
-        this.clearField();
+        this.setDefaultValue();
         this.dispose();
     }//GEN-LAST:event_annulerParticipantMouseClicked
 
@@ -461,80 +637,25 @@ public class AjoutParticipant extends javax.swing.JFrame {
 
     /*----------------------------Event Envoyer----------------------------*/
     /**
-     * Ajoute un participant lorsque le bouton "Ajouter" est cliqué et que tous les champs sont remplis sinon on affiche un message d'erreur sur une fenêtre JDialog.
-     * -Pour le champ "Observation" il est aussi vérifé que le nombre de caractère ne dépassent pas 255 caractères
-     * 
-     * Une fois vérifié on insère les données en capturant les evenutels erreurs;
-     *  -Si une erreur est capturé alors on affiche le message sur une JDialog
+     * Appelle 
      * 
      * @param evt
-     * 
-     * @see clearField
-     * @see JDateChooser
-     * @see DialogTools
-     * @see SQLException
-     * @see ClassNotFoundException
      */
     private void addParticipantMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addParticipantMouseClicked
-        if(selectLesEvents.getSelectedValuesList().isEmpty()){
-            if(selectLesEvents.getSelectedValuesList().isEmpty()){
-                DialogTools.openMessageDialog("Vous n'avez pas sélectionner d'évènement !", "Erreur", DialogTools.ERROR_MESSAGE);
-            }
-        }else if(nomParticipant.getText().isBlank()){
-            DialogTools.openMessageDialog("Veuillez entrez un nom !", "Erreur", DialogTools.ERROR_MESSAGE);
-        }else if(prenomParticipant.getText().isBlank()){
-            DialogTools.openMessageDialog("Veuillez entrez un prénom !", "Erreur", DialogTools.ERROR_MESSAGE);
-        }else if(adresseMailParticipant.getText().isBlank() || !EmailValidator.getInstance().isValid(adresseMailParticipant.getText())){
-            DialogTools.openMessageDialog("Veuillez entrez une adresse mail valide !", "Erreur", DialogTools.ERROR_MESSAGE);
-        }else if(dateNaissanceParticipant.getDate() == null || dateNaissanceParticipant.getDate().after(new Date())){
-            if(dateNaissanceParticipant.getDate() == null){
-                DialogTools.openMessageDialog("Veuillez entrez une date de naissance !", "Erreur", DialogTools.ERROR_MESSAGE);
-            }else if(dateNaissanceParticipant.getDate().after(new Date())){
-                DialogTools.openMessageDialog("La date de naissance ne peut pas être après la date actuelle", "Erreur", DialogTools.ERROR_MESSAGE);
-            }  
-        }else if(organisationParticipant.getText().isBlank()){
-            DialogTools.openMessageDialog("Veuillez entrez l'organisation du participant !", "Erreur", DialogTools.ERROR_MESSAGE);
-        }else if(observationsParticipant.getText().isBlank() || observationsParticipant.getText().length() > 255){
-            if(observationsParticipant.getText().isBlank()){
-                DialogTools.openMessageDialog("Veuillez indiquez une observation", "Erreur", DialogTools.ERROR_MESSAGE);
-            }else{
-                DialogTools.openMessageDialog("Veuillez ne pas dépassez les 255 caractères", "Erreur", DialogTools.ERROR_MESSAGE);
-            }
-        }else{
-            boolean isValid = true;
-            for(String selectEvent : selectLesEvents.getSelectedValuesList()){
-                    if(selectEvent.equalsIgnoreCase("Aucun évènement !")){
-                        isValid = false;
-                    }
-            }
-            if(!isValid){
-                DialogTools.openMessageDialog("Le participant ne peut pas être inscrit à aucun évènement !", "Erreur !", DialogTools.ERROR_MESSAGE);
-            }else{
-                try {
-                    GestionEvenementModele laGestionEvenementModele = new GestionEvenementModele();
-                    SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
-                    
-                    laGestionEvenementModele.setDb();
-                    laGestionEvenementModele.insertParticipant(nomParticipant.getText(), prenomParticipant.getText(), adresseMailParticipant.getText(),
-                      formatDate.format(dateNaissanceParticipant.getDate()), organisationParticipant.getText(), observationsParticipant.getText());
-                    laGestionEvenementModele.closeMyStatement();
-                
-                    for(String selectEvent : selectLesEvents.getSelectedValuesList()){
-                        if(!selectEvent.equalsIgnoreCase("Aucun évènement !")){
-                            System.out.println(selectEvent);
-                            laGestionEvenementModele.insertParticipation(selectEvent, adresseMailParticipant.getText());
-                        }
-                    }
-                
-                    laGestionEvenementModele.closeAll();
-                    DialogTools.openMessageDialog("L'ajout de participant est terminée !","Ajout Terminée");
-                    this.insertParticipant();
-                } catch (SQLException | ClassNotFoundException ex) {
-                    DialogTools.openMessageDialog(ex.getMessage(), "Erreur Participant !", DialogTools.ERROR_MESSAGE);
-                }
-            }
+        if(selectInsertEventText.isSelected()){
+            this.insertParticipantText();
+        }else if(selectEventInsertCSV.isSelected()){
+            this.insertParticipantCSV();
         }
     }//GEN-LAST:event_addParticipantMouseClicked
+
+    private void selectEventInsertCSVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_selectEventInsertCSVMouseClicked
+        this.showField(false);
+    }//GEN-LAST:event_selectEventInsertCSVMouseClicked
+
+    private void selectInsertEventTextMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_selectInsertEventTextMouseClicked
+        this.showField(true);
+    }//GEN-LAST:event_selectInsertEventTextMouseClicked
             
     /**
      * @param args the command line arguments
@@ -572,12 +693,14 @@ public class AjoutParticipant extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JFileChooser ChooseFileCSV;
     private javax.swing.JMenu DisplayEventNav;
     private javax.swing.JMenu accueilNav;
     private javax.swing.JButton addParticipant;
     private javax.swing.JTextField adresseMailParticipant;
     private javax.swing.JButton annulerParticipant;
     private javax.swing.JPanel body;
+    private javax.swing.ButtonGroup buttonGroup1;
     private com.toedter.calendar.JDateChooser dateNaissanceParticipant;
     private javax.swing.JMenu deconnexionNav;
     private javax.swing.JPanel footer;
@@ -585,21 +708,23 @@ public class AjoutParticipant extends javax.swing.JFrame {
     private javax.swing.JMenu inputParticipantNav;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel libelleDateNaissance;
+    private javax.swing.JLabel libelleMail;
+    private javax.swing.JLabel libelleNom;
+    private javax.swing.JLabel libelleObservations;
+    private javax.swing.JLabel libelleOrganisation;
+    private javax.swing.JLabel libellePrenom;
     private javax.swing.JMenuBar navBar;
     private javax.swing.JLabel nbCharObservation;
     private javax.swing.JTextField nomParticipant;
     private javax.swing.JTextArea observationsParticipant;
     private javax.swing.JTextField organisationParticipant;
     private javax.swing.JTextField prenomParticipant;
+    private javax.swing.JRadioButton selectEventInsertCSV;
+    private javax.swing.JRadioButton selectInsertEventText;
     private javax.swing.JList<String> selectLesEvents;
     // End of variables declaration//GEN-END:variables
 }
