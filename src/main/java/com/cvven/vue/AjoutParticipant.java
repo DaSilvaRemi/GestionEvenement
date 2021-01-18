@@ -209,6 +209,7 @@ public class AjoutParticipant extends javax.swing.JFrame {
                             for(String selectEvent : selectLesEvents.getSelectedValuesList()){
                                 if(!selectEvent.equalsIgnoreCase("Aucun évènement !")){
                                     laGestionEvenementModele.insertParticipation(selectEvent, uneLigne[3]);
+                                    laGestionEvenementModele.closeMyStatement();
                                 }
                             }
                        }
