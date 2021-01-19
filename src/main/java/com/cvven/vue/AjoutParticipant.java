@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.DefaultListModel;
+import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import org.apache.commons.validator.routines.EmailValidator;
 
@@ -201,22 +202,32 @@ public class AjoutParticipant extends javax.swing.JFrame {
                 try {
                     GestionEvenementModele laGestionEvenementModele = new GestionEvenementModele();
                     laGestionEvenementModele.setDb();
-                    CSVFileRead csvFile = new CSVFileRead(ChooseFileCSV.getSelectedFile());
-                    if(csvFile.readControlFile() != null){
-                        for(String[]uneLigne : csvFile.getLesLignes()){
-                            laGestionEvenementModele.insertParticipant(uneLigne[0], uneLigne[1], uneLigne[2], uneLigne[3], uneLigne[4], uneLigne[5]);
-                            laGestionEvenementModele.closeMyStatement();
+
+                    while(ChooseFileCSV.showOpenDialog(this) != JFileChooser.APPROVE_OPTION && ChooseFileCSV.showOpenDialog(this) != JFileChooser.CANCEL_OPTION){
+                        if(ChooseFileCSV.showOpenDialog(this) != JFileChooser.ERROR_OPTION){
+                            break;
+                        }
+                    }
+                    if(ChooseFileCSV.getSelectedFile() != null){
+                        CSVFileRead csvFile = new CSVFileRead(ChooseFileCSV.getSelectedFile());
+                        if(csvFile.readControlFile() != null){
+                            for(String[]uneLigne : csvFile.getLesLignes()){
+                                laGestionEvenementModele.insertParticipant(uneLigne[0], uneLigne[1], uneLigne[2], uneLigne[3], uneLigne[4], uneLigne[5]);
+                                laGestionEvenementModele.closeMyStatement();
                              
-                            for(String selectEvent : selectLesEvents.getSelectedValuesList()){
-                                if(!selectEvent.equalsIgnoreCase("Aucun évènement !")){
-                                    laGestionEvenementModele.insertParticipation(selectEvent, uneLigne[3]);
-                                    laGestionEvenementModele.closeMyStatement();
+                                for(String selectEvent : selectLesEvents.getSelectedValuesList()){
+                                    if(!selectEvent.equalsIgnoreCase("Aucun évènement !")){
+                                        laGestionEvenementModele.insertParticipation(selectEvent, uneLigne[3]);
+                                        laGestionEvenementModele.closeMyStatement();
+                                    }
                                 }
                             }
-                       }
-                       laGestionEvenementModele.closeAll();
-                       DialogTools.openMessageDialog("L'ajout de participant est terminée !","Ajout Terminée");
-                       this.setValueParticipant();
+                            laGestionEvenementModele.closeAll();
+                            DialogTools.openMessageDialog("L'ajout de participant est terminée !","Ajout Terminée");
+                            this.setValueParticipant();
+                    }else{
+                            DialogTools.openMessageDialog("Vous n'avez pas sélectionné de fichier !", "Erreur Select Fichier !", DialogTools.WARNING_MESSAGE);
+                     }
                     }
                  } catch (SQLException | ClassNotFoundException ex) {
                      DialogTools.openMessageDialog(ex.getMessage(), "Erreur Participant !", DialogTools.ERROR_MESSAGE);
