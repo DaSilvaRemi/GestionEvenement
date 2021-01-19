@@ -12,6 +12,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import org.apache.commons.validator.routines.EmailValidator;
 /**
  * Classe technique permettant de lire les fichiers CSV
@@ -114,13 +115,13 @@ public class CSVFileRead{
             this.closeFile();
             return this.lesLignes;
         } catch (FileNotFoundException ex) {
-            DialogTools.openMessageDialog(ex.getMessage(), "Erreur Fichier !", DialogTools.WARNING_MESSAGE);
+            DialogTools.openMessageDialog(ex.toString(), "Erreur Fichier !", DialogTools.WARNING_MESSAGE);
             return null;
         } catch (IOException ex) {
-            DialogTools.openMessageDialog(ex.getMessage(), "Erreur Fichier !", DialogTools.WARNING_MESSAGE);
+            DialogTools.openMessageDialog(ex.toString(), "Erreur Fichier !", DialogTools.WARNING_MESSAGE);
             return null;
         } catch (Exception ex) {
-            DialogTools.openMessageDialog(ex.getMessage(), "Erreur Fichier !", DialogTools.WARNING_MESSAGE);
+            DialogTools.openMessageDialog(ex.toString(), "Erreur Fichier !", DialogTools.WARNING_MESSAGE);
             return null;
         }
     }
