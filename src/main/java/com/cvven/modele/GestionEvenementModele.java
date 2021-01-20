@@ -201,7 +201,7 @@ public final class GestionEvenementModele extends GestionBDDModele {
      * @return le résultat de la requête sur les informations du participant.
      * @throws SQLException 
      */
-    public ResultSet selectInfoParticipant(String email) throws SQLException{
+    public ResultSet selectInfoParticipantWithEmail(String email) throws SQLException{
         super.setMyStatement("SELECT participant.nom, participant.prenom, participant.date_naissance, participant.organisation, participant.observations, participant.email FROM "
                 + "public.participant WHERE participant.email = ?");
         super.getMyStatement().setString(1, email);
