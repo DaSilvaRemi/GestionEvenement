@@ -4,5 +4,5 @@ Application Client Lourd Java Swing avec Maven. Gérant les colloques, plus pré
 
 # bug fichier picture
 /* 
-
+Ajouter le fichier Picture dans target/classes/com/cvven
 */
