@@ -57,7 +57,7 @@ public class AjoutEvenement extends javax.swing.JFrame {
         try {
             GestionEvenementModele laGestionEvenementModele = new GestionEvenementModele();
             laGestionEvenementModele.setDb();
-            ResultSet result = laGestionEvenementModele.selectInfoSalle();
+            ResultSet result = laGestionEvenementModele.selectInfoAllSalle();
             
             if(result != null){
                 boolean isExist = false;

@@ -31,31 +31,29 @@ public final class GestionEvenementModele extends GestionBDDModele {
     
     /*-----------------------------------Table participer--------------------------------*/
     /**
-     * Selectionne les informations utiles pour l'affichage des évènement ayant au moins une participation
+     * Selectionne les informations nécessaire pour l'affichage des évènement ayant au moins une participation.
+     * Les informations retournés sont : 
+     * -l'intitule
+     * -le type
+     * -la date de l'évènement
+     * -le thème
+     * -le nombre de participant.
+     * -l'organisateur
+     * -l'état d'archivage de l'évènement
      * 
      * @return le résultat de la requête
      * @throws SQLException 
      */
-    public ResultSet selectInfoAllEvent() throws SQLException{
-        super.setMyStatement("SELECT evenement.intitule, evenement.type, evenement.datedebut, evenement.duree, evenement.theme, "
+    public ResultSet selectInfoTableEventWithParticipation() throws SQLException{
+        super.setMyStatement("SELECT evenement.intitule, evenement.type, evenement.date, evenement.duree, evenement.theme, "
                 + "COUNT(particper.id_participant) AS nbParticipant, evenement.organisateur, evenement.archive "
-                + "FROM public.particper INNER JOIN public.evenement ON participer.id_evenement = evenement.id_evenement "
+                + "FROM public.participer INNER JOIN public.evenement ON participer.id_evenement = evenement.id_evenement "
                 + "INNER JOIN public.participant ON participer.id_participant = participant.id_participant"
                 + "GROUP BY evenement.intitule, evenement.type, evenement.datedebut, evenement.duree, evenement.theme, evenement.organisateur, evenement.archive"
                 + "ORDER BY evenement.archive DESC;");
         return super.getResult();
     }
     
-    /**
-     * Selectionne les évènement existant avec uniquement l'id et l'intitule
-     * 
-     * @return le résultat de la requête
-     * @throws SQLException 
-     */
-    public ResultSet selectLesEventNonArchiver() throws SQLException{
-        super.setMyStatement("SELECT evenement.id_evenement, evenement.intitule FROM public.evenement WHERE evenement.archive IS NULL;");
-        return super.getResult();
-    }
     
     /**
      * Inscrit un participant à un évènement
@@ -73,16 +71,69 @@ public final class GestionEvenementModele extends GestionBDDModele {
     }
     /*----------------------------------Table Salle--------------------------------------*/
     /**
+     * Permet de récupérer les informations de toutes les salles.
+     * Les informations retournés sont :
+     * -L'id de la salle
+     * -Le type de la salle
      * 
      * @return le résultat de la requête
      * @throws SQLException 
      */
-    public ResultSet selectInfoSalle() throws SQLException{
+    public ResultSet selectInfoAllSalle() throws SQLException{
+        super.setMyStatement("SELECT * FROM public.salle;");
+        return super.getResult();
+    }
+    
+     /**
+     * Permet de récupérer les information d'une salle avec son id.
+     * Les informations retournés sont :
+     * -L'id de la salle
+     * -Le type de la salle
+     * 
+     * @param idSalle L'id de la salle
+     * @return le résultat de la requête
+     * @throws SQLException 
+     */
+    public ResultSet selectInfoSalle(int idSalle) throws SQLException{
         super.setMyStatement("SELECT * FROM public.salle;");
         return super.getResult();
     }
     
     /*----------------------------------Table évènement----------------------------------*/
+    /**
+     * Retourne les informations de l'évènement à partir de l'intitulé.
+     * Les informations retournés sont : 
+     * -l'intitule
+     * -le type
+     * -la date de l'évènement
+     * -le thème
+     * -le nombre de participant.
+     * -l'organisateur
+     * -l'état d'archivage de l'évènement
+     * -L'id de l'utilisateur
+     * -L'id de la salle
+     * 
+     * @param intitule
+     * @return
+     * @throws SQLException 
+     */
+    public ResultSet selectInfoEventWithIntitule(String intitule) throws SQLException{
+        super.setMyStatement("SELECT evenement.intitule, evenement.theme, evenemenent.dateEvent, evenement.duree, evenement.description, evenement.organisateur, evenement.type,"
+                + "evenement.archive, evenement.id_user, evenement.idSalle FROM public.evenement WHERE evenement.intitule = ?");
+        super.getMyStatement().setString(1, intitule);
+        return super.getResult();
+    }
+    
+    /**
+     * Selectionne les évènement non archivé existant avec uniquement l'id et l'intitule
+     * 
+     * @return le résultat de la requête
+     * @throws SQLException 
+     */
+    public ResultSet selectLesEventNonArchiver() throws SQLException{
+        super.setMyStatement("SELECT evenement.id_evenement, evenement.intitule FROM public.evenement WHERE evenement.archive IS NULL;");
+        return super.getResult();
+    }
     
     /**
      * Compte le nombre d'évènement avec cet intitulé
@@ -91,7 +142,7 @@ public final class GestionEvenementModele extends GestionBDDModele {
      * @return le résultat de la requête
      * @throws SQLException 
      */
-    public ResultSet countEvent(String intitule) throws SQLException{
+    public ResultSet countEventWithIntitule(String intitule) throws SQLException{
         super.setMyStatement("SELECT COUNT(intitule) AS nbEvent FROM evenement WHERE intitule = ?;");
         super.getMyStatement().setString(1, intitule);
         return super.getResult();
@@ -136,6 +187,25 @@ public final class GestionEvenementModele extends GestionBDDModele {
     }
     
     /*----------------------------------Table participant--------------------------------*/
+    /**
+     * Retourne les informations du participants.
+     * Les informations retournée sont : 
+     * -Le nom du participant
+     * -Le prénom du participant
+     * -La date de naissance du participant
+     * -L'organisation du participant
+     * -L'observation du partcipant
+     * -L'email du participant
+     * 
+     * @param email
+     * @return le résultat de la requête sur les informations du participant.
+     * @throws SQLException 
+     */
+    public ResultSet selectInfoParticipant(String email) throws SQLException{
+        super.setMyStatement("SELECT participant.nom, participant.prenom, participant.date_naissance, participant.organisation, participant.observations, participant.email");
+        return super.getResult();
+    }
+    
      /**
      * Compte le nombre d'email existant
      * 
