@@ -125,7 +125,10 @@ public final class GestionEvenementModele extends GestionBDDModele {
     }
     
     /**
-     * Selectionne les évènement non archivé existant avec uniquement l'id et l'intitule
+     * Selectionne les évènement non archivé existant avec uniquement l'id et l'intitule.
+     * Les informations retournés sont :
+     * -L'id de l'évènement
+     * -L'intitulé de lévènement
      * 
      * @return le résultat de la requête
      * @throws SQLException 
@@ -136,7 +139,7 @@ public final class GestionEvenementModele extends GestionBDDModele {
     }
     
     /**
-     * Compte le nombre d'évènement avec cet intitulé
+     * Compte le nombre d'évènement avec l'intitulé de l'évènement.
      * 
      * @param intitule
      * @return le résultat de la requête
@@ -150,7 +153,7 @@ public final class GestionEvenementModele extends GestionBDDModele {
     
     
     /**
-     * Insère un évènement à la BDD
+     * Insère un évènement à la BDD.
      * 
      * Un trigger vérifie si l'intitulé de l'évènement n'existe pas déja.
      * 
@@ -209,7 +212,7 @@ public final class GestionEvenementModele extends GestionBDDModele {
     }
     
      /**
-     * Compte le nombre d'email existant
+     * Compte le nombre d'email existant des participants.
      * 
      * @param email
      * @return le résultat de la requête
@@ -246,7 +249,7 @@ public final class GestionEvenementModele extends GestionBDDModele {
     
     /*-----------------------------------Table user--------------------------------------*/
     /**
-     * Retourne l'id de l'utilisateur
+     * Retourne l'id de l'utilisateur ayant le login et le mot de passe indiqué.
      * 
      * @param login
      * @param mdp

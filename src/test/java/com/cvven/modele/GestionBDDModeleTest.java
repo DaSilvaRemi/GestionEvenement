@@ -61,7 +61,7 @@ public class GestionBDDModeleTest {
     @Test
     public void testGetUser() {
         System.out.println("Test de getUser");
-        assertEquals("remi", instance.getUrlHoteBdd(), "L'utilisateur est incorrect !");
+        assertNotNull(instance.getUser(), "L'utilisateur est incorrect !");
     }
 
     /**
@@ -197,6 +197,9 @@ public class GestionBDDModeleTest {
     }
 
     public class GestionBDDModeleImpl extends GestionBDDModele {
+        GestionBDDModeleImpl(){
+            super();
+        }
     }
     
 }
