@@ -188,7 +188,7 @@ public final class GestionEvenementModele extends GestionBDDModele {
     
     /*----------------------------------Table participant--------------------------------*/
     /**
-     * Retourne les informations du participants.
+     * Retourne les informations du participants à partir de son email.
      * Les informations retournée sont : 
      * -Le nom du participant
      * -Le prénom du participant
@@ -197,12 +197,14 @@ public final class GestionEvenementModele extends GestionBDDModele {
      * -L'observation du partcipant
      * -L'email du participant
      * 
-     * @param email
+     * @param email L'email du participant
      * @return le résultat de la requête sur les informations du participant.
      * @throws SQLException 
      */
     public ResultSet selectInfoParticipant(String email) throws SQLException{
-        super.setMyStatement("SELECT participant.nom, participant.prenom, participant.date_naissance, participant.organisation, participant.observations, participant.email");
+        super.setMyStatement("SELECT participant.nom, participant.prenom, participant.date_naissance, participant.organisation, participant.observations, participant.email FROM "
+                + "public.participant WHERE participant.email = ?");
+        super.getMyStatement().setString(1, email);
         return super.getResult();
     }
     
