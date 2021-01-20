@@ -42,6 +42,7 @@ public class GestionEvenementModeleTest {
     
     @AfterEach
     public void tearDown() {
+        instance = new GestionEvenementModele();
         System.out.println("-------Test N°" + compteur + " réalisée-----");
     }
     

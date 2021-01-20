@@ -23,6 +23,7 @@ import org.postgresql.Driver;
  */
 public class GestionBDDModeleTest {
     
+    private static int compteur = 0;
     private GestionBDDModele instance;
     
     public GestionBDDModeleTest() {
@@ -39,11 +40,14 @@ public class GestionBDDModeleTest {
     @BeforeEach
     public void setUp() {
         instance = new GestionBDDModeleImpl();
+        compteur++;
+        System.out.println("-------Test N°" + compteur + " en cours-----");
     }
     
     @AfterEach
     public void tearDown() {
         instance = new GestionBDDModeleImpl();
+        System.out.println("-------Test N°" + compteur + " réalisée-----");
     }
 
     /**
@@ -144,7 +148,7 @@ public class GestionBDDModeleTest {
      */
     @Test
     public void testCloseMaBdd() throws SQLException, ClassNotFoundException {
-        System.out.println("closeMaBdd");
+        System.out.println("Test de closeMaBdd");
         GestionBDDModele instance = new GestionBDDModeleImpl();
         instance.closeMaBdd();
     }
@@ -154,7 +158,7 @@ public class GestionBDDModeleTest {
      */
     @Test
     public void testCloseMyStatement() throws SQLException, ClassNotFoundException {
-        System.out.println("closeMyStatement");
+        System.out.println("Test de closeMyStatement");
         GestionBDDModele instance = new GestionBDDModeleImpl();
         instance.closeMyStatement();
     }
@@ -164,7 +168,7 @@ public class GestionBDDModeleTest {
      */
     @Test
     public void testCloseAll() throws SQLException, ClassNotFoundException {
-        System.out.println("closeAll");
+        System.out.println("Test de closeAll");
         GestionBDDModele instance = new GestionBDDModeleImpl();
         instance.closeAll();
     }
@@ -174,7 +178,7 @@ public class GestionBDDModeleTest {
      */
     @Test
     public void testExecSQLWithouthResult() throws SQLException, ClassNotFoundException {
-        System.out.println("execSQLWithouthResult");
+        System.out.println("Test de execSQLWithouthResult");
         instance.setDb();
         instance.setMyStatement("SELECT id_user FROM public.user WHERE login = ?");
         instance.getMyStatement().setString(1, "admin");
@@ -187,8 +191,7 @@ public class GestionBDDModeleTest {
      */
     @Test
     public void testGetResult() throws SQLException, ClassNotFoundException {
-        System.out.println("getResult");
-        System.out.println("execSQLWithouthResult");
+        System.out.println("Test de getResult");
         instance.setDb();
         instance.setMyStatement("SELECT id_user FROM public.user WHERE login = ?");
         instance.getMyStatement().setString(1, "admin");
