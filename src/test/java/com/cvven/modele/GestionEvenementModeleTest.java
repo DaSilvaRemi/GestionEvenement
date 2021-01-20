@@ -35,7 +35,7 @@ public class GestionEvenementModeleTest {
     
     @BeforeEach
     public void setUp() {
-        instance = new GestionEvenementModele("localhost/gestionevenement","remi", "test");
+        instance = new GestionEvenementModele();
         compteur++;
         System.out.println("-------Test N°" + compteur + " en cours-----");
     }
@@ -46,13 +46,13 @@ public class GestionEvenementModeleTest {
     }
     
     /**
-     * Test of selectInfoAllEvent method, of class GestionEvenementModele.
+     * Test of selectInfoTableEventWithParticipation method, of class GestionEvenementModele.
      */
     @Test
     public void testSelectInfoAllEvent() throws Exception {
         System.out.println("Test de : selectInfoAllEvent");
         ResultSet expResult = null;
-        ResultSet result = instance.selectInfoAllEvent();
+        ResultSet result = instance.selectInfoTableEventWithParticipation();
         assertEquals(expResult, result);
     }
 
@@ -68,24 +68,24 @@ public class GestionEvenementModeleTest {
     }
 
     /**
-     * Test of selectInfoSalle method, of class GestionEvenementModele.
+     * Test of selectInfoAllSalle method, of class GestionEvenementModele.
      */
     @Test
     public void testSelectInfoSalle() throws Exception {
         System.out.println("Test de : selectInfoSalle");
         GestionEvenementModele instance = null;
         ResultSet expResult = null;
-        ResultSet result = instance.selectInfoSalle();
+        ResultSet result = instance.selectInfoAllSalle();
         assertEquals(expResult, result);
     }
 
     /**
-     * Test of countEvent method, of class GestionEvenementModele.
+     * Test of countEventWithIntitule method, of class GestionEvenementModele.
      */
     @Test
     public void testCountEvent() throws Exception {
         System.out.println("countEvent");
-        ResultSet result = instance.countEvent("Test1");
+        ResultSet result = instance.countEventWithIntitule("Test1");
         result.next();
         assertEquals(1, result.getInt("nbEvent"));
     }
@@ -104,7 +104,6 @@ public class GestionEvenementModeleTest {
         String organisateur = "Test1";
         String type = "Test1";
         String typeSalle = "";
-        String capacite = "";
         instance.insertEvent(intitule, theme, dateEvent, duree, description, organisateur, type, typeSalle);
     }
 
