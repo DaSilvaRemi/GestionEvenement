@@ -191,6 +191,7 @@ public class Authentification extends javax.swing.JFrame {
                 String mdp = new String(c);
                 if(gestionEventModele.countUserLoginMdp(login.getText(), mdp).getInt("nbUser") == 1){
                     Session.initSession(gestionEventModele.selectIdUser(login.getText(), mdp).getInt("id_user"));
+                    System.out.println(Session.getIdUser());
                     Accueil fen = new Accueil();
                     fen.setVisible(true);
                     this.dispose();

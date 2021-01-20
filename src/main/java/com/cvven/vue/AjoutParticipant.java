@@ -390,6 +390,7 @@ public class AjoutParticipant extends javax.swing.JFrame {
 
         buttonGroup1.add(selectInsertEventText);
         selectInsertEventText.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        selectInsertEventText.setSelected(true);
         selectInsertEventText.setText("Ajout Textuelle");
         selectInsertEventText.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
