@@ -229,9 +229,7 @@ public class AjoutParticipant extends javax.swing.JFrame {
                             laGestionEvenementModele.closeAll();
                             DialogTools.openMessageDialog("L'ajout de participant est terminée !","Ajout Terminée");
                             this.setValueParticipant();
-                    }else{
-                            DialogTools.openMessageDialog("Vous n'avez pas sélectionné de fichier !", "Erreur Select Fichier !", DialogTools.WARNING_MESSAGE);
-                     }
+                        }
                     }
                  } catch (SQLException | ClassNotFoundException ex) {
                      DialogTools.openMessageDialog(ex.getMessage(), "Erreur Participant !", DialogTools.ERROR_MESSAGE);

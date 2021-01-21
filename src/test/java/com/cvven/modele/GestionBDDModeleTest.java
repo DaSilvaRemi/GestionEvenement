@@ -75,10 +75,7 @@ public class GestionBDDModeleTest {
     public void testGetDb() throws SQLException, ClassNotFoundException {
         System.out.println("Test de getDb");
         instance.setDb();
-        Class.forName("org.postgresql.Driver");
-        Connection expect = DriverManager.getConnection("jdbc:postgresql://"+instance.getUrlHoteBdd(), instance.getUser(), "test");
-        Connection result = instance.getDb();
-        assertEquals(expect, result, "Les objets connection ne sont pas semblable");
+        assertNotNull(instance.getDb(), "Aucune connexion n'as été ouverte !");
         instance.closeMaBdd();
     }
 
@@ -135,6 +132,7 @@ public class GestionBDDModeleTest {
      */
     @Test
     public void testSetMyStatement() throws SQLException, ClassNotFoundException {
+        System.out.println("Test de setMyStatement");
         instance.setDb();
         instance.setMyStatement("SELECT id_user FROM public.user WHERE login = ?");
         PreparedStatement expect = instance.getDb().prepareStatement("SELECT id_user FROM public.user WHERE login = ?");
@@ -149,7 +147,7 @@ public class GestionBDDModeleTest {
     @Test
     public void testCloseMaBdd() throws SQLException, ClassNotFoundException {
         System.out.println("Test de closeMaBdd");
-        GestionBDDModele instance = new GestionBDDModeleImpl();
+        instance.setDb();
         instance.closeMaBdd();
     }
 
@@ -159,7 +157,8 @@ public class GestionBDDModeleTest {
     @Test
     public void testCloseMyStatement() throws SQLException, ClassNotFoundException {
         System.out.println("Test de closeMyStatement");
-        GestionBDDModele instance = new GestionBDDModeleImpl();
+        instance.setDb();
+        instance.setMyStatement("SELECT * FROM public.user");
         instance.closeMyStatement();
     }
 
@@ -169,7 +168,8 @@ public class GestionBDDModeleTest {
     @Test
     public void testCloseAll() throws SQLException, ClassNotFoundException {
         System.out.println("Test de closeAll");
-        GestionBDDModele instance = new GestionBDDModeleImpl();
+        instance.setDb();
+        instance.setMyStatement("SELECT * FROM public.user");
         instance.closeAll();
     }
 

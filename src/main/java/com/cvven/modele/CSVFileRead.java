@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.apache.commons.validator.routines.DateValidator;
 /**
@@ -25,7 +24,7 @@ public class CSVFileRead{
     /**
      * Le fichier à lire
      */
-    private File file;
+    private final File file;
     /**
      * Le fichier CSV
      */
@@ -41,6 +40,7 @@ public class CSVFileRead{
      */
     public CSVFileRead(File file) {
         this.file = file;
+        this.lesLignes = new ArrayList<>();
     }
     
     /**
@@ -79,16 +79,19 @@ public class CSVFileRead{
     }
 
     /**
-     * Ouvre le fichier.
+     * Ouvre le fichier s'il n'est pas un répertoire et qu'il à les droits de lecture.
      * 
      * @throws FileNotFoundException 
-     * @throws Exception 
+     * @throws Exception
      */
     public void openFile() throws FileNotFoundException, Exception{
-        if(!this.file.canRead()){
+        if(this.file.isDirectory() || !this.file.isFile()){
+            throw new Exception("Le fichier est un répertoire");
+        }else if(!this.file.canRead()){
             throw new Exception("Le fichier ne peut pas être lu !");
+        }else{
+            this.fileRead = new CSVReader(new FileReader(this.file));
         }
-        this.fileRead = new CSVReader(new FileReader(this.file));
     }
     
     /**
@@ -110,22 +113,20 @@ public class CSVFileRead{
     public ArrayList<String[]> readFile(){
         try {
             this.openFile();
-            String line[];
-            while((line = this.getFileRead().readNext()) != null){
-                this.lesLignes.add(line);
+            String uneLigne[];
+            while((uneLigne = this.getFileRead().readNext()) != null){
+                   this.lesLignes.add(uneLigne);  
             }
             this.closeFile();
             return this.lesLignes;
         } catch (FileNotFoundException ex) {
-            DialogTools.openMessageDialog(ex.toString(), "Erreur Fichier !", DialogTools.WARNING_MESSAGE);
-            return null;
+            DialogTools.openMessageDialog(ex.toString(), "Erreur Fichier Non Trouvée !", DialogTools.WARNING_MESSAGE);
         } catch (IOException ex) {
-            DialogTools.openMessageDialog(ex.toString(), "Erreur Fichier !", DialogTools.WARNING_MESSAGE);
-            return null;
+            DialogTools.openMessageDialog(ex.toString(), "Erreur Fichier Lecture !", DialogTools.WARNING_MESSAGE);
         } catch (Exception ex) {
-            DialogTools.openMessageDialog(ex.toString(), "Erreur Fichier !", DialogTools.WARNING_MESSAGE);
-            return null;
+            DialogTools.openMessageDialog(ex.toString(), "Erreur Fichier Données !", DialogTools.WARNING_MESSAGE);
         }
+        return null;
     }
     
     /**
@@ -168,7 +169,11 @@ public class CSVFileRead{
                         case "organisation" :
                         case "description":
                             dataIsCorrect = false;
-                            break;    
+                            break; 
+                    }
+                    
+                    if(!dataIsCorrect){
+                        break;
                     }
                 }
             }

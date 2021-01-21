@@ -47,13 +47,13 @@ public class GestionEvenementModeleTest {
     }
     
     /**
-     * Test of selectInfoTableEventWithParticipation method, of class GestionEvenementModele.
+     * Test of selectInfoTableEvent method, of class GestionEvenementModele.
      */
     @Test
     public void testSelectInfoAllEvent() throws Exception {
         System.out.println("Test de : selectInfoAllEvent");
         ResultSet expResult = null;
-        ResultSet result = instance.selectInfoTableEventWithParticipation();
+        ResultSet result = instance.selectInfoTableEvent();
         assertEquals(expResult, result);
     }
 
