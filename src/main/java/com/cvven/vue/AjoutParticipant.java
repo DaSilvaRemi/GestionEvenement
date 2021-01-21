@@ -203,8 +203,12 @@ public class AjoutParticipant extends javax.swing.JFrame {
                     GestionEvenementModele laGestionEvenementModele = new GestionEvenementModele();
                     laGestionEvenementModele.setDb();
 
-                    while(ChooseFileCSV.showOpenDialog(this) != JFileChooser.APPROVE_OPTION && ChooseFileCSV.showOpenDialog(this) != JFileChooser.CANCEL_OPTION){
-                        if(ChooseFileCSV.showOpenDialog(this) != JFileChooser.ERROR_OPTION){
+                    boolean action = false;
+                    while(!action){
+                        int returnVal = ChooseFileCSV.showOpenDialog(this);
+                        if(returnVal == JFileChooser.APPROVE_OPTION){
+                            break;
+                        }else if(returnVal == JFileChooser.CANCEL_OPTION){
                             break;
                         }
                     }
