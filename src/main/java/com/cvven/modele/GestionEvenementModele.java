@@ -31,7 +31,7 @@ public final class GestionEvenementModele extends GestionBDDModele {
     
     /*-----------------------------------Table participer--------------------------------*/
     /**
-     * Selectionne les informations nécessaire pour l'affichage des évènement ayant au moins une participation.
+     * Selectionne les informations nécessaire pour l'affichage des évènement.
      * Les informations retournés sont : 
      * -l'intitule
      * -le type
@@ -44,11 +44,10 @@ public final class GestionEvenementModele extends GestionBDDModele {
      * @return le résultat de la requête
      * @throws SQLException 
      */
-    public ResultSet selectInfoTableEventWithParticipation() throws SQLException{
+    public ResultSet selectInfoTableEvent() throws SQLException{
         super.setMyStatement("SELECT evenement.intitule, evenement.type, evenement.date, evenement.duree, evenement.theme, "
                 + "COUNT(particper.id_participant) AS nbParticipant, evenement.organisateur, evenement.archive "
                 + "FROM public.participer INNER JOIN public.evenement ON participer.id_evenement = evenement.id_evenement "
-                + "INNER JOIN public.participant ON participer.id_participant = participant.id_participant"
                 + "GROUP BY evenement.intitule, evenement.type, evenement.datedebut, evenement.duree, evenement.theme, evenement.organisateur, evenement.archive"
                 + "ORDER BY evenement.archive DESC;");
         return super.getResult();
