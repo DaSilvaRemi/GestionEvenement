@@ -11,9 +11,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import org.apache.commons.validator.routines.EmailValidator;
+import org.apache.commons.validator.routines.DateValidator;
 /**
  * Classe technique permettant de lire les fichiers CSV
  * 
@@ -152,34 +154,33 @@ public class CSVFileRead{
     private void controlData() throws SQLException, ClassNotFoundException{
         ArrayList<String[]> lesLignesValides = new ArrayList<>();
         for(String[] uneLigne: this.lesLignes){
-            boolean dataIsBlank = false;
+            boolean dataIsCorrect = true;
             for(String data : uneLigne){
                 if(data.isBlank()){
-                    dataIsBlank = true;
+                    dataIsCorrect = false;
                     break;
+                }else{
+                    switch(data){
+                        case "nom":
+                        case "prenom":
+                        case "adressemail":
+                        case "datenaissance":
+                        case "organisation" :
+                        case "description":
+                            dataIsCorrect = false;
+                            break;    
+                    }
                 }
             }
-            if(!dataIsBlank){
-                //L'émail du participant
-                if(EmailValidator.getInstance().isValid(uneLigne[2]) && this.controlDate(uneLigne[3]) && uneLigne[5].length() <= 255 && this.controlEmail(uneLigne[2])){ 
+            if(dataIsCorrect){
+                if(EmailValidator.getInstance().isValid(uneLigne[2]) && DateValidator.getInstance().isValid(uneLigne[3]) && uneLigne[5].length() <= 255 && this.controlEmail(uneLigne[2])){ 
+                    SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
+                    uneLigne[3] = formatDate.format(uneLigne[3]);
                     lesLignesValides.add(uneLigne);
                 }
             }
         }
         this.lesLignes = lesLignesValides;
-    }
-    
-    /**
-     * Controle la date
-     * 
-     * @param date
-     * @return  si la date est correcte
-     */
-    private boolean controlDate(String date){
-        if(date.length() != 10){
-            return false;
-        }else return !(date.charAt(4) != '-' && date.charAt(7) != '-');
-
     }
     
     /**
