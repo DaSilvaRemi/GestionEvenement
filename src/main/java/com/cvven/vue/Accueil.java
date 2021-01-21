@@ -65,6 +65,7 @@ public class Accueil extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         body.setBackground(new java.awt.Color(254, 254, 254));
 
