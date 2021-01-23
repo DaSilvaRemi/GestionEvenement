@@ -6,15 +6,14 @@
 package com.cvven.modele;
 
 import com.opencsv.CSVReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.apache.commons.validator.routines.DateValidator;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.sql.SQLException;
 /**
  * Classe technique permettant de lire les fichiers CSV
  * 
@@ -179,8 +178,6 @@ public class CSVFileRead{
             }
             if(dataIsCorrect){
                 if(this.controlEmail(uneLigne[2]) && DateValidator.getInstance().isValid(uneLigne[3], "yyyy-MM-dd") && uneLigne[5].length() <= 255){ 
-                    SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
-                    uneLigne[3] = formatDate.format(uneLigne[3]);
                     lesLignesValides.add(uneLigne);
                 }
             }
