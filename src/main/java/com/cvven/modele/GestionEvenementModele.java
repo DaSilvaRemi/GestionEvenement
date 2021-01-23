@@ -218,7 +218,8 @@ public final class GestionEvenementModele extends GestionBDDModele {
      * @throws SQLException 
      */
     public ResultSet countEmailParticipant(String email) throws SQLException{
-        super.setMyStatement("SELECT COUNT(id_participant) AS nbParticipant FROM public.participant WHERE participant.email;");
+        super.setMyStatement("SELECT COUNT(id_participant) AS nbParticipant FROM public.participant WHERE participant.email = ?;");
+        super.getMyStatement().setString(1, email);
         return super.getResult();
     }
     
