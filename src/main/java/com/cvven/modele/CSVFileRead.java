@@ -178,10 +178,7 @@ public class CSVFileRead{
                 }
             }
             if(dataIsCorrect){
-                System.out.println("Email : " + this.controlEmail(uneLigne[2]));
-                System.out.println("Date : " + DateValidator.getInstance().isValid(uneLigne[3]));
-                System.out.println(uneLigne[5].length() <= 255);
-                if(this.controlEmail(uneLigne[2]) && DateValidator.getInstance().isValid(uneLigne[3]) && uneLigne[5].length() <= 255){ 
+                if(this.controlEmail(uneLigne[2]) && DateValidator.getInstance().isValid(uneLigne[3], "yyyy-MM-dd") && uneLigne[5].length() <= 255){ 
                     SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
                     uneLigne[3] = formatDate.format(uneLigne[3]);
                     lesLignesValides.add(uneLigne);
@@ -205,7 +202,7 @@ public class CSVFileRead{
     private boolean controlEmail(String email) throws SQLException, ClassNotFoundException{
         GestionEvenementModele laGestionEvenementModele = new GestionEvenementModele();
         laGestionEvenementModele.setDb();
-        return EmailValidator.getInstance().isValid(email) && (laGestionEvenementModele.countEmailParticipant(email).getInt("id_participant") == 0);
+        return EmailValidator.getInstance().isValid(email) && (laGestionEvenementModele.countEmailParticipant(email).getInt("nbParticipant") == 0);
     }
     
 }
