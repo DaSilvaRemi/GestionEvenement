@@ -5,6 +5,15 @@
  */
 package com.cvven.vue;
 
+import com.cvven.modele.DialogTools;
+import com.cvven.modele.GestionEvenementModele;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+
 /**
  * Classe Métier Autogénérer Héritière de JFrame
  *
@@ -17,6 +26,27 @@ public class AfficherEvenements extends javax.swing.JFrame {
      */
     public AfficherEvenements() {
         initComponents();
+    }
+    
+    public final void setValueDisplayEvent(){
+        try {
+            DefaultTableModel model = new DefaultTableModel();
+            GestionEvenementModele laGestionEvenementModele = new GestionEvenementModele();
+            laGestionEvenementModele.setDb();
+            ArrayList<Object> listOfData = new ArrayList<Object>();
+            ResultSet result = laGestionEvenementModele.selectInfoTableEvent();
+            listOfData.add(result.getString("intitule"));
+            listOfData.add(result.getString("type"));
+            listOfData.add(result.getInt("duree"));
+            listOfData.add(result.getString("theme"));
+            listOfData.add(result.getInt("nbParticipant"));
+            listOfData.add(result.getString("organisateur"));
+            listOfData.add(result.getBoolean("archive"));
+            model.addRow(listOfData.toArray());
+            tableEvent.setModel(model);
+        } catch (SQLException | ClassNotFoundException ex) {
+            DialogTools.openMessageDialog(ex.getMessage(), "Erreur SQL !", DialogTools.ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -31,7 +61,7 @@ public class AfficherEvenements extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tableEvent = new javax.swing.JTable();
         navBar = new javax.swing.JMenuBar();
         accueilNav = new javax.swing.JMenu();
         inputEventNav = new javax.swing.JMenu();
@@ -49,8 +79,8 @@ public class AfficherEvenements extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Affichage des évènements");
 
-        jTable1.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableEvent.setFont(new java.awt.Font("SansSerif", 0, 13)); // NOI18N
+        tableEvent.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -59,10 +89,10 @@ public class AfficherEvenements extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, true
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -73,8 +103,8 @@ public class AfficherEvenements extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jScrollPane2.setViewportView(jTable1);
+        tableEvent.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jScrollPane2.setViewportView(tableEvent);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -265,7 +295,7 @@ public class AfficherEvenements extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JMenuBar navBar;
+    private javax.swing.JTable tableEvent;
     // End of variables declaration//GEN-END:variables
 }
