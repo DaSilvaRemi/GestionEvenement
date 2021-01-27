@@ -48,7 +48,7 @@ public final class GestionEvenementModele extends GestionBDDModele {
         super.setMyStatement("SELECT evenement.intitule, evenement.type, evenement.date, evenement.duree, evenement.theme, "
                 + "COUNT(participer.id_participant) AS nbParticipant, evenement.organisateur, evenement.archive "
                 + "FROM public.participer INNER JOIN public.evenement ON participer.id_evenement = evenement.id_evenement "
-                + "GROUP BY evenement.intitule, evenement.type, evenement.datedebut, evenement.duree, evenement.theme, evenement.organisateur, evenement.archive "
+                + "GROUP BY evenement.intitule, evenement.type, evenement.date, evenement.duree, evenement.theme, evenement.organisateur, evenement.archive "
                 + "ORDER BY evenement.archive DESC;");
         return super.getResult();
     }
