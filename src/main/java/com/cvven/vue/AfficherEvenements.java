@@ -38,7 +38,6 @@ public class AfficherEvenements extends javax.swing.JFrame {
      */
     public final boolean setValueDisplayEvent(){
         try {
-            DefaultTableModel model = new DefaultTableModel();
             GestionEvenementModele laGestionEvenementModele = new GestionEvenementModele();
             laGestionEvenementModele.setDb();
             ResultSet result = laGestionEvenementModele.selectInfoTableEvent();
@@ -47,15 +46,16 @@ public class AfficherEvenements extends javax.swing.JFrame {
             {
                 listOfData.add(result.getString("intitule"));
                 listOfData.add(result.getString("type"));
+                listOfData.add(result.getString("date"));
                 listOfData.add(result.getInt("duree"));
                 listOfData.add(result.getString("theme"));
                 listOfData.add(result.getInt("nbParticipant"));
                 listOfData.add(result.getString("organisateur"));
                 listOfData.add(result.getBoolean("archive"));
-                model.addRow(listOfData.toArray());
+                ((DefaultTableModel)tableEvent.getModel()).addRow(listOfData.toArray());
                 listOfData.clear();
             }
-            tableEvent.setModel(model);
+            tableEvent.setShowGrid(true);
             return true;
         } catch (SQLException | ClassNotFoundException ex) {
             DialogTools.openMessageDialog(ex.getMessage(), "Erreur SQL !", DialogTools.ERROR_MESSAGE);
