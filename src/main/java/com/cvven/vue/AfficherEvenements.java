@@ -28,24 +28,38 @@ public class AfficherEvenements extends javax.swing.JFrame {
         initComponents();
     }
     
-    public final void setValueDisplayEvent(){
+    /**
+     * Met tous les évènements créer quelque soit leur état dans le tableau.
+     * 
+     * @return Un boolean selon si le remplissage des champs se sont bien passé.
+     * @see DialogTools
+     * @see ClassNotFoundException
+     * @see SQLException
+     */
+    public final boolean setValueDisplayEvent(){
         try {
             DefaultTableModel model = new DefaultTableModel();
             GestionEvenementModele laGestionEvenementModele = new GestionEvenementModele();
             laGestionEvenementModele.setDb();
-            ArrayList<Object> listOfData = new ArrayList<Object>();
             ResultSet result = laGestionEvenementModele.selectInfoTableEvent();
-            listOfData.add(result.getString("intitule"));
-            listOfData.add(result.getString("type"));
-            listOfData.add(result.getInt("duree"));
-            listOfData.add(result.getString("theme"));
-            listOfData.add(result.getInt("nbParticipant"));
-            listOfData.add(result.getString("organisateur"));
-            listOfData.add(result.getBoolean("archive"));
-            model.addRow(listOfData.toArray());
+            ArrayList<Object> listOfData = new ArrayList<Object>();
+            while(result.next())
+            {
+                listOfData.add(result.getString("intitule"));
+                listOfData.add(result.getString("type"));
+                listOfData.add(result.getInt("duree"));
+                listOfData.add(result.getString("theme"));
+                listOfData.add(result.getInt("nbParticipant"));
+                listOfData.add(result.getString("organisateur"));
+                listOfData.add(result.getBoolean("archive"));
+                model.addRow(listOfData.toArray());
+                listOfData.clear();
+            }
             tableEvent.setModel(model);
+            return true;
         } catch (SQLException | ClassNotFoundException ex) {
             DialogTools.openMessageDialog(ex.getMessage(), "Erreur SQL !", DialogTools.ERROR_MESSAGE);
+            return false;
         }
     }
 
@@ -234,8 +248,12 @@ public class AfficherEvenements extends javax.swing.JFrame {
      */
     private void DisplayEventNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DisplayEventNavMouseClicked
         AfficherEvenements fen = new AfficherEvenements();
-        fen.setVisible(true);
-        this.dispose();
+        if(fen.setValueDisplayEvent()){
+            fen.setVisible(true);
+            this.dispose();
+        }else{
+            fen.dispose();
+        }
     }//GEN-LAST:event_DisplayEventNavMouseClicked
 
     /**

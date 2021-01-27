@@ -260,8 +260,12 @@ public class Accueil extends javax.swing.JFrame {
 
     private void displayEventButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_displayEventButtonMouseClicked
         AfficherEvenements fen = new AfficherEvenements();
-        fen.setVisible(true);
-        this.dispose();
+        if(fen.setValueDisplayEvent()){
+            fen.setVisible(true);
+            this.dispose();
+        }else{
+            fen.dispose();
+        }
     }//GEN-LAST:event_displayEventButtonMouseClicked
 
     /*-----------------------------Barre de navigation-----------------------------*/
@@ -302,8 +306,12 @@ public class Accueil extends javax.swing.JFrame {
      */
     private void DisplayEventNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DisplayEventNavMouseClicked
         AfficherEvenements fen = new AfficherEvenements();
-        fen.setVisible(true);
-        this.dispose();
+        if(fen.setValueDisplayEvent()){
+            fen.setVisible(true);
+            this.dispose();
+        }else{
+            fen.dispose();
+        }
     }//GEN-LAST:event_DisplayEventNavMouseClicked
 
     /**
