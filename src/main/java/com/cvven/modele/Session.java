@@ -19,7 +19,7 @@ public abstract class Session {
      * Composé d'un nombre aléatoire + l'idUser
      */
     private static String idSession;
-    private static ArrayList<Object> lesVarSession = new ArrayList<Object>();
+    private static ArrayList<Object> lesVarSession;
 
     /**
      * Retourne la clé de session composé d'un nombre aléatoire + l'idUser si l'utilisateur est connecté
@@ -28,14 +28,9 @@ public abstract class Session {
      * 
      * @return la clé de session ou null si l'utilisateur n'est pas connecté
      */
-    public static String getIdSession() {
-        try {
-            Session.controlSession();
-            return idSession;
-        } catch (Exception ex) {
-            DialogTools.openMessageDialog(ex.getMessage(), "Erreur Session !", DialogTools.ERROR_MESSAGE);
-            return null;
-        }
+    public static String getIdSession() throws Exception {
+        Session.controlSession();
+        return idSession;
     }
 
     /**
@@ -45,14 +40,9 @@ public abstract class Session {
      * 
      * @return les variables sessions ou null si l'utilisateur n'est pas connecté
      */
-    public static ArrayList<Object> getVariableSession() {
-        try {
-            Session.controlSession();
-            return lesVarSession;
-        } catch (Exception ex) {
-            DialogTools.openMessageDialog(ex.getMessage(), "Erreur Session !", DialogTools.ERROR_MESSAGE);
-            return null;
-        }
+    public static ArrayList<Object> getVariableSession() throws Exception {
+        Session.controlSession();
+        return lesVarSession;
     }
     
     /**
@@ -62,14 +52,9 @@ public abstract class Session {
      * 
      * @return l'id de l'utilisateur ou -1 si l'utilisateur n'est pas connecté
      */
-    public static int getIdUser(){
-        try {
-            Session.controlSession();
-            return Integer.parseInt(String.valueOf(idSession.charAt(2)));
-        } catch (Exception ex) {
-            DialogTools.openMessageDialog(ex.getMessage(), "Erreur Session !", DialogTools.ERROR_MESSAGE);
-            return -1;
-        }  
+    public static int getIdUser() throws Exception{
+        Session.controlSession();
+        return Integer.parseInt(String.valueOf(idSession.charAt(2)));
     }
 
     /**
@@ -90,6 +75,7 @@ public abstract class Session {
         Random rand = new Random(); 
         int nombreAleatoire = rand.nextInt(99 - 10 + 1) + 10;
         idSession = String.valueOf(nombreAleatoire) + String.valueOf(idUser);
+        lesVarSession = new ArrayList<Object>();
     }
     
     /**
@@ -97,7 +83,7 @@ public abstract class Session {
      */
     public static void destructSession(){
         idSession = null;
-        lesVarSession.clear();
+        lesVarSession = null;
     } 
     
     /**
@@ -106,7 +92,7 @@ public abstract class Session {
      * @throws Exception 
      */
     public static void controlSession() throws Exception{
-        if(idSession.isBlank() || idSession == null){
+        if(idSession == null || idSession.isBlank()){
             Session.destructSession();
             throw new Exception("Erreur : Vous n'êtes pas connecté ou votre session est incorrect !");
         }

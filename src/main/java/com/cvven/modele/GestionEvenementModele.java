@@ -152,9 +152,8 @@ public final class GestionEvenementModele extends GestionBDDModele {
     
     
     /**
-     * Insère un évènement à la BDD.
+     * Insère un évènement à la BDD.Un trigger vérifie si l'intitulé de l'évènement n'existe pas déja.
      * 
-     * Un trigger vérifie si l'intitulé de l'évènement n'existe pas déja.
      * 
      * @param intitule Intitulé de l'évènement
      * @param theme Theme de l'évènement
@@ -164,11 +163,12 @@ public final class GestionEvenementModele extends GestionBDDModele {
      * @param organisateur Organisateur de l'évènement
      * @param typeEvent Type de l'évènement
      * @param salleChoisi La salle choisis par l'utilisateur le champs est sous format : 'N°' + id_salle + ' Salle de ' + typesalle + '(' + capacite + 'personne)'
+     * @param idUser L'id de l'utilisateur
      * @throws SQLException 
      * 
      */
     public void insertEvent(String intitule, String theme, String dateEvent, int duree, String description, 
-            String organisateur, String typeEvent, String salleChoisi) throws SQLException{
+            String organisateur, String typeEvent, String salleChoisi, int idUser) throws SQLException{
         
             super.setMyStatement("INSERT INTO evenement(intitule, theme, date, duree, nb_participant_max, description, organisateur, type, id_user ,id_salle)"
                     + " VALUES(?, ?, ?, ?, (SELECT salle.capacite FROM public.salle WHERE salle.id_salle = ?), ?, ?, ?, ?, ?);");
@@ -183,7 +183,7 @@ public final class GestionEvenementModele extends GestionBDDModele {
             super.getMyStatement().setString(6, description);
             super.getMyStatement().setString(7, organisateur);
             super.getMyStatement().setString(8, typeEvent);
-            super.getMyStatement().setInt(9, Session.getIdUser());
+            super.getMyStatement().setInt(9, idUser);
             super.getMyStatement().setInt(10, idSalle);
             super.execSQLWithouthResult();
     }
@@ -230,11 +230,12 @@ public final class GestionEvenementModele extends GestionBDDModele {
      * @param prenom Prénom du participant
      * @param email Email du participant
      * @param dateNaissance Date de naissance du participant
-     * @param organisation
-     * @param observations
+     * @param organisation L'organsation du participant
+     * @param observations Les observations du participant
+     * @param idUser L'id de l'utilisateur<
      * @throws SQLException 
      */
-    public void insertParticipant(String nom, String prenom, String email, String dateNaissance, String organisation, String observations) 
+    public void insertParticipant(String nom, String prenom, String email, String dateNaissance, String organisation, String observations, int idUser) 
             throws SQLException{
             super.setMyStatement("INSERT INTO public.participant(nom, prenom, date_naissance, organisation, observations, email, id_user) VALUES(?, ?, ?, ?, ?, ?, ?);");
             super.getMyStatement().setString(1, nom);
@@ -243,7 +244,7 @@ public final class GestionEvenementModele extends GestionBDDModele {
             super.getMyStatement().setString(4, organisation);
             super.getMyStatement().setString(5, observations);
             super.getMyStatement().setString(6, email);
-            super.getMyStatement().setInt(7, Session.getIdUser());
+            super.getMyStatement().setInt(7, idUser);
             super.execSQLWithouthResult();
     }
     
