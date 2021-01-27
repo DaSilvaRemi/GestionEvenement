@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Classe Métier Autogénérer Héritière de JFrame
@@ -540,12 +542,19 @@ public class AjoutEvenement extends javax.swing.JFrame {
                 laGestionEvenementModele.setDb();
                 SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
                 laGestionEvenementModele.insertEvent(intituleEvent.getText(), themeEvent.getText(), formatDate.format(dateEvent.getDate()), ((Integer)dureeEvent.getValue()),
-                        descriptionEvent.getText(), organisateurEvent.getText(), typeEvent.getItemAt(typeEvent.getSelectedIndex()), choixSalleEvent.getItemAt(choixSalleEvent.getSelectedIndex()));
+                        descriptionEvent.getText(), organisateurEvent.getText(), typeEvent.getItemAt(typeEvent.getSelectedIndex()), 
+                        choixSalleEvent.getItemAt(choixSalleEvent.getSelectedIndex()), Session.getIdUser());
                 laGestionEvenementModele.closeAll();
                 DialogTools.openMessageDialog("Insertion de l'évènement terminée !","Insertion Terminée");
                 this.setDefaultValue();
             } catch (SQLException | ClassNotFoundException ex) {
-                DialogTools.openMessageDialog(ex.getMessage(), "Erreur", DialogTools.ERROR_MESSAGE);
+                DialogTools.openMessageDialog(ex.getMessage(), "Erreur SQL Event !", DialogTools.ERROR_MESSAGE);
+            } catch (Exception ex) {
+                DialogTools.openMessageDialog(ex.toString(), "Erreur Session Event !", DialogTools.ERROR_MESSAGE);
+                Authentification fen = new Authentification();
+                fen.setVisible(true);
+                Session.destructSession();
+                this.dispose();
             }
         }
     }//GEN-LAST:event_ajouterEventMouseClicked

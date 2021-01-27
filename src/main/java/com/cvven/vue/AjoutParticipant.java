@@ -12,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -116,8 +118,6 @@ public class AjoutParticipant extends javax.swing.JFrame {
      * Une fois vérifié on insère les données en capturant les evenutels erreurs;
      *  -Si une erreur est capturé alors on affiche le message sur une JDialog
      * 
-     * @param evt
-     * 
      * @see clearField#setDefaultValue
      * @see JDateChooser
      * @see DialogTools
@@ -165,7 +165,7 @@ public class AjoutParticipant extends javax.swing.JFrame {
                     
                     laGestionEvenementModele.setDb();
                     laGestionEvenementModele.insertParticipant(nomParticipant.getText(), prenomParticipant.getText(), adresseMailParticipant.getText(),
-                      formatDate.format(dateNaissanceParticipant.getDate()), organisationParticipant.getText(), observationsParticipant.getText());
+                      formatDate.format(dateNaissanceParticipant.getDate()), organisationParticipant.getText(), observationsParticipant.getText(), Session.getIdUser());
                     laGestionEvenementModele.closeMyStatement();
                 
                     for(String selectEvent : selectLesEvents.getSelectedValuesList()){
@@ -178,12 +178,27 @@ public class AjoutParticipant extends javax.swing.JFrame {
                     DialogTools.openMessageDialog("L'ajout de participant est terminée !","Ajout Terminée");
                     this.setValueParticipant();
                 } catch (SQLException | ClassNotFoundException ex) {
-                    DialogTools.openMessageDialog(ex.getMessage(), "Erreur Participant !", DialogTools.ERROR_MESSAGE);
+                    DialogTools.openMessageDialog(ex.getMessage(), "Erreur SQL Participant !", DialogTools.ERROR_MESSAGE);
+                } catch (Exception ex) {
+                   DialogTools.openMessageDialog(ex.toString(), "Erreur Session Participant !", DialogTools.ERROR_MESSAGE);
                 }
             }
         }
     }
     
+    /**
+     * Ajoute un participant à partir d'un fichier CSV.
+     * -Pour le champ "Observation" il est aussi vérifé que le nombre de caractère ne dépassent pas 255 caractères
+     * 
+     * Une fois vérifié on insère les données en capturant les evenutels erreurs;
+     *  -Si une erreur est capturé alors on affiche le message sur une JDialog
+     * 
+     * @see setDefaultValue
+     * @see JDateChooser
+     * @see DialogTools
+     * @see SQLException
+     * @see ClassNotFoundException
+     */
     public void insertParticipantCSV(){
         if(selectLesEvents.getSelectedValuesList().isEmpty()){
             if(selectLesEvents.getSelectedValuesList().isEmpty()){
@@ -216,7 +231,7 @@ public class AjoutParticipant extends javax.swing.JFrame {
                         CSVFileRead csvFile = new CSVFileRead(ChooseFileCSV.getSelectedFile());
                         if(csvFile.readControlFile() != null){
                             for(String[]uneLigne : csvFile.getLesLignes()){
-                                laGestionEvenementModele.insertParticipant(uneLigne[0], uneLigne[1], uneLigne[2], uneLigne[3], uneLigne[4], uneLigne[5]);
+                                laGestionEvenementModele.insertParticipant(uneLigne[0], uneLigne[1], uneLigne[2], uneLigne[3], uneLigne[4], uneLigne[5], Session.getIdUser());
                                 laGestionEvenementModele.closeMyStatement();
                              
                                 for(String selectEvent : selectLesEvents.getSelectedValuesList()){
@@ -232,8 +247,10 @@ public class AjoutParticipant extends javax.swing.JFrame {
                         }
                     }
                  } catch (SQLException | ClassNotFoundException ex) {
-                     DialogTools.openMessageDialog(ex.getMessage(), "Erreur Participant !", DialogTools.ERROR_MESSAGE);
-                 }
+                     DialogTools.openMessageDialog(ex.getMessage(), "Erreur SQL Ajout Participant !", DialogTools.ERROR_MESSAGE);
+                 } catch (Exception ex) {
+                    DialogTools.openMessageDialog(ex.toString(), "Erreur Session Ajout Participant !", DialogTools.ERROR_MESSAGE);
+                }
             }
         }
     }

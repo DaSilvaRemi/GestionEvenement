@@ -6,6 +6,7 @@
 package com.cvven.modele;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class GestionEvenementModeleTest {
     
-    private static int compteur = 0;
     private GestionEvenementModele instance;
     
     public GestionEvenementModeleTest() {
@@ -36,101 +36,142 @@ public class GestionEvenementModeleTest {
     @BeforeEach
     public void setUp() {
         instance = new GestionEvenementModele();
-        compteur++;
-        System.out.println("-------Test N°" + compteur + " en cours-----");
     }
     
     @AfterEach
     public void tearDown() {
-        System.out.println("-------Test N°" + compteur + " réalisée-----");
     }
-    
-    /**
-     * Test of selectInfoTableEventWithParticipation method, of class GestionEvenementModele.
+
+     /**
+     * Test de la méthode selectInfoTableEvent, de la classe GestionEvenementModele.
+     * @throws java.sql.SQLException
+     * @throws java.lang.ClassNotFoundException
      */
     @Test
-    public void testSelectInfoAllEvent() throws Exception {
-        System.out.println("Test de : selectInfoAllEvent");
-        ResultSet expResult = null;
-        //ResultSet result = instance.selectInfoTableEventWithParticipation();
-        //assertEquals(expResult, result);
+    public void testSelectInfoTableEvent() throws SQLException, ClassNotFoundException {
+        System.out.println("Test de selectInfoTableEvent");
+        instance.setDb();
+        assertNotNull(instance.selectInfoTableEvent(), "Les évènements sont vides !");
+        instance.closeAll();
+    }
+
+     /**
+     * Test de la méthode selectInfoAllSalle, de la classe GestionEvenementModele.
+     * @throws java.sql.SQLException
+     * @throws java.lang.ClassNotFoundException
+     */
+    @Test
+    public void testSelectInfoAllSalle() throws SQLException, ClassNotFoundException {
+        System.out.println("Test de selectInfoAllSalle");
+        instance.setDb();
+        assertNotNull(instance.selectInfoAllSalle(), "Les salles sont vides !");
+        instance.closeAll();
+    }
+
+     /**
+     * Test de la méthode selectInfoSalle, de la classe GestionEvenementModele.
+     * @throws java.sql.SQLException
+     * @throws java.lang.ClassNotFoundException
+     */
+    @Test
+    public void testSelectInfoSalle() throws SQLException, ClassNotFoundException {
+        System.out.println("Test de selectInfoSalle");
+        int idSalle = 0;
+        instance.setDb();
+        assertNotNull(instance.selectInfoSalle(idSalle), "La salle n'as pas d'information !");
+        instance.closeAll();
+    }
+
+     /**
+     * Test de la méthode selectInfoEventWithIntitule, de la classe GestionEvenementModele.
+     * @throws java.sql.SQLException
+     * @throws java.lang.ClassNotFoundException
+     */
+    @Test
+    public void testSelectInfoEventWithIntitule() throws SQLException, ClassNotFoundException {
+        System.out.println("Test de selectInfoEventWithIntitule");
+        instance.setDb();
+        assertNotNull(instance.selectInfoEventWithIntitule("a"), "Aucun évènement récupéré !");
+    }
+
+     /**
+     * Test de la méthode selectLesEventNonArchiver, de la classe GestionEvenementModele.
+     * @throws java.sql.SQLException
+     * @throws java.lang.ClassNotFoundException
+     */
+    @Test
+    public void testSelectLesEventNonArchiver() throws SQLException, ClassNotFoundException {
+        System.out.println("Test de selectLesEventNonArchiver");
+        instance.setDb();
+        assertNotNull(instance.selectLesEventNonArchiver(), "Aucun évènement non archivé récupéré !");
+        instance.closeAll();
+    }
+
+     /**
+     * Test de la méthode countEventWithIntitule, de la classe GestionEvenementModele.
+     * @throws java.sql.SQLException
+     * @throws java.lang.ClassNotFoundException
+     */
+    @Test
+    public void testCountEventWithIntitule() throws SQLException, ClassNotFoundException {
+        System.out.println("Test de countEventWithIntitule");
+        instance.setDb();
+        assertNotNull(instance.countEventWithIntitule("a"), "Aucun résultat obtenu pour la table évènement !");
+        instance.closeAll();
+    }
+
+     /**
+     * Test de la méthode selectInfoParticipantWithEmail, de la classe GestionEvenementModele.
+     * @throws java.sql.SQLException
+     * @throws java.lang.ClassNotFoundException
+     */
+    @Test
+    public void testSelectInfoParticipantWithEmail() throws SQLException, ClassNotFoundException {
+        System.out.println("Test de selectInfoParticipantWithEmail");
+        instance.setDb();
+        assertNotNull(instance.selectInfoParticipantWithEmail("a@gmail.com"), "Aucun participant avec e-mail n'as été récupéré !");
+        instance.closeAll();
     }
 
     /**
-     * Test of insertParticipation method, of class GestionEvenementModele.
+     * Test de la méthode countEmailParticipant, de la classe GestionEvenementModele.
+     * @throws java.sql.SQLException
+     * @throws java.lang.ClassNotFoundException
      */
     @Test
-    public void testInsertParticipation() throws Exception {
-        System.out.println("Test de : insertParticipation");
-        String email = "";
-        String intitule = "";
-        instance.insertParticipation(email, intitule);
+    public void testCountEmailParticipant() throws SQLException, ClassNotFoundException {
+        System.out.println("Test de countEmailParticipant");
+        instance.setDb();
+        assertNotNull(instance.countEmailParticipant("a@gmail.com"), "Aucun résultat du nombre de participant avec cet e-mail récupéré !");
+        instance.closeAll();
     }
 
     /**
-     * Test of selectInfoAllSalle method, of class GestionEvenementModele.
+     * Test de la méthode selectIdUser, de la classe GestionEvenementModele.
+     * @throws java.sql.SQLException
+     * @throws java.lang.ClassNotFoundException
      */
     @Test
-    public void testSelectInfoSalle() throws Exception {
-        System.out.println("Test de : selectInfoSalle");
-        GestionEvenementModele instance = null;
-        ResultSet expResult = null;
-        ResultSet result = instance.selectInfoAllSalle();
-        assertEquals(expResult, result);
+    public void testSelectIdUser() throws SQLException, ClassNotFoundException {
+        System.out.println("Test de selectIdUser");
+        instance.setDb();
+        ResultSet result = instance.selectIdUser("admin", "admin");
+        assertNotNull(result, "Aucun id récupéré !");
+        assertEquals(1, result.getInt("id_user"));
+        instance.closeAll();
     }
 
     /**
-     * Test of countEventWithIntitule method, of class GestionEvenementModele.
+     * Test de la méthode countUserLoginMdp, de la classe GestionEvenementModele.
+     * @throws java.sql.SQLException
+     * @throws java.lang.ClassNotFoundException
      */
     @Test
-    public void testCountEvent() throws Exception {
-        System.out.println("countEvent");
-        ResultSet result = instance.countEventWithIntitule("Test1");
-        result.next();
-        assertEquals(1, result.getInt("nbEvent"));
-    }
-
-    /**
-     * Test of insertEvent method, of class GestionEvenementModele.
-     */
-    @Test
-    public void testInsertEvent() throws Exception {
-        System.out.println("insertEvent");
-        String intitule = "Test1";
-        String theme = "Test1";
-        String dateEvent = "Test1";
-        int duree = 45;
-        String description = "Test1";
-        String organisateur = "Test1";
-        String type = "Test1";
-        String typeSalle = "";
-        instance.insertEvent(intitule, theme, dateEvent, duree, description, organisateur, type, typeSalle);
-    }
-
-    /**
-     * Test of insertParticipant method, of class GestionEvenementModele.
-     */
-    @Test
-    public void testInsertParticipant() throws Exception {
-        System.out.println("insertParticipant");
-        String nom = "TestParticipant1";
-        String prenom = "TestParticipant1";
-        String email = "test1@gmail.com";
-        String dateNaissance = "27/08/2001";
-        String organisation = "TestParticipant1";
-        String observations = "TestParticipant1";
-        instance.insertParticipant(nom, prenom, email, dateNaissance, organisation, observations);
-    }
-
-    /**
-     * Test of countUserLoginMdp method, of class GestionEvenementModele.
-     */
-    @Test
-    public void testCountUserLoginMdp() throws Exception {
+    public void testCountUserLoginMdp() throws SQLException, ClassNotFoundException {
         System.out.println("countUserLoginMdp");
-        GestionEvenementModele instance = null;
-        ResultSet result = instance.countUserLoginMdp("remi", "test");
-        assertEquals(1, result.getInt("nbUser"), "L'utilisateur n'est pas connecté");
+        instance.setDb();
+        assertEquals(1, instance.countUserLoginMdp("admin", "admin"), "Aucun utilisateur avec se login et mot de passe !");
+        instance.closeAll();
     }
     
 }

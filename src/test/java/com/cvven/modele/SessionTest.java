@@ -35,6 +35,7 @@ public class SessionTest {
     
     @BeforeEach
     public void setUp() {
+        Session.initSession(1);
     }
     
     @AfterEach
@@ -45,34 +46,29 @@ public class SessionTest {
      * Test of getIdSession method, of class Session.
      */
     @Test
-    public void testGetIdSession() {
-        System.out.println("getIdSession");
-        Session.initSession(1);
-        assertNotNull(Session.getIdSession(), "L'id de la session est vide !");
+    public void testGetIdSession() throws Exception {
+        System.out.println("Test de getIdSession");
+        String expectResult = Session.getIdSession();
+        assertNotNull(expectResult, "L'id de la session est vide !");
     }
 
     /**
      * Test of getVariableSession method, of class Session.
      */
     @Test
-    public void testGetVariableSession() {
-        System.out.println("getVariableSession");
-        ArrayList<Object> expResult = new ArrayList<Object>();
-        
-        assertTrue(Session.getVariableSession().isEmpty(), "La liste de départ n'est pas vide");
-        
+    public void testGetVariableSession() throws Exception {
+        System.out.println("Test de getVariableSession");
+        assertTrue(Session.getVariableSession().isEmpty(), "La liste de départ n'est pas vide !");
         Session.getVariableSession().add("Toto");
-        expResult.add("Toto");
-        assertEquals(expResult, Session.getVariableSession(), "Les listes n'ont pas les mêmes éléments");
+        assertFalse(Session.getVariableSession().isEmpty(), "La liste de départ est vide !");
     }
 
     /**
      * Test of getIdUser method, of class Session.
      */
     @Test
-    public void testGetIdUser() {
-        System.out.println("getIdUser");
-        Session.initSession(1);
+    public void testGetIdUser() throws Exception {
+        System.out.println("Test de getIdUser");
         assertEquals(1, Session.getIdUser(), "L'id de l'utilisateur est incorrect");
     }
 
@@ -80,12 +76,12 @@ public class SessionTest {
      * Test of initSession method, of class Session.
      */
     @Test
-    public void testInitSession() {
-        System.out.println("initSession");
+    public void testInitSession() throws Exception {
+        System.out.println("Test de initSession");
         Session.initSession(0);
         Random rand = new Random();
         int nombreAleatoire = rand.nextInt(99 - 10 + 1) + 10;
-        String notExpectValue = String.valueOf(nombreAleatoire) + String.valueOf(0);
+        String notExpectValue = String.valueOf(nombreAleatoire) + String.valueOf(1);
         assertNotEquals(notExpectValue, Session.getIdSession(), "L'id des sessions sont les mêmes !");
     }
 
@@ -94,10 +90,15 @@ public class SessionTest {
      */
     @Test
     public void testDestructSession() {
-        System.out.println("destructSession");
-        Session.destructSession();
-        assertNull(Session.getIdSession(), "L'id de la session n'as pas été supprimée !");
-        assertTrue(Session.getVariableSession().isEmpty(), "La collection n'as pas été vidée !");
+        try {
+            System.out.println("Test de destructSession");
+            Session.initSession(1);
+            Session.destructSession();
+            assertNull(Session.getIdSession(), "L'id de la session n'as pas été supprimée !");
+            assertNull(Session.getVariableSession(), "La collection n'as pas été vidée !");
+        } catch (Exception ex) {
+            assertTrue(true, "Les variable n'ont pas été supprimée !");
+        }
     }
     
     /**
@@ -106,11 +107,10 @@ public class SessionTest {
     @Test
     public void testControlSession() {
         try {
-            System.out.println("controlSession");
+            System.out.println("Test de controlSession");
             Session.controlSession();
-            assertTrue(false, "Aucune exception n'as été levée !");
         } catch (Exception ex) {
-            assertTrue(true);
+            assertTrue(true, ex.getMessage());
         }
     }
     

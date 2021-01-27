@@ -118,7 +118,7 @@ public final class GestionEvenementModele extends GestionBDDModele {
      */
     public ResultSet selectInfoEventWithIntitule(String intitule) throws SQLException{
         super.setMyStatement("SELECT evenement.intitule, evenement.theme, evenement.date, evenement.duree, evenement.description, evenement.organisateur, evenement.type,"
-                + "evenement.archive, evenement.id_user, evenement.idSalle FROM public.evenement WHERE evenement.intitule = ?");
+                + "evenement.archive, evenement.id_user, evenement.id_salle FROM public.evenement WHERE evenement.intitule = ?");
         super.getMyStatement().setString(1, intitule);
         return super.getResult();
     }
