@@ -9,7 +9,7 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 /**
- *Classe Technique abstraite outils permettant de gérer l'ouverture de fenêtre de dialogue
+ *Classe Technique abstraite permettant de gérer l'ouverture de fenêtre de dialogue
  * 
  * @author remi
  */

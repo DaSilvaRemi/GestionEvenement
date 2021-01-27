@@ -13,7 +13,7 @@ import java.sql.PreparedStatement;
 import org.postgresql.Driver;
 
 /**
- * Classe métier permettant de gérer la connexion à la BDD
+ * Classe métier permettant de gérer la connexion à la BDD.
  * 
  * @author remi
  */

@@ -15,7 +15,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 /**
- * Classe technique permettant de lire les fichiers CSV
+ * Classe technique permettant de lire les fichiers CSV.
  * 
  * @author remi
  */

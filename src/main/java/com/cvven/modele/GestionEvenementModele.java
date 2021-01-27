@@ -4,8 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 /**
- * Classe Technique héritaire finale de GestionBDDModele
- * 
+ * Classe technique finale héritaire de GestionBDDModele gérant les requêtes pourla BDD.
  * @author remi
  */
 public final class GestionEvenementModele extends GestionBDDModele {
