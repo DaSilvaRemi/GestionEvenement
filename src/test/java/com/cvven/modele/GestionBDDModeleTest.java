@@ -23,7 +23,6 @@ import org.postgresql.Driver;
  */
 public class GestionBDDModeleTest {
     
-    private static int compteur = 0;
     private GestionBDDModele instance;
     
     public GestionBDDModeleTest() {
@@ -40,18 +39,14 @@ public class GestionBDDModeleTest {
     @BeforeEach
     public void setUp() {
         instance = new GestionBDDModeleImpl();
-        compteur++;
-        System.out.println("-------Test N°" + compteur + " en cours-----");
     }
     
     @AfterEach
     public void tearDown() {
-        instance = new GestionBDDModeleImpl();
-        System.out.println("-------Test N°" + compteur + " réalisée-----");
     }
 
     /**
-     * Test of getUrlHoteBdd method, of class GestionBDDModele.
+     * Test de la méthode getUrlHoteBdd, de la classe GestionBDDModele.
      */
     @Test
     public void testGetUrlHoteBdd() {
@@ -87,9 +82,7 @@ public class GestionBDDModeleTest {
         System.out.println("Test de getMyStatement");
         instance.setDb();
         instance.setMyStatement("SELECT id_user FROM public.user WHERE login = ?");
-        PreparedStatement expect = instance.getDb().prepareStatement("SELECT id_user FROM public.user WHERE login = ?");
-        PreparedStatement result = instance.getMyStatement();
-        assertEquals(expect, result, "La requête n'est pas la même");
+        assertNotNull(instance.getMyStatement(), "La requête n'as pas été créer !");
         instance.closeAll();
     }
 
@@ -120,10 +113,7 @@ public class GestionBDDModeleTest {
     public void testSetDb() throws SQLException, ClassNotFoundException {
         System.out.println("Test de setDb");
         instance.setDb();
-        Class.forName("org.postgresql.Driver");
-        Connection expect = DriverManager.getConnection("jdbc:postgresql://"+instance.getUrlHoteBdd(), instance.getUser(), "test");
-        Connection result = instance.getDb();
-        assertEquals(expect, result, "La connection n'as pas été changée !");
+        assertNotNull(instance.getDb(), "La base de données n'a été pas ouverte !");
         instance.closeMaBdd();
     }
 
@@ -135,9 +125,7 @@ public class GestionBDDModeleTest {
         System.out.println("Test de setMyStatement");
         instance.setDb();
         instance.setMyStatement("SELECT id_user FROM public.user WHERE login = ?");
-        PreparedStatement expect = instance.getDb().prepareStatement("SELECT id_user FROM public.user WHERE login = ?");
-        PreparedStatement result = instance.getMyStatement();
-        assertEquals(expect, result, "La requête n'as pas été changé");
+        assertNotNull(instance.getMyStatement(), "La requête n'as pas été changé");
         instance.closeAll();
     }
 

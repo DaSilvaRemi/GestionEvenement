@@ -40,7 +40,7 @@ public class AfficherEvenements extends javax.swing.JFrame {
             laGestionEvenementModele.setDb();
             ResultSet result = laGestionEvenementModele.selectInfoTableEvent();
             ArrayList<Object> listOfData = new ArrayList<Object>();
-            while(result.next())
+            do
             {
                 listOfData.add(result.getString("intitule"));
                 listOfData.add(result.getString("type"));
@@ -52,7 +52,22 @@ public class AfficherEvenements extends javax.swing.JFrame {
                 listOfData.add(result.getBoolean("archive"));
                 ((DefaultTableModel)tableEvent.getModel()).addRow(listOfData.toArray());
                 listOfData.clear();
-            }
+            }while(result.next());
+            laGestionEvenementModele.closeMyStatement();
+            result.close();
+            result = laGestionEvenementModele.selectInfoTableEventWithNoParticipation();
+            do{
+                listOfData.clear();
+                listOfData.add(result.getString("intitule"));
+                listOfData.add(result.getString("type"));
+                listOfData.add(result.getString("date"));
+                listOfData.add(result.getInt("duree"));
+                listOfData.add(result.getString("theme"));
+                listOfData.add(0);
+                listOfData.add(result.getString("organisateur"));
+                listOfData.add(result.getBoolean("archive"));
+                ((DefaultTableModel)tableEvent.getModel()).addRow(listOfData.toArray());
+            }while(result.next());
             tableEvent.setShowGrid(true);
             return true;
         } catch (SQLException | ClassNotFoundException ex) {

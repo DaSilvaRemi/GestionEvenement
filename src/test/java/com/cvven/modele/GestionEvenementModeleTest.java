@@ -129,7 +129,7 @@ public class GestionEvenementModeleTest {
     public void testSelectInfoParticipantWithEmail() throws SQLException, ClassNotFoundException {
         System.out.println("Test de selectInfoParticipantWithEmail");
         instance.setDb();
-        assertNotNull(instance.selectInfoParticipantWithEmail("a@gmail.com"), "Aucun participant avec e-mail n'as été récupéré !");
+        assertNotNull(instance.selectInfoParticipantWithEmail("jj@gmail.com"), "Aucun participant avec e-mail n'as été récupéré !");
         instance.closeAll();
     }
 
@@ -170,7 +170,7 @@ public class GestionEvenementModeleTest {
     public void testCountUserLoginMdp() throws SQLException, ClassNotFoundException {
         System.out.println("countUserLoginMdp");
         instance.setDb();
-        assertEquals(1, instance.countUserLoginMdp("admin", "admin"), "Aucun utilisateur avec se login et mot de passe !");
+        assertEquals(1, instance.countUserLoginMdp("admin", "admin").getInt("nbUser"), "Aucun utilisateur avec se login et mot de passe !");
         instance.closeAll();
     }
     

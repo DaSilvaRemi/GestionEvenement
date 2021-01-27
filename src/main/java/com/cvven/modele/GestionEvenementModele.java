@@ -100,6 +100,27 @@ public final class GestionEvenementModele extends GestionBDDModele {
     
     /*----------------------------------Table évènement----------------------------------*/
     /**
+     * Selectionne les informations nécessaire pour l'affichage des évènement.
+     * Les informations retournés sont : 
+     * -l'intitule
+     * -le type
+     * -la date de l'évènement
+     * -le thème
+     * -l'organisateur
+     * -l'état d'archivage de l'évènement
+     * 
+     * @return le résultat de la requête
+     * @throws SQLException 
+     */
+    public ResultSet selectInfoTableEventWithNoParticipation() throws SQLException{
+        super.setMyStatement("SELECT evenement.intitule, evenement.type, evenement.date, evenement.duree, evenement.theme, evenement.organisateur, evenement.archive "
+                + "FROM public.evenement WHERE evenement.id_evenement NOT IN (SELECT participer.id_evenement FROM participer)"
+                + "GROUP BY evenement.intitule, evenement.type, evenement.date, evenement.duree, evenement.theme, evenement.organisateur, evenement.archive "
+                + "ORDER BY evenement.archive DESC;");
+        return super.getResult();
+    }
+    
+    /**
      * Retourne les informations de l'évènement à partir de l'intitulé.
      * Les informations retournés sont : 
      * -l'intitule
