@@ -252,7 +252,7 @@ public final class GestionEvenementModele extends GestionBDDModele {
      * @param dateNaissance Date de naissance du participant
      * @param organisation L'organsation du participant
      * @param observations Les observations du participant
-     * @param idUser L'id de l'utilisateur<
+     * @param idUser L'id de l'utilisateur.
      * @throws SQLException Exception à propos du SQL
      */
     public void insertParticipant(String nom, String prenom, String email, String dateNaissance, String organisation, String observations, int idUser) 

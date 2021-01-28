@@ -120,7 +120,6 @@ public class AjoutParticipant extends javax.swing.JFrame {
      *  -Si une erreur est capturé alors on affiche le message sur une JDialog
      * 
      * @see setDefaultValue Met les valeur par défault
-     * @see JDateChooser Calandrier de choix de dates
      * @see DialogTools Classe technique pour les boites de dialogues
      */
     private void insertParticipantText(){
@@ -193,7 +192,6 @@ public class AjoutParticipant extends javax.swing.JFrame {
      *  -Si une erreur est capturé alors on affiche le message sur une JDialog
      * 
      * @see setDefaultValue Met les valeur par défault
-     * @see JDateChooser Calandrier de choix de dates
      * @see DialogTools Classe technique pour les boites de dialogues
      */
     public void insertParticipantCSV(){

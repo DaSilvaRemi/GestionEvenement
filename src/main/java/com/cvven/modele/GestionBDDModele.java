@@ -125,6 +125,7 @@ abstract class GestionBDDModele {
     /**
      * Déclare une requête préparée
      * 
+     * @param query La requête à définir.
      * @throws SQLException Exception à propos du SQL
      */
     protected void setMyStatement(String query) throws SQLException{

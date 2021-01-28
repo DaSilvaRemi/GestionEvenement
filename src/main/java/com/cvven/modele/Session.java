@@ -22,11 +22,11 @@ public abstract class Session {
     private static ArrayList<Object> lesVarSession;
 
     /**
-     * Retourne la clé de session composé d'un nombre aléatoire + l'idUser si l'utilisateur est connecté.
+     * Retourne la clé de session composé d'un nombre aléatoire + l'idUser si l'utilisateur est connecté.Génère une erreur si l'utilisateur n'est pas connecté !
      * 
-     * Génère une erreur si l'utilisateur n'est pas connecté !
      * 
      * @return la clé de session ou null si l'utilisateur n'est pas connecté
+     * @throws java.lang.Exception Exception à propos du contrôle.
      */
     public static String getIdSession() throws Exception {
         Session.controlSession();
@@ -39,6 +39,7 @@ public abstract class Session {
      * Génère une erreur si l'utilisateur n'est pas connecté !
      * 
      * @return les variables sessions ou null si l'utilisateur n'est pas connecté
+     * @throws java.lang.Exception Exception à propos du contrôle.
      */
     public static ArrayList<Object> getVariableSession() throws Exception {
         Session.controlSession();
@@ -51,6 +52,7 @@ public abstract class Session {
      * Génère une erreur si l'utilisateur n'est pas connecté !
      * 
      * @return l'id de l'utilisateur ou -1 si l'utilisateur n'est pas connecté
+     * @throws java.lang.Exception Exception à propos du contrôle.
      */
     public static int getIdUser() throws Exception{
         Session.controlSession();
