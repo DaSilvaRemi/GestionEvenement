@@ -50,9 +50,7 @@ public class AjoutEvenement extends javax.swing.JFrame {
      * Affiche les exception dans une JDialog
      * 
      * @return Un boolean selon si le remplissage des champs se sont bien passé.
-     * @see DialogTools
-     * @see ClassNotFoundException
-     * @see SQLException
+     * @see DialogTools Classe technique pour les boites de dialogues
      * 
      */
     public final boolean setValueEvent(){
@@ -401,7 +399,7 @@ public class AjoutEvenement extends javax.swing.JFrame {
     /**
      * Compte le nombre de caractère du champ "observation" lorsque une touche est relaché
      * 
-     * @param evt 
+     * @param evt Evènement du listener.
      */
     private void descriptionEventKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descriptionEventKeyReleased
         nbCharDescEvent.setText(descriptionEvent.getText().length() + "/255");
@@ -410,7 +408,7 @@ public class AjoutEvenement extends javax.swing.JFrame {
     /**
      * Compte le nombre de caractère du champ "observation" lorsque une touche est tapé
      * 
-     * @param evt 
+     * @param evt Evènement du listener. 
      */
     private void descriptionEventKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_descriptionEventKeyTyped
         nbCharDescEvent.setText(descriptionEvent.getText().length() + "/255");
@@ -420,7 +418,7 @@ public class AjoutEvenement extends javax.swing.JFrame {
     /**
      * Ouvre la fenêtre d'acceuil lorsque le bouton Acceuil de la barre de navigation est cliqué
      * 
-     * @param evt 
+     * @param evt Evènement du listener. 
      */
     private void accueilNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_accueilNavMouseClicked
         Accueil fen = new Accueil();
@@ -431,7 +429,7 @@ public class AjoutEvenement extends javax.swing.JFrame {
     /**
      * Ouvre la fenêtre d'ajout d'évènement lorsque le bouton Saisir un évènement de la barre de navigation est cliqué
      * 
-     * @param evt 
+     * @param evt Evènement du listener. 
      */
     private void inputEventNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputEventNavMouseClicked
         AjoutEvenement fen = new AjoutEvenement();
@@ -446,7 +444,7 @@ public class AjoutEvenement extends javax.swing.JFrame {
     /**
      * Ouvre la fenêtre d'ajout des participants lorsque le bouton Saisir un participant de la barre de navigation est cliqué
      * 
-     * @param evt 
+     * @param evt Evènement du listener. 
      */
     private void inputParticipantNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputParticipantNavMouseClicked
         AjoutParticipant fen = new AjoutParticipant();
@@ -461,7 +459,7 @@ public class AjoutEvenement extends javax.swing.JFrame {
     /**
      * Ouvre la fenêtre d'affichage des évènements lorsque le bouton Afficher les évènements de la barre de navigation est cliqué
      * 
-     * @param evt 
+     * @param evt Evènement du listener. 
      */
     private void DisplayEventNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DisplayEventNavMouseClicked
         AfficherEvenements fen = new AfficherEvenements();
@@ -476,7 +474,7 @@ public class AjoutEvenement extends javax.swing.JFrame {
     /**
      * Ouvre la fenêtre de deconnexion lorsque le bouton Deconnexion de la barre de navigation est cliqué
      * 
-     * @param evt 
+     * @param evt Evènement du listener. 
      */
     private void deconnexionNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deconnexionNavMouseClicked
         Authentification fen = new Authentification();
@@ -489,7 +487,7 @@ public class AjoutEvenement extends javax.swing.JFrame {
     /**
      * Ouvre la fenêtre d'acceuil lorsque le bouton Annuler est cliqué
      * 
-     * @param evt 
+     * @param evt Evènement du listener. 
      */
     private void cancelEventMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelEventMouseClicked
         Accueil fen = new Accueil();
@@ -505,7 +503,7 @@ public class AjoutEvenement extends javax.swing.JFrame {
      * Une fois vérifié on insère les données en capturant les evenutels erreurs;
      *  -Si une erreur est capturé alors on affiche le message sur une JDialog
      * 
-     * @param evt
+     * @param evt Evènement du listener. 
      * 
      * @see clearField
      * @see JDateChooser

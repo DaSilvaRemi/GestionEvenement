@@ -7,13 +7,16 @@ package com.cvven.gestioncollocation;
 import com.cvven.vue.Authentification;
 
 /**
- *
+ * Classe principale(main) éxécutant la page d'authentification.
+ * 
  * @author remi
  */
 public class GestionCollocation {
 
     /**
-     * @param args the command line arguments
+     * Fontion main affichant la fenêtre d'authentification.
+     * 
+     * @param args Les arguments en ligne de commande
      */
     public static void main(String[] args) {
         Authentification fen = new Authentification();

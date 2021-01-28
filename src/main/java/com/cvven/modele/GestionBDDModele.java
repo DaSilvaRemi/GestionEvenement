@@ -26,7 +26,6 @@ abstract class GestionBDDModele {
     
     /**
      * Constructeur par défaut
-     * 
      */
     protected GestionBDDModele() {
         this.urlHoteBdd = "localhost/gestionevenement";
@@ -35,7 +34,7 @@ abstract class GestionBDDModele {
     } 
     
     /**
-     * Constructeur par défaut avec des paramètre
+     * Constructeur par défaut avec des paramètre.
      * 
      * @param urlHoteBdd L'adresse de l' hôte de la bdd sous forme : hôte/nomBDD
      * @param user Le nom d'utilisateur de la BDD
@@ -48,7 +47,7 @@ abstract class GestionBDDModele {
     }
 
     /**
-     * Retourne l'url de l'hote de la bdd avec le nom de la base de données
+     * Retourne l'url de l'hote de la bdd avec le nom de la base de données.
      * 
      * @return L'adresse de l' hôte de la bdd sous forme : hôte/nomBDD
      */
@@ -57,7 +56,7 @@ abstract class GestionBDDModele {
     }
 
     /**
-     * Retourne l'utilisateur de la base de données
+     * Retourne l'utilisateur de la base de données.
      * 
      * @return l'utilisateur de la BDD
      */
@@ -66,7 +65,7 @@ abstract class GestionBDDModele {
     }
 
     /**
-     * Retourne l'objet connexion relié à la BDD
+     * Retourne l'objet connexion relié à la BDD.
      * 
      * @return la connexion à la bdd
      */
@@ -75,7 +74,7 @@ abstract class GestionBDDModele {
     }
     
     /**
-     * Retourne la délaration de requête réalisé préalablement
+     * Retourne la délaration de requête réalisé préalablement.
      * 
      * @return la déclaration de requête
      */
@@ -84,7 +83,7 @@ abstract class GestionBDDModele {
     }
 
     /**
-     * Défini l'url de l'hôte
+     * Défini l'url de l'hôte.
      * 
      * @param urlHoteBdd L'adresse de l' hôte de la bdd sous forme : hôte/nomBDD
      */
@@ -93,7 +92,7 @@ abstract class GestionBDDModele {
     }
 
     /**
-     * Défini l'utilisateur de la base de données
+     * Défini l'utilisateur de la base de données.
      * 
      * @param user Le nom d'utilisateur de la BDD
      */
@@ -102,7 +101,7 @@ abstract class GestionBDDModele {
     }
 
     /**
-     * Défini le mot de passe de l'utilisateur de la BDD
+     * Défini le mot de passe de l'utilisateur de la BDD.
      * 
      * @param password Le mot de passe de la BDD
      */
@@ -111,10 +110,10 @@ abstract class GestionBDDModele {
     }
 
     /**
-     * Définit et Ouvre une connexion à la BDD postgreSQL avec le driver JDBC
+     * Définit et Ouvre une connexion à la BDD postgreSQL avec le driver JDBC.
      * 
-     * @throws SQLException
-     * @throws ClassNotFoundException 
+     * @throws SQLException Exception à propos du SQL
+     * @throws ClassNotFoundException Exception si la classe Java n'as pas été trouvé. 
      * 
      * @see org.postgresql.Driver
      */
@@ -126,25 +125,25 @@ abstract class GestionBDDModele {
     /**
      * Déclare une requête préparée
      * 
-     * @throws SQLException 
+     * @throws SQLException Exception à propos du SQL
      */
     protected void setMyStatement(String query) throws SQLException{
          this.myStatement = this.db.prepareStatement(query);
     }
     
     /**
-     * Ferme la connexion à la bdd
+     * Ferme la connexion à la bdd.
      * 
-     * @throws SQLException 
+     * @throws SQLException Exception à propos du SQL
      */
     public void closeMaBdd() throws SQLException{
         this.db.close();
     }
     
     /**
-     * Ferme la déclaration de la requête
+     * Ferme la déclaration de la requête.
      * 
-     * @throws SQLException 
+     * @throws SQLException Exception à propos du SQL 
      */
     public void closeMyStatement() throws SQLException{
         this.myStatement.clearParameters();
@@ -152,9 +151,9 @@ abstract class GestionBDDModele {
     }
     
     /**
-     * Ferme la déclaration de la requête et la connexion vers la BDD
+     * Ferme la déclaration de la requête et la connexion vers la BDD.
      * 
-     * @throws SQLException 
+     * @throws SQLException Exception à propos du SQL
      */
     public void closeAll() throws SQLException{
         this.myStatement.clearParameters();
@@ -163,9 +162,9 @@ abstract class GestionBDDModele {
     }
     
     /**
-     * Exécute la requête sans retourner de résultat
+     * Exécute la requête sans retourner de résultat.
      * 
-     * @throws SQLException 
+     * @throws SQLException Exception à propos du SQL
      */
     protected void execSQLWithouthResult() throws SQLException{
         this.myStatement.execute();
@@ -175,7 +174,7 @@ abstract class GestionBDDModele {
      * Retourne le résultat de la requête préparée
      * 
      * @return le résultat sous forme d'objet
-     * @throws SQLException 
+     * @throws SQLException Exception à propos du SQL.
      */
     protected ResultSet getResult() throws SQLException{
         ResultSet result = this.myStatement.executeQuery();

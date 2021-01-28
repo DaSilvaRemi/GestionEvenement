@@ -22,7 +22,7 @@ public abstract class Session {
     private static ArrayList<Object> lesVarSession;
 
     /**
-     * Retourne la clé de session composé d'un nombre aléatoire + l'idUser si l'utilisateur est connecté
+     * Retourne la clé de session composé d'un nombre aléatoire + l'idUser si l'utilisateur est connecté.
      * 
      * Génère une erreur si l'utilisateur n'est pas connecté !
      * 
@@ -34,7 +34,7 @@ public abstract class Session {
     }
 
     /**
-     * Retroune les variable session sous forme de tableau si l'utilisateur est connecté
+     * Retroune les variable session sous forme de tableau si l'utilisateur est connecté.
      * 
      * Génère une erreur si l'utilisateur n'est pas connecté !
      * 
@@ -46,7 +46,7 @@ public abstract class Session {
     }
     
     /**
-     * Retourne l'id de l'utilisateur stocké dans la variable d'id Session si l'utilisateur est connecté
+     * Retourne l'id de l'utilisateur stocké dans la variable d'id Session si l'utilisateur est connecté.
      * 
      * Génère une erreur si l'utilisateur n'est pas connecté !
      * 
@@ -67,9 +67,9 @@ public abstract class Session {
     }
     
     /**
-     * Initialise la session
+     * Initialise la session.
      * 
-     * @param idUser 
+     * @param idUser L'id de l'utilisateur
      */
     public static void initSession(int idUser){
         Random rand = new Random(); 
@@ -87,9 +87,9 @@ public abstract class Session {
     } 
     
     /**
-     * Controle si la session est correct, si elle ne l'est pas elle détruit les donnée et généère une exception
+     * Controle si la session est correct, si elle ne l'est pas elle détruit les donnée et généère une exception.
      * 
-     * @throws Exception 
+     * @throws Exception Génère une exception si l'idSession est vide.
      */
     public static void controlSession() throws Exception{
         if(idSession == null || idSession.isBlank()){

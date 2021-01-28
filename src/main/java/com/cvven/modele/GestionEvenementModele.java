@@ -41,7 +41,7 @@ public final class GestionEvenementModele extends GestionBDDModele {
      * -l'état d'archivage de l'évènement
      * 
      * @return le résultat de la requête
-     * @throws SQLException 
+     * @throws SQLException Exception à propos du SQL
      */
     public ResultSet selectInfoTableEvent() throws SQLException{
         super.setMyStatement("SELECT evenement.intitule, evenement.type, evenement.date, evenement.duree, evenement.theme, "
@@ -56,9 +56,9 @@ public final class GestionEvenementModele extends GestionBDDModele {
     /**
      * Inscrit un participant à un évènement
      * 
-     * @param intitule
-     * @param email
-     * @throws SQLException 
+     * @param intitule L'intitule de l'évènement
+     * @param email L'e-mail du participant
+     * @throws SQLException Exception à propos du SQL
      */
     public void insertParticipation(String intitule, String email) throws SQLException{
         int idEvent = Integer.parseInt(String.valueOf(intitule.substring(intitule.indexOf("°")+1, intitule.indexOf("Intitulé")-1)));
@@ -75,7 +75,7 @@ public final class GestionEvenementModele extends GestionBDDModele {
      * -Le type de la salle
      * 
      * @return le résultat de la requête
-     * @throws SQLException 
+     * @throws SQLException Exception à propos du SQL
      */
     public ResultSet selectInfoAllSalle() throws SQLException{
         super.setMyStatement("SELECT * FROM public.salle;");
@@ -90,7 +90,7 @@ public final class GestionEvenementModele extends GestionBDDModele {
      * 
      * @param idSalle L'id de la salle
      * @return le résultat de la requête
-     * @throws SQLException 
+     * @throws SQLException Exception à propos du SQL
      */
     public ResultSet selectInfoSalle(int idSalle) throws SQLException{
         super.setMyStatement("SELECT * FROM public.salle;");
@@ -109,7 +109,7 @@ public final class GestionEvenementModele extends GestionBDDModele {
      * -l'état d'archivage de l'évènement
      * 
      * @return le résultat de la requête
-     * @throws SQLException 
+     * @throws SQLException Exception à propos du SQL
      */
     public ResultSet selectInfoTableEventWithNoParticipation() throws SQLException{
         super.setMyStatement("SELECT evenement.intitule, evenement.type, evenement.date, evenement.duree, evenement.theme, evenement.organisateur, evenement.archive "
@@ -133,8 +133,8 @@ public final class GestionEvenementModele extends GestionBDDModele {
      * -L'id de la salle
      * 
      * @param intitule
-     * @return
-     * @throws SQLException 
+     * @return Le résultat de la requête
+     * @throws SQLException Exception à propos du SQL 
      */
     public ResultSet selectInfoEventWithIntitule(String intitule) throws SQLException{
         super.setMyStatement("SELECT evenement.intitule, evenement.theme, evenement.date, evenement.duree, evenement.description, evenement.organisateur, evenement.type,"
@@ -150,7 +150,7 @@ public final class GestionEvenementModele extends GestionBDDModele {
      * -L'intitulé de lévènement
      * 
      * @return le résultat de la requête
-     * @throws SQLException 
+     * @throws SQLException Exception à propos du SQL
      */
     public ResultSet selectLesEventNonArchiver() throws SQLException{
         super.setMyStatement("SELECT evenement.id_evenement, evenement.intitule FROM public.evenement WHERE evenement.archive IS NULL;");
@@ -160,9 +160,9 @@ public final class GestionEvenementModele extends GestionBDDModele {
     /**
      * Compte le nombre d'évènement avec l'intitulé de l'évènement.
      * 
-     * @param intitule
+     * @param intitule Intitulé de l'évènement
      * @return le résultat de la requête
-     * @throws SQLException 
+     * @throws SQLException Exception à propos du SQL
      */
     public ResultSet countEventWithIntitule(String intitule) throws SQLException{
         super.setMyStatement("SELECT COUNT(intitule) AS nbEvent FROM evenement WHERE intitule = ?;");
@@ -184,7 +184,7 @@ public final class GestionEvenementModele extends GestionBDDModele {
      * @param typeEvent Type de l'évènement
      * @param salleChoisi La salle choisis par l'utilisateur le champs est sous format : 'N°' + id_salle + ' Salle de ' + typesalle + '(' + capacite + 'personne)'
      * @param idUser L'id de l'utilisateur
-     * @throws SQLException 
+     * @throws SQLException Exception à propos du SQL
      * 
      */
     public void insertEvent(String intitule, String theme, String dateEvent, int duree, String description, 
@@ -221,7 +221,7 @@ public final class GestionEvenementModele extends GestionBDDModele {
      * 
      * @param email L'email du participant
      * @return le résultat de la requête sur les informations du participant.
-     * @throws SQLException 
+     * @throws SQLException Exception à propos du SQL
      */
     public ResultSet selectInfoParticipantWithEmail(String email) throws SQLException{
         super.setMyStatement("SELECT participant.nom, participant.prenom, participant.date_naissance, participant.organisation, participant.observations, participant.email FROM "
@@ -235,7 +235,7 @@ public final class GestionEvenementModele extends GestionBDDModele {
      * 
      * @param email
      * @return le résultat de la requête
-     * @throws SQLException 
+     * @throws SQLException Exception à propos du SQL
      */
     public ResultSet countEmailParticipant(String email) throws SQLException{
         super.setMyStatement("SELECT COUNT(id_participant) AS nbParticipant FROM public.participant WHERE participant.email = ?;");
@@ -253,7 +253,7 @@ public final class GestionEvenementModele extends GestionBDDModele {
      * @param organisation L'organsation du participant
      * @param observations Les observations du participant
      * @param idUser L'id de l'utilisateur<
-     * @throws SQLException 
+     * @throws SQLException Exception à propos du SQL
      */
     public void insertParticipant(String nom, String prenom, String email, String dateNaissance, String organisation, String observations, int idUser) 
             throws SQLException{
@@ -272,10 +272,10 @@ public final class GestionEvenementModele extends GestionBDDModele {
     /**
      * Retourne l'id de l'utilisateur ayant le login et le mot de passe indiqué.
      * 
-     * @param login
-     * @param mdp
+     * @param login Login de l'utilisateur
+     * @param mdp Mot de passe de l'utilisateur
      * @return le résultat de la requête
-     * @throws SQLException 
+     * @throws SQLException Exception à propos du SQL
      */
     public ResultSet selectIdUser(String login, String mdp) throws SQLException{
         this.setMyStatement("SELECT id_user FROM public.user WHERE login = ? AND mdp = ?;");
@@ -287,10 +287,10 @@ public final class GestionEvenementModele extends GestionBDDModele {
     /**
      * Compte le nombre d'utilisateur ayant le login et le mot de passe indiqué
      * 
-     * @param login
-     * @param mdp
+     * @param login Login de l'utilisateur
+     * @param mdp Mot de passe de l'utilisateur
      * @return le résultat de la requête
-     * @throws SQLException 
+     * @throws SQLException Exception à propos du SQL
      */
     public ResultSet countUserLoginMdp(String login, String mdp) throws SQLException{
         this.setMyStatement("SELECT COUNT(*) AS nbUser FROM public.user WHERE login = ? AND mdp = ?;");

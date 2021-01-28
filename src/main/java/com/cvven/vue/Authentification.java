@@ -174,8 +174,10 @@ public class Authentification extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
+     * Vérifie les identifiants(login et mot de passes) reçu puis connecte l'utilisateur si les identifiants sont correctes, sinon afficche une erreur dans une JDialog.
      * 
-     * @param evt 
+     * @param evt Evènement du listener. 
+     * @see DialogTools Classe technique pour les boites de dialogues
      */
     private void connexionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_connexionMouseClicked
         if(login.getText().isBlank()){

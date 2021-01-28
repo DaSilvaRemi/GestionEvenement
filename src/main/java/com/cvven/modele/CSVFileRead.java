@@ -45,7 +45,7 @@ public class CSVFileRead{
     /**
      * Retourne le fichier
      * 
-     * @return 
+     * @return le fichier créer.
      */
     public File getFile(){
         return this.file;
@@ -54,7 +54,7 @@ public class CSVFileRead{
     /**
      * Retourne le fichier en mode lecture
      * 
-     * @return le fichier à lire
+     * @return le fichier à lire.
      */
     public CSVReader getFileRead() {
         return this.fileRead;
@@ -80,8 +80,8 @@ public class CSVFileRead{
     /**
      * Ouvre le fichier s'il n'est pas un répertoire et qu'il à les droits de lecture.
      * 
-     * @throws FileNotFoundException 
-     * @throws Exception
+     * @throws FileNotFoundException Exception si le fichier n'as pas été trouvée.
+     * @throws Exception Si les données sont incorrecte.
      */
     public void openFile() throws FileNotFoundException, Exception{
         if(this.file.isDirectory() || !this.file.isFile()){
@@ -96,7 +96,7 @@ public class CSVFileRead{
     /**
      * Ferme le fichier.
      * 
-     * @throws IOException 
+     * @throws IOException Exception à proposes des lectures.
      */
     public void closeFile() throws IOException{
         this.getFileRead().close();
@@ -107,7 +107,7 @@ public class CSVFileRead{
       * 
       * Le fichier est ouvert et fermé automatiquement.
       * 
-      * @return Toutes les lignes du fichier
+      * @return Toutes les lignes du fichier.
       */
     public ArrayList<String[]> readFile(){
         try {
@@ -133,8 +133,8 @@ public class CSVFileRead{
      * 
      * 
      * @return Les lignes du fichier controlés.
-     * @throws java.sql.SQLException
-     * @throws java.lang.ClassNotFoundException
+     * @throws SQLException Exception à propos du SQL
+     * @throws ClassNotFoundException Exception si la classe Java n'as pas été trouvé.
      */
     public ArrayList<String[]> readControlFile() throws SQLException, ClassNotFoundException{
         if(this.readFile() == null){
@@ -148,8 +148,8 @@ public class CSVFileRead{
     /**
      * Controle les données du fichier
      * 
-     * @throws SQLException
-     * @throws ClassNotFoundException 
+     * @throws SQLException Exception à propos du SQL
+     * @throws ClassNotFoundException Exception si la classe Java n'as pas été trouvé. 
      */
     private void controlData() throws SQLException, ClassNotFoundException{
         ArrayList<String[]> lesLignesValides = new ArrayList<>();
@@ -189,12 +189,12 @@ public class CSVFileRead{
     }
     
     /**
-     * Controle si l'email est déja existant
+     * Controle si l'email est déja existant.
      * 
      * @param email l'email
-     * @return si l'email est existant ou non
-     * @throws SQLException
-     * @throws ClassNotFoundException 
+     * @return un boolean si l'email est existant ou non
+     * @throws SQLException Exception à propos du SQL
+     * @throws ClassNotFoundException Exception si la classe Java n'as pas été trouvé.
      */
     private boolean controlEmail(String email) throws SQLException, ClassNotFoundException{
         GestionEvenementModele laGestionEvenementModele = new GestionEvenementModele();

@@ -30,9 +30,7 @@ public class AfficherEvenements extends javax.swing.JFrame {
      * Met tous les évènements créer quelque soit leur état dans le tableau.
      * 
      * @return Un boolean selon si le remplissage des champs se sont bien passé.
-     * @see DialogTools
-     * @see ClassNotFoundException
-     * @see SQLException
+     * @see DialogTools Classe technique pour les boites de dialogues
      */
     public final boolean setValueDisplayEvent(){
         try {
@@ -214,9 +212,9 @@ public class AfficherEvenements extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * Ouvre la fenêtre d'acceuil lorsque le bouton Acceuil de la barre de navigation est cliqué
+     * Ouvre la fenêtre d'acceuil lorsque le bouton Acceuil de la barre de navigation est cliqué.
      * 
-     * @param evt 
+     * @param evt Evènement du listener.
      */
     private void accueilNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_accueilNavMouseClicked
         Accueil fen = new Accueil();
@@ -225,9 +223,9 @@ public class AfficherEvenements extends javax.swing.JFrame {
     }//GEN-LAST:event_accueilNavMouseClicked
 
     /**
-     * Ouvre la fenêtre d'ajout d'évènement lorsque le bouton Saisir un évènement de la barre de navigation est cliqué
+     * Ouvre la fenêtre d'ajout d'évènement lorsque le bouton Saisir un évènement de la barre de navigation est cliqué.
      * 
-     * @param evt 
+     * @param evt Evènement du listener.
      */
     private void inputEventNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputEventNavMouseClicked
         AjoutEvenement fen = new AjoutEvenement();
@@ -240,9 +238,9 @@ public class AfficherEvenements extends javax.swing.JFrame {
     }//GEN-LAST:event_inputEventNavMouseClicked
 
     /**
-     * Ouvre la fenêtre d'ajout des participants lorsque le bouton Saisir un participant de la barre de navigation est cliqué
+     * Ouvre la fenêtre d'ajout des participants lorsque le bouton Saisir un participant de la barre de navigation est cliqué.
      * 
-     * @param evt 
+     * @param evt Evènement du listener. 
      */
     private void inputParticipantNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputParticipantNavMouseClicked
         AjoutParticipant fen = new AjoutParticipant();
@@ -255,9 +253,9 @@ public class AfficherEvenements extends javax.swing.JFrame {
     }//GEN-LAST:event_inputParticipantNavMouseClicked
 
      /**
-     * Ouvre la fenêtre d'affichage des évènements lorsque le bouton Afficher les évènements de la barre de navigation est cliqué
+     * Ouvre la fenêtre d'affichage des évènements lorsque le bouton Afficher les évènements de la barre de navigation est cliqué.
      * 
-     * @param evt 
+     * @param evt Evènement du listener. 
      */
     private void DisplayEventNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DisplayEventNavMouseClicked
         AfficherEvenements fen = new AfficherEvenements();
@@ -270,9 +268,9 @@ public class AfficherEvenements extends javax.swing.JFrame {
     }//GEN-LAST:event_DisplayEventNavMouseClicked
 
     /**
-     * Ouvre la fenêtre de deconnexion lorsque le bouton Deconnexion de la barre de navigation est cliqué
+     * Ouvre la fenêtre de deconnexion lorsque le bouton Deconnexion de la barre de navigation est cliqué.
      * 
-     * @param evt 
+     * @param evt Evènement du listener. 
      */
     private void deconnexionNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deconnexionNavMouseClicked
         Authentification fen = new Authentification();

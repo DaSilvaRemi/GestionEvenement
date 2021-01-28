@@ -26,15 +26,15 @@ import org.apache.commons.validator.routines.EmailValidator;
  */
 public class AjoutParticipant extends javax.swing.JFrame {
 
-    /**cvven.modele.DialogTools;
-     * Créer un nouveau formulaire AjoutParticipant
+    /**
+     * Créer un nouveau formulaire AjoutParticipant.
      */
     public AjoutParticipant() {
         initComponents();
     }
     
     /**
-     * Efface tous les champs et la selection
+     * Efface tous les champs et la selection.
      */
     public void setDefaultValue(){
         selectLesEvents.setModel(new DefaultListModel());
@@ -49,11 +49,12 @@ public class AjoutParticipant extends javax.swing.JFrame {
     }
     
     /**
-     * Met les valeur par défault récupéré dans la BDD dans la liste de choix d'évènement
+     * Met les valeur par défault récupéré dans la BDD dans la liste de choix d'évènement.
      * 
      * Affiche les exception dans une JDialog
      * 
      * @return Un boolean selon si le remplissage des champs se sont bien passé.
+     * @see DialogTools Classe technique pour les boites de dialogues
      */
     public final boolean setValueParticipant(){
         try {
@@ -92,7 +93,7 @@ public class AjoutParticipant extends javax.swing.JFrame {
     /**
      * Cache ou montre les champs de la fenêtre participant.
      * 
-     * @param visible 
+     * @param visible Définit la visibilité d'une fenêtre.
      */
     private void showField(boolean visible){
         libelleNom.setVisible(visible);
@@ -118,11 +119,9 @@ public class AjoutParticipant extends javax.swing.JFrame {
      * Une fois vérifié on insère les données en capturant les evenutels erreurs;
      *  -Si une erreur est capturé alors on affiche le message sur une JDialog
      * 
-     * @see clearField#setDefaultValue
-     * @see JDateChooser
-     * @see DialogTools
-     * @see SQLException
-     * @see ClassNotFoundException
+     * @see setDefaultValue Met les valeur par défault
+     * @see JDateChooser Calandrier de choix de dates
+     * @see DialogTools Classe technique pour les boites de dialogues
      */
     private void insertParticipantText(){
         if(selectLesEvents.getSelectedValuesList().isEmpty()){
@@ -193,11 +192,9 @@ public class AjoutParticipant extends javax.swing.JFrame {
      * Une fois vérifié on insère les données en capturant les evenutels erreurs;
      *  -Si une erreur est capturé alors on affiche le message sur une JDialog
      * 
-     * @see setDefaultValue
-     * @see JDateChooser
-     * @see DialogTools
-     * @see SQLException
-     * @see ClassNotFoundException
+     * @see setDefaultValue Met les valeur par défault
+     * @see JDateChooser Calandrier de choix de dates
+     * @see DialogTools Classe technique pour les boites de dialogues
      */
     public void insertParticipantCSV(){
         if(selectLesEvents.getSelectedValuesList().isEmpty()){
@@ -573,9 +570,9 @@ public class AjoutParticipant extends javax.swing.JFrame {
 
     /*----------------------------Barre de navigation----------------------------*/
     /**
-     * Ouvre la fenêtre d'acceuil lorsque le bouton Acceuil de la barre de navigation est cliqué
+     * Ouvre la fenêtre d'acceuil lorsque le bouton Acceuil de la barre de navigation est cliqué.
      * 
-     * @param evt 
+     * @param evt Evènement du listener. 
      */
     private void accueilNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_accueilNavMouseClicked
         Accueil fen = new Accueil();
@@ -584,9 +581,9 @@ public class AjoutParticipant extends javax.swing.JFrame {
     }//GEN-LAST:event_accueilNavMouseClicked
 
     /**
-     * Ouvre la fenêtre d'ajout d'évènement lorsque le bouton Saisir un évènement de la barre de navigation est cliqué
+     * Ouvre la fenêtre d'ajout d'évènement lorsque le bouton Saisir un évènement de la barre de navigation est cliqué.
      * 
-     * @param evt 
+     * @param evt Evènement du listener. 
      */
     private void inputEventNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputEventNavMouseClicked
         AjoutEvenement fen = new AjoutEvenement();
@@ -599,9 +596,9 @@ public class AjoutParticipant extends javax.swing.JFrame {
     }//GEN-LAST:event_inputEventNavMouseClicked
 
     /**
-     * Ouvre la fenêtre d'ajout des participants lorsque le bouton Saisir un participant de la barre de navigation est cliqué
+     * Ouvre la fenêtre d'ajout des participants lorsque le bouton Saisir un participant de la barre de navigation est cliqué.
      * 
-     * @param evt 
+     * @param evt Evènement du listener. 
      */
     private void inputParticipantNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inputParticipantNavMouseClicked
         AjoutParticipant fen = new AjoutParticipant();
@@ -614,9 +611,9 @@ public class AjoutParticipant extends javax.swing.JFrame {
     }//GEN-LAST:event_inputParticipantNavMouseClicked
 
     /**
-     * Ouvre la fenêtre d'affichage des évènements lorsque le bouton Afficher les évènements de la barre de navigation est cliqué
+     * Ouvre la fenêtre d'affichage des évènements lorsque le bouton Afficher les évènements de la barre de navigation est cliqué.
      * 
-     * @param evt 
+     * @param evt Evènement du listener. 
      */
     private void DisplayEventNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DisplayEventNavMouseClicked
         AfficherEvenements fen = new AfficherEvenements();
@@ -631,7 +628,7 @@ public class AjoutParticipant extends javax.swing.JFrame {
     /**
      * Ouvre la fenêtre de deconnexion lorsque le bouton Deconnexion de la barre de navigation est cliqué
      * 
-     * @param evt 
+     * @param evt Evènement du listener. 
      */
     private void deconnexionNavMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deconnexionNavMouseClicked
         Authentification fen = new Authentification();
@@ -644,7 +641,7 @@ public class AjoutParticipant extends javax.swing.JFrame {
     /**
      * Ouvre la fenêtre d'acceuil lorsque le bouton Annuler est cliqué
      * 
-     * @param evt 
+     * @param evt Evènement du listener. 
      */
     private void annulerParticipantMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_annulerParticipantMouseClicked
         Accueil fen = new Accueil();
@@ -657,7 +654,7 @@ public class AjoutParticipant extends javax.swing.JFrame {
     /**
      * Compte le nombre de caractère du champ "observation" lorsque une touche est préssé
      * 
-     * @param evt 
+     * @param evt Evènement du listener. 
      */
     private void observationsParticipantKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_observationsParticipantKeyPressed
         nbCharObservation.setText(observationsParticipant.getText().length() + "/255");
@@ -666,7 +663,7 @@ public class AjoutParticipant extends javax.swing.JFrame {
     /**
      * Compte le nombre de caractère du champ "observation" lorsque une touche est relaché
      * 
-     * @param evt 
+     * @param evt Evènement du listener. 
      */
     private void observationsParticipantKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_observationsParticipantKeyReleased
         nbCharObservation.setText(observationsParticipant.getText().length() + "/255");
@@ -674,9 +671,9 @@ public class AjoutParticipant extends javax.swing.JFrame {
 
     /*----------------------------Event Envoyer----------------------------*/
     /**
-     * Appelle 
+     * Selon le bouton radio sélectionné, appelle la fonction correcpondant au type d'insertion.
      * 
-     * @param evt
+     * @param evt Evènement du listener. 
      */
     private void addParticipantMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addParticipantMouseClicked
         if(selectInsertEventText.isSelected()){
@@ -686,10 +683,20 @@ public class AjoutParticipant extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_addParticipantMouseClicked
 
+    /**
+     * Cache les champs texte lorsque le bouton radio "InsertCSV" est cliqué.
+     * 
+     * @param evt Evènement du listener. 
+     */
     private void selectEventInsertCSVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_selectEventInsertCSVMouseClicked
         this.showField(false);
     }//GEN-LAST:event_selectEventInsertCSVMouseClicked
 
+    /**
+     * Montre les champs texte losque le bouton radio "InsertEventText" est cliqué.
+     * 
+     * @param evt Evènement du listener.  
+     */
     private void selectInsertEventTextMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_selectInsertEventTextMouseClicked
         this.showField(true);
     }//GEN-LAST:event_selectInsertEventTextMouseClicked
