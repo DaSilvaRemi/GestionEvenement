@@ -61,7 +61,7 @@ public final class GestionEvenementModele extends GestionBDDModele {
      * @throws SQLException 
      */
     public void insertParticipation(String intitule, String email) throws SQLException{
-        int idEvent = Integer.parseInt(String.valueOf(intitule.substring(2, 3)));
+        int idEvent = Integer.parseInt(String.valueOf(intitule.substring(intitule.indexOf("°")+1, intitule.indexOf("Intitulé")-1)));
         super.setMyStatement("INSERT INTO public.participer(id_evenement, id_participant) VALUES(?, (SELECT id_participant FROM public.participant WHERE email = ?));");
         super.getMyStatement().setInt(1, idEvent);
         super.getMyStatement().setString(2, email);
