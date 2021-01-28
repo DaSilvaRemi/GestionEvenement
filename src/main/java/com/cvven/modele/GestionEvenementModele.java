@@ -132,7 +132,7 @@ public final class GestionEvenementModele extends GestionBDDModele {
      * -L'id de l'utilisateur
      * -L'id de la salle
      * 
-     * @param intitule
+     * @param intitule L'intitule de l'évènement
      * @return Le résultat de la requête
      * @throws SQLException Exception à propos du SQL 
      */
@@ -233,7 +233,7 @@ public final class GestionEvenementModele extends GestionBDDModele {
      /**
      * Compte le nombre d'email existant des participants.
      * 
-     * @param email
+     * @param email L'email du participant
      * @return le résultat de la requête
      * @throws SQLException Exception à propos du SQL
      */
