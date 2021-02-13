@@ -8,12 +8,14 @@ import java.sql.Types;
  * Classe technique finale héritaire de GestionBDDModele gérant les requêtes pourla BDD.
  * 
  * @author remi
- * @see GestionBDDModele
+ * @see com.cvven.modele.GestionBDDModele
  */
 public final class GestionEvenementModele extends GestionBDDModele {
     
     /**
      * Constructeur par défaut
+     * 
+     * @see com.cvven.modele.GestionBDDModele::GestionBDDModele
      */
     public GestionEvenementModele() {
         super();
@@ -26,6 +28,8 @@ public final class GestionEvenementModele extends GestionBDDModele {
      * @param urlHoteBdd L'adresse de l' hôte de la bdd sous forme : hôte/nomBDD
      * @param user Le nom d'utilisateur de la BDD
      * @param password Le mot de passe de la BDD
+     * 
+     * @see com.cvven.modele.GestionBDDModele::GestionBDDModele
      */
     public GestionEvenementModele(String urlHoteBdd, String user, String password) {
         super(urlHoteBdd, user, password);

@@ -23,17 +23,30 @@ public class CSVFileReadTest {
     private CSVFileRead instance;
     private static int compteur = 0;
     
+    /**
+     * Constructeur de la classe test
+     */
     public CSVFileReadTest() {
     }
     
+    /**
+     * Se déclenche avant la classe
+     */
     @BeforeAll
     public static void setUpClass() {
     }
     
+    /**
+     * Se déclenche après la classe
+     */
     @AfterAll
     public static void tearDownClass() {
     }
     
+    /**
+     * Se déclenche avant chaque test
+     * Affiche le numéro du test
+     */
     @BeforeEach
     public void setUp() {
         instance = new CSVFileRead(new File("/home/remi/Documents/Deuxième Année/Deuxième Semestre/PPE/Gestion des évènements/Application Java-(PPE7)/ExempleCSV.csv"));
@@ -41,6 +54,10 @@ public class CSVFileReadTest {
         System.out.println("-------Test N°" + compteur + " en cours-----");
     }
     
+    /**
+     * Se déclenche après chaque test
+     * Affiche le numéro du test
+     */
     @AfterEach
     public void tearDown() {
         System.out.println("-------Test N°" + compteur + " réalisée-----");

@@ -14,27 +14,44 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- *
+ * Classe de Test de Session
+ * 
  * @author remi
  */
 public class SessionTest {
     
+    /**
+     * Constructeur de la classe test
+     */
     public SessionTest() {
     }
     
+    /**
+     * Se déclenche avant la classe
+     */
     @BeforeAll
     public static void setUpClass() {
     }
     
+    /**
+     * Se déclenche après la classe
+     */
     @AfterAll
     public static void tearDownClass() {
     }
     
+    /**
+     * Se déclenche avant chaque test
+     * Initialise la session à 1
+     */
     @BeforeEach
     public void setUp() {
         Session.initSession(1);
     }
     
+    /**
+     * Se déclenche après chaque test
+     */
     @AfterEach
     public void tearDown() {
     }

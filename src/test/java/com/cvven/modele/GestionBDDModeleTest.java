@@ -14,29 +14,46 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- *
+ *  Classe de Test de GestionBDDModeleTest
+ * 
  * @author remi
  */
 public class GestionBDDModeleTest {
     
     private GestionBDDModele instance;
     
+    /**
+     * Constructeur de la classe test
+     */
     public GestionBDDModeleTest() {
     }
     
+    /**
+     * Se déclenche avant la classe
+     */
     @BeforeAll
     public static void setUpClass() {
     }
     
+    /**
+     * Se déclenche après la classe
+     */
     @AfterAll
     public static void tearDownClass() {
     }
     
+    /**
+     * Se déclenche avant chaque test
+     * Déclare un objet
+     */
     @BeforeEach
     public void setUp() {
         instance = new GestionBDDModeleImpl();
     }
     
+    /**
+     * Se déclenche après chaque test
+     */
     @AfterEach
     public void tearDown() {
     }
@@ -201,7 +218,13 @@ public class GestionBDDModeleTest {
         instance.closeAll();
     }
 
+    /**
+     * Classe d'implémentation servant à tester GestionBDDModele.
+     */
     public class GestionBDDModeleImpl extends GestionBDDModele {
+        /**
+         * Constructeur par défaut de la classe.
+         */
         GestionBDDModeleImpl(){
             super();
         }

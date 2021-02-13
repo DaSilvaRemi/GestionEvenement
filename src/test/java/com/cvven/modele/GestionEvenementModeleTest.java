@@ -15,29 +15,46 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- *
+ * Classe de test de GestionEvenementModele
+ * 
  * @author remi
  */
 public class GestionEvenementModeleTest {
     
     private GestionEvenementModele instance;
     
+    /**
+     * Constructeur de la classe test
+     */
     public GestionEvenementModeleTest() {
     }
     
+    /**
+     * Se déclenche avant la classe
+     */
     @BeforeAll
     public static void setUpClass() {
     }
     
+    /**
+     * Se déclenche après la classe
+     */
     @AfterAll
     public static void tearDownClass() {
     }
     
+    /**
+     * Se déclenche avant chaque test
+     * Déclare un objet
+     */
     @BeforeEach
     public void setUp() {
         instance = new GestionEvenementModele();
     }
     
+    /**
+     * Se déclenche après chaque test
+     */
     @AfterEach
     public void tearDown() {
     }
