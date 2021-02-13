@@ -3,9 +3,12 @@ package com.cvven.modele;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+
 /**
  * Classe technique finale héritaire de GestionBDDModele gérant les requêtes pourla BDD.
+ * 
  * @author remi
+ * @see GestionBDDModele
  */
 public final class GestionEvenementModele extends GestionBDDModele {
     

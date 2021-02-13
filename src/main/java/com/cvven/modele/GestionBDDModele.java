@@ -18,14 +18,33 @@ import org.postgresql.Driver;
  * @author remi
  */
 abstract class GestionBDDModele {
+    /**
+     * L'hôte de la BDD
+     */
     private String urlHoteBdd;
+    
+    /**
+     * L'utilisateur de la BDD
+     */
     private String user;
+    
+    /**
+     * Le mot de passe de la BDD
+     */
     private String password;
+    
+    /**
+     * La connexion à la BDD
+     */
     private Connection db;
+    
+    /**
+     * La requête
+     */
     private PreparedStatement myStatement;
     
     /**
-     * Constructeur par défaut
+     * Constructeur par défaut GestionBDDModele.
      */
     protected GestionBDDModele() {
         this.urlHoteBdd = "localhost/gestionevenement";
@@ -34,7 +53,7 @@ abstract class GestionBDDModele {
     } 
     
     /**
-     * Constructeur par défaut avec des paramètre.
+     * Constructeur par défaut de GestionBDDModele avec des paramètre.
      * 
      * @param urlHoteBdd L'adresse de l' hôte de la bdd sous forme : hôte/nomBDD
      * @param user Le nom d'utilisateur de la BDD
@@ -174,7 +193,7 @@ abstract class GestionBDDModele {
     /**
      * Retourne le résultat de la requête préparée
      * 
-     * @return le résultat sous forme d'objet
+     * @return Le résultat sous forme d'objet ou null si aucun résultat n'est trouvé.
      * @throws SQLException Exception à propos du SQL.
      */
     protected ResultSet getResult() throws SQLException{
