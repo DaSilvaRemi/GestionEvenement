@@ -10,7 +10,7 @@ import java.sql.Types;
  * @author remi
  * @see GestionBDDModele
  */
-public class GestionEvenementModele extends GestionBDDModele {
+public final class GestionEvenementModele extends GestionBDDModele {
     
     /**
      * Constructeur par défaut
