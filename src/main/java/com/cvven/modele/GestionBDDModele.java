@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.cvven.modele;
 
 import java.sql.Connection;
@@ -13,7 +8,7 @@ import java.sql.PreparedStatement;
 import org.postgresql.Driver;
 
 /**
- * Classe métier permettant de gérer la connexion à la BDD.
+ * Classe technique abstraite permettant de gérer la connexion à la BDD.
  * 
  * @author remi
  */
