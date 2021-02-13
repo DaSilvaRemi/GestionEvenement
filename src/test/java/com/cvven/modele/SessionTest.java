@@ -5,10 +5,7 @@
  */
 package com.cvven.modele;
 
-import java.util.ArrayList;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -44,6 +41,7 @@ public class SessionTest {
 
     /**
      * Test of getIdSession method, of class Session.
+     * @throws java.lang.Exception Exception lié à la non existance des sessions
      */
     @Test
     public void testGetIdSession() throws Exception {
@@ -54,6 +52,7 @@ public class SessionTest {
 
     /**
      * Test of getVariableSession method, of class Session.
+     * @throws java.lang.Exception Exception lié à la non existance des sessions
      */
     @Test
     public void testGetVariableSession() throws Exception {
@@ -65,6 +64,7 @@ public class SessionTest {
 
     /**
      * Test of getIdUser method, of class Session.
+     * @throws java.lang.Exception Exception lié à la non existance des sessions
      */
     @Test
     public void testGetIdUser() throws Exception {
@@ -74,6 +74,7 @@ public class SessionTest {
 
     /**
      * Test of initSession method, of class Session.
+     * @throws java.lang.Exception Exception lié à la non existance des sessions
      */
     @Test
     public void testInitSession() throws Exception {

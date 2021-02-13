@@ -5,9 +5,6 @@
  */
 package com.cvven.modele;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
@@ -15,7 +12,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import org.postgresql.Driver;
 
 /**
  *
@@ -65,6 +61,8 @@ public class GestionBDDModeleTest {
 
     /**
      * Test of getDb method, of class GestionBDDModele.
+     * @throws java.sql.SQLException Exception à propos de la connexion SQL.
+     * @throws java.lang.ClassNotFoundException Exception à propos du driver non trouvée.
      */
     @Test
     public void testGetDb() throws SQLException, ClassNotFoundException {
@@ -76,6 +74,8 @@ public class GestionBDDModeleTest {
 
     /**
      * Test of getMyStatement method, of class GestionBDDModele.
+     * @throws java.sql.SQLException Exception à propos de la requête SQL
+     * @throws java.lang.ClassNotFoundException Exception à propos du driver non trouvée.
      */
     @Test
     public void testGetMyStatement() throws SQLException, ClassNotFoundException {
@@ -108,6 +108,8 @@ public class GestionBDDModeleTest {
 
     /**
      * Test of setDb method, of class GestionBDDModele.
+     * @throws java.sql.SQLException Exception à propos de la connexion SQL.
+     * @throws java.lang.ClassNotFoundException Exception à propos du driver non trouv
      */
     @Test
     public void testSetDb() throws SQLException, ClassNotFoundException {
@@ -119,6 +121,8 @@ public class GestionBDDModeleTest {
 
     /**
      * Test of setMyStatement method, of class GestionBDDModele.
+     * @throws java.sql.SQLException Exception à propos de la requête SQL
+     * @throws java.lang.ClassNotFoundException Exception à propos du driver non trouv
      */
     @Test
     public void testSetMyStatement() throws SQLException, ClassNotFoundException {
@@ -131,6 +135,8 @@ public class GestionBDDModeleTest {
 
     /**
      * Test of closeMaBdd method, of class GestionBDDModele.
+     * @throws java.sql.SQLException Exception à propos de la requête SQL
+     * @throws java.lang.ClassNotFoundException Exception à propos du driver non trouvé
      */
     @Test
     public void testCloseMaBdd() throws SQLException, ClassNotFoundException {
@@ -141,6 +147,8 @@ public class GestionBDDModeleTest {
 
     /**
      * Test of closeMyStatement method, of class GestionBDDModele.
+     * @throws java.sql.SQLException Exception à propos de la requête SQL
+     * @throws java.lang.ClassNotFoundException Exception à propos du driver non trouvé
      */
     @Test
     public void testCloseMyStatement() throws SQLException, ClassNotFoundException {
@@ -152,6 +160,8 @@ public class GestionBDDModeleTest {
 
     /**
      * Test of closeAll method, of class GestionBDDModele.
+     * @throws java.sql.SQLException Exception à propos de la requête SQL
+     * @throws java.lang.ClassNotFoundException Exception à propos du driver non trouvé
      */
     @Test
     public void testCloseAll() throws SQLException, ClassNotFoundException {
@@ -163,6 +173,8 @@ public class GestionBDDModeleTest {
 
     /**
      * Test of execSQLWithouthResult method, of class GestionBDDModele.
+     * @throws java.sql.SQLException Exception à propos de la requête SQL
+     * @throws java.lang.ClassNotFoundException Exception à propos du driver non trouvé
      */
     @Test
     public void testExecSQLWithouthResult() throws SQLException, ClassNotFoundException {
@@ -176,6 +188,8 @@ public class GestionBDDModeleTest {
 
     /**
      * Test of getResult method, of class GestionBDDModele.
+     * @throws java.sql.SQLException Exception à propos de la requête SQL
+     * @throws java.lang.ClassNotFoundException Exception à propos du driver non trouvé
      */
     @Test
     public void testGetResult() throws SQLException, ClassNotFoundException {

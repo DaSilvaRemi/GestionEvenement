@@ -62,6 +62,7 @@ public class CSVFileReadTest {
 
     /**
      * Test de la méthode getFileRead, de la classe CSVFileRead.
+     * @throws java.lang.Exception Génère un exception sur l'ouverture de fichier
      */
     @Test
     public void testGetFileRead() throws Exception {
@@ -89,6 +90,7 @@ public class CSVFileReadTest {
 
     /**
      * Test de la méthode OpenFile, de la classe CSVFileRead.
+     * @throws java.lang.Exception Génère un exception sur l'ouverture de fichier
      */
     @Test
     public void testOpenFile() throws Exception {
@@ -99,6 +101,7 @@ public class CSVFileReadTest {
 
     /**
      * Test de la méthode getFileRead, de la classe CSVFileRead.
+     * @throws java.lang.Exception Génère un exception sur l'ouverture de fichier
      */
     @Test
     public void testCloseFile() throws Exception {
