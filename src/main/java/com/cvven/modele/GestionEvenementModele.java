@@ -285,7 +285,7 @@ public final class GestionEvenementModele extends GestionBDDModele {
      * @throws SQLException Exception à propos du SQL
      */
     public ResultSet selectIdUser(String login, String mdp) throws SQLException{
-        this.setMyStatement("SELECT id_user FROM public.user WHERE login = ? AND mdp = ?;");
+        this.setMyStatement("SELECT id_user FROM public.user WHERE login = ? AND mdp = MD5(?);");
         this.getMyStatement().setString(1, login);
         this.getMyStatement().setString(2, mdp);
         return this.getResult();
@@ -300,7 +300,7 @@ public final class GestionEvenementModele extends GestionBDDModele {
      * @throws SQLException Exception à propos du SQL
      */
     public ResultSet countUserLoginMdp(String login, String mdp) throws SQLException{
-        this.setMyStatement("SELECT COUNT(*) AS nbUser FROM public.user WHERE login = ? AND mdp = ?;");
+        this.setMyStatement("SELECT COUNT(*) AS nbUser FROM public.user WHERE login = ? AND mdp = MD5(?);");
         this.getMyStatement().setString(1, login);
         this.getMyStatement().setString(2, mdp);
         return this.getResult();
